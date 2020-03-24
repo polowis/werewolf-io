@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Da|Butcherman|Creepster");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: url(https://steamuserimages-a.akamaihd.net/ugc/100603690261120555/3288949BD5D35B3BCFA9DE0B65FAADE54BBD701C/);
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 100vw;
+  grid-template-areas: "header" "content" "footer";
+  overflow: hidden;
+}
+body HEADER, body .container, body FOOTER {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+body HEADER {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+body .container {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+body FOOTER {
+  grid-row-start: 3;
+  grid-row-end: 4;
+  justify-self: center;
+  align-self: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container h3 {
+  --text-color: #fff;
+  font-family: "Creepster", cursive;
+  text-align: center;
+  font-size: 6.75vh;
+  color: var(--text-color);
+  -webkit-text-stroke: 1px black;
+  text-shadow: 0 0.5vh 2vh lime;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(-5deg);
+}
+.container .monster {
+  position: relative;
+  height: 50vh;
+  margin: 0 10vh;
+}
+.container .monster DIV:after {
+  transition: 0.3s opacity linear;
+  opacity: 0.2;
+}
+.container .monster h3 {
+  opacity: 0;
+  transition: 0.3s opacity linear;
+}
+.container .monster h3:before {
+  content: attr(data-num);
+  font-size: 0.5em;
+  position: absolute;
+  top: -20%;
+  left: 5%;
+}
+.container .monster:hover DIV:after {
+  opacity: 1;
+}
+.container .monster:hover h3 {
+  opacity: 1;
+}
+
+.pixel-art {
+  list-style: none;
+}
+.pixel-art--frankenstein {
+  position: relative;
+  width: 21vh;
+  height: 34.5vh;
+}
+.pixel-art--frankenstein:after {
+  content: "";
+  position: absolute;
+  top: -1.5vh;
+  left: -1.5vh;
+  width: 1.5vh;
+  height: 1.5vh;
+  box-shadow: 1.5vh 1.5vh transparent,3vh 1.5vh #222222,4.5vh 1.5vh #222222,6vh 1.5vh #222222,7.5vh 1.5vh #222222,9vh 1.5vh #222222,10.5vh 1.5vh #222222,12vh 1.5vh #222222,13.5vh 1.5vh #222222,15vh 1.5vh #222222,16.5vh 1.5vh #222222,18vh 1.5vh #222222,19.5vh 1.5vh #222222,21vh 1.5vh transparent,1.5vh 3vh #222222,3vh 3vh #222222,4.5vh 3vh #222222,6vh 3vh #222222,7.5vh 3vh #222222,9vh 3vh #222222,10.5vh 3vh #222222,12vh 3vh #222222,13.5vh 3vh #222222,15vh 3vh #222222,16.5vh 3vh #222222,18vh 3vh #222222,19.5vh 3vh #222222,21vh 3vh #222222,1.5vh 4.5vh #222222,3vh 4.5vh #222222,4.5vh 4.5vh #222222,6vh 4.5vh #222222,7.5vh 4.5vh #222222,9vh 4.5vh #222222,10.5vh 4.5vh #222222,12vh 4.5vh #222222,13.5vh 4.5vh #222222,15vh 4.5vh #222222,16.5vh 4.5vh #222222,18vh 4.5vh #222222,19.5vh 4.5vh #222222,21vh 4.5vh #222222,1.5vh 6vh #222222,3vh 6vh #222222,4.5vh 6vh #222222,6vh 6vh #222222,7.5vh 6vh #222222,9vh 6vh #347c54,10.5vh 6vh #347c54,12vh 6vh #347c54,13.5vh 6vh #347c54,15vh 6vh #347c54,16.5vh 6vh #222222,18vh 6vh #222222,19.5vh 6vh #222222,21vh 6vh #222222,1.5vh 7.5vh #222222,3vh 7.5vh #222222,4.5vh 7.5vh #222222,6vh 7.5vh #347c54,7.5vh 7.5vh #347c54,9vh 7.5vh #66cc66,10.5vh 7.5vh #66cc66,12vh 7.5vh #66cc66,13.5vh 7.5vh #66cc66,15vh 7.5vh #66cc66,16.5vh 7.5vh #347c54,18vh 7.5vh #347c54,19.5vh 7.5vh #222222,21vh 7.5vh #222222,1.5vh 9vh #222222,3vh 9vh #222222,4.5vh 9vh #222222,6vh 9vh #347c54,7.5vh 9vh #66cc66,9vh 9vh #66cc66,10.5vh 9vh #66cc66,12vh 9vh #66cc66,13.5vh 9vh #66cc66,15vh 9vh #66cc66,16.5vh 9vh #66cc66,18vh 9vh #66cc66,19.5vh 9vh #347c54,21vh 9vh #222222,1.5vh 10.5vh #222222,3vh 10.5vh #222222,4.5vh 10.5vh #347c54,6vh 10.5vh #66cc66,7.5vh 10.5vh #347c54,9vh 10.5vh #66cc66,10.5vh 10.5vh #66cc66,12vh 10.5vh #66cc66,13.5vh 10.5vh #66cc66,15vh 10.5vh #66cc66,16.5vh 10.5vh #66cc66,18vh 10.5vh #347c54,19.5vh 10.5vh #347c54,21vh 10.5vh #222222,1.5vh 12vh transparent,3vh 12vh #222222,4.5vh 12vh #347c54,6vh 12vh #66cc66,7.5vh 12vh #66cc66,9vh 12vh #66cc66,10.5vh 12vh #66cc66,12vh 12vh #66cc66,13.5vh 12vh #66cc66,15vh 12vh #66cc66,16.5vh 12vh #66cc66,18vh 12vh #66cc66,19.5vh 12vh #222222,21vh 12vh transparent,1.5vh 13.5vh transparent,3vh 13.5vh #222222,4.5vh 13.5vh #347c54,6vh 13.5vh #663333,7.5vh 13.5vh #663333,9vh 13.5vh #663333,10.5vh 13.5vh #663333,12vh 13.5vh #66cc66,13.5vh 13.5vh #663333,15vh 13.5vh #663333,16.5vh 13.5vh #663333,18vh 13.5vh #663333,19.5vh 13.5vh #222222,21vh 13.5vh transparent,1.5vh 15vh transparent,3vh 15vh transparent,4.5vh 15vh #222222,6vh 15vh #347c54,7.5vh 15vh #347c54,9vh 15vh #222222,10.5vh 15vh #347c54,12vh 15vh #66cc66,13.5vh 15vh #66cc66,15vh 15vh #347c54,16.5vh 15vh #222222,18vh 15vh #347c54,19.5vh 15vh #222222,21vh 15vh transparent,1.5vh 16.5vh transparent,3vh 16.5vh transparent,4.5vh 16.5vh #222222,6vh 16.5vh #347c54,7.5vh 16.5vh #66cc66,9vh 16.5vh #66cc66,10.5vh 16.5vh #66cc66,12vh 16.5vh #66cc66,13.5vh 16.5vh #66cc66,15vh 16.5vh #66cc66,16.5vh 16.5vh #66cc66,18vh 16.5vh #66cc66,19.5vh 16.5vh #222222,21vh 16.5vh transparent,1.5vh 18vh transparent,3vh 18vh #999999,4.5vh 18vh #999999,6vh 18vh #347c54,7.5vh 18vh #347c54,9vh 18vh #66cc66,10.5vh 18vh #222222,12vh 18vh #222222,13.5vh 18vh #222222,15vh 18vh #222222,16.5vh 18vh #66cc66,18vh 18vh #347c54,19.5vh 18vh #999999,21vh 18vh #999999,1.5vh 19.5vh transparent,3vh 19.5vh transparent,4.5vh 19.5vh #222222,6vh 19.5vh #347c54,7.5vh 19.5vh #347c54,9vh 19.5vh #347c54,10.5vh 19.5vh #66cc66,12vh 19.5vh #66cc66,13.5vh 19.5vh #66cc66,15vh 19.5vh #66cc66,16.5vh 19.5vh #347c54,18vh 19.5vh #222222,19.5vh 19.5vh transparent,21vh 19.5vh transparent,1.5vh 21vh transparent,3vh 21vh transparent,4.5vh 21vh #222222,6vh 21vh #222222,7.5vh 21vh #222222,9vh 21vh #222222,10.5vh 21vh #347c54,12vh 21vh #66cc66,13.5vh 21vh #66cc66,15vh 21vh #222222,16.5vh 21vh #222222,18vh 21vh #222222,19.5vh 21vh transparent,21vh 21vh transparent,1.5vh 22.5vh transparent,3vh 22.5vh #222222,4.5vh 22.5vh #663333,6vh 22.5vh #663333,7.5vh 22.5vh #663333,9vh 22.5vh #663333,10.5vh 22.5vh #222222,12vh 22.5vh #222222,13.5vh 22.5vh #222222,15vh 22.5vh #663333,16.5vh 22.5vh #663333,18vh 22.5vh #663333,19.5vh 22.5vh #222222,21vh 22.5vh transparent,1.5vh 24vh #222222,3vh 24vh #663333,4.5vh 24vh #222222,6vh 24vh #663333,7.5vh 24vh #663333,9vh 24vh #663333,10.5vh 24vh beige,12vh 24vh beige,13.5vh 24vh beige,15vh 24vh #663333,16.5vh 24vh #663333,18vh 24vh #222222,19.5vh 24vh #663333,21vh 24vh #222222,1.5vh 25.5vh #222222,3vh 25.5vh #663333,4.5vh 25.5vh #222222,6vh 25.5vh #663333,7.5vh 25.5vh #663333,9vh 25.5vh #663333,10.5vh 25.5vh beige,12vh 25.5vh beige,13.5vh 25.5vh beige,15vh 25.5vh #663333,16.5vh 25.5vh #663333,18vh 25.5vh #222222,19.5vh 25.5vh #663333,21vh 25.5vh #222222,1.5vh 27vh #222222,3vh 27vh #347c54,4.5vh 27vh #222222,6vh 27vh #663333,7.5vh 27vh #663333,9vh 27vh #663333,10.5vh 27vh beige,12vh 27vh beige,13.5vh 27vh beige,15vh 27vh #663333,16.5vh 27vh #663333,18vh 27vh #222222,19.5vh 27vh #347c54,21vh 27vh #222222,1.5vh 28.5vh transparent,3vh 28.5vh #222222,4.5vh 28.5vh #222222,6vh 28.5vh #663333,7.5vh 28.5vh #663333,9vh 28.5vh #222222,10.5vh 28.5vh #222222,12vh 28.5vh #222222,13.5vh 28.5vh #222222,15vh 28.5vh #663333,16.5vh 28.5vh #663333,18vh 28.5vh #222222,19.5vh 28.5vh #222222,21vh 28.5vh transparent,1.5vh 30vh transparent,3vh 30vh transparent,4.5vh 30vh #222222,6vh 30vh #663333,7.5vh 30vh #999999,9vh 30vh #999999,10.5vh 30vh #999999,12vh 30vh #999999,13.5vh 30vh #999999,15vh 30vh #999999,16.5vh 30vh #663333,18vh 30vh #222222,19.5vh 30vh transparent,21vh 30vh transparent,1.5vh 31.5vh transparent,3vh 31.5vh transparent,4.5vh 31.5vh #222222,6vh 31.5vh #999999,7.5vh 31.5vh #999999,9vh 31.5vh #999999,10.5vh 31.5vh #222222,12vh 31.5vh #222222,13.5vh 31.5vh #999999,15vh 31.5vh #999999,16.5vh 31.5vh #999999,18vh 31.5vh #222222,19.5vh 31.5vh transparent,21vh 31.5vh transparent,1.5vh 33vh transparent,3vh 33vh transparent,4.5vh 33vh #222222,6vh 33vh #222222,7.5vh 33vh #222222,9vh 33vh #222222,10.5vh 33vh transparent,12vh 33vh transparent,13.5vh 33vh #222222,15vh 33vh #222222,16.5vh 33vh #222222,18vh 33vh #222222,19.5vh 33vh transparent,21vh 33vh transparent,1.5vh 34.5vh transparent,3vh 34.5vh transparent,4.5vh 34.5vh #222222,6vh 34.5vh #222222,7.5vh 34.5vh #222222,9vh 34.5vh #222222,10.5vh 34.5vh transparent,12vh 34.5vh transparent,13.5vh 34.5vh #222222,15vh 34.5vh #222222,16.5vh 34.5vh #222222,18vh 34.5vh #222222,19.5vh 34.5vh transparent,21vh 34.5vh transparent;
+}
+.pixel-art--zombie {
+  position: relative;
+  width: 21vh;
+  height: 34.5vh;
+}
+.pixel-art--zombie:after {
+  content: "";
+  position: absolute;
+  top: -1.5vh;
+  left: -1.5vh;
+  width: 1.5vh;
+  height: 1.5vh;
+  box-shadow: 1.5vh 1.5vh transparent,3vh 1.5vh transparent,4.5vh 1.5vh transparent,6vh 1.5vh transparent,7.5vh 1.5vh transparent,9vh 1.5vh transparent,10.5vh 1.5vh transparent,12vh 1.5vh transparent,13.5vh 1.5vh transparent,15vh 1.5vh transparent,16.5vh 1.5vh transparent,18vh 1.5vh #222222,19.5vh 1.5vh #222222,21vh 1.5vh #222222,1.5vh 3vh transparent,3vh 3vh transparent,4.5vh 3vh transparent,6vh 3vh transparent,7.5vh 3vh transparent,9vh 3vh transparent,10.5vh 3vh transparent,12vh 3vh transparent,13.5vh 3vh transparent,15vh 3vh #222222,16.5vh 3vh #222222,18vh 3vh #222222,19.5vh 3vh #222222,21vh 3vh #222222,22.5vh 3vh #222222,1.5vh 4.5vh transparent,3vh 4.5vh transparent,4.5vh 4.5vh transparent,6vh 4.5vh transparent,7.5vh 4.5vh #222222,9vh 4.5vh #222222,10.5vh 4.5vh #222222,12vh 4.5vh #222222,13.5vh 4.5vh #222222,15vh 4.5vh #222222,16.5vh 4.5vh #222222,18vh 4.5vh #222222,19.5vh 4.5vh #222222,21vh 4.5vh #222222,22.5vh 4.5vh #222222,1.5vh 6vh transparent,3vh 6vh transparent,4.5vh 6vh #222222,6vh 6vh #222222,7.5vh 6vh #222222,9vh 6vh #222222,10.5vh 6vh #222222,12vh 6vh #222222,13.5vh 6vh #222222,15vh 6vh #222222,16.5vh 6vh #222222,18vh 6vh #222222,19.5vh 6vh #222222,21vh 6vh #222222,22.5vh 6vh #222222,1.5vh 7.5vh transparent,3vh 7.5vh #222222,4.5vh 7.5vh #222222,6vh 7.5vh #222222,7.5vh 7.5vh #222222,9vh 7.5vh #CAE4E1,10.5vh 7.5vh #CAE4E1,12vh 7.5vh #CAE4E1,13.5vh 7.5vh #222222,15vh 7.5vh #222222,16.5vh 7.5vh #bfbfbf,18vh 7.5vh #bfbfbf,19.5vh 7.5vh #222222,21vh 7.5vh #222222,1.5vh 9vh transparent,3vh 9vh #222222,4.5vh 9vh #222222,6vh 9vh #222222,7.5vh 9vh #CAE4E1,9vh 9vh #CAE4E1,10.5vh 9vh #CAE4E1,12vh 9vh #CAE4E1,13.5vh 9vh #CAE4E1,15vh 9vh #222222,16.5vh 9vh #222222,18vh 9vh #222222,19.5vh 9vh #bfbfbf,21vh 9vh #222222,1.5vh 10.5vh transparent,3vh 10.5vh #222222,4.5vh 10.5vh #222222,6vh 10.5vh #CAE4E1,7.5vh 10.5vh #f00,9vh 10.5vh #CAE4E1,10.5vh 10.5vh #CAE4E1,12vh 10.5vh #CAE4E1,13.5vh 10.5vh #CAE4E1,15vh 10.5vh #CAE4E1,16.5vh 10.5vh #CAE4E1,18vh 10.5vh #222222,19.5vh 10.5vh #222222,21vh 10.5vh #222222,1.5vh 12vh transparent,3vh 12vh #222222,4.5vh 12vh #222222,6vh 12vh #CAE4E1,7.5vh 12vh #CAE4E1,9vh 12vh #CAE4E1,10.5vh 12vh #CAE4E1,12vh 12vh #CAE4E1,13.5vh 12vh #CAE4E1,15vh 12vh #CAE4E1,16.5vh 12vh #CAE4E1,18vh 12vh #CAE4E1,19.5vh 12vh #222222,21vh 12vh transparent,1.5vh 13.5vh transparent,3vh 13.5vh #222222,4.5vh 13.5vh #222222,6vh 13.5vh #ffffff,7.5vh 13.5vh #ffffff,9vh 13.5vh #ffffff,10.5vh 13.5vh #ffffff,12vh 13.5vh #CAE4E1,13.5vh 13.5vh #ffffff,15vh 13.5vh #ffffff,16.5vh 13.5vh #ffffff,18vh 13.5vh #ffffff,19.5vh 13.5vh #222222,21vh 13.5vh transparent,1.5vh 15vh transparent,3vh 15vh transparent,4.5vh 15vh #222222,6vh 15vh #222222,7.5vh 15vh #97cac4,9vh 15vh #222222,10.5vh 15vh #97cac4,12vh 15vh #CAE4E1,13.5vh 15vh #CAE4E1,15vh 15vh #97cac4,16.5vh 15vh #222222,18vh 15vh #97cac4,19.5vh 15vh #222222,21vh 15vh transparent,1.5vh 16.5vh transparent,3vh 16.5vh transparent,4.5vh 16.5vh #222222,6vh 16.5vh #97cac4,7.5vh 16.5vh #222222,9vh 16.5vh #CAE4E1,10.5vh 16.5vh #CAE4E1,12vh 16.5vh #CAE4E1,13.5vh 16.5vh #CAE4E1,15vh 16.5vh #CAE4E1,16.5vh 16.5vh #CAE4E1,18vh 16.5vh #CAE4E1,19.5vh 16.5vh #222222,21vh 16.5vh transparent,1.5vh 18vh transparent,3vh 18vh transparent,4.5vh 18vh transparent,6vh 18vh #97cac4,7.5vh 18vh #222222,9vh 18vh #CAE4E1,10.5vh 18vh #222222,12vh 18vh #222222,13.5vh 18vh #222222,15vh 18vh #222222,16.5vh 18vh #CAE4E1,18vh 18vh #97cac4,19.5vh 18vh transparent,21vh 18vh transparent,1.5vh 19.5vh transparent,3vh 19.5vh transparent,4.5vh 19.5vh #222222,6vh 19.5vh #97cac4,7.5vh 19.5vh #97cac4,9vh 19.5vh #97cac4,10.5vh 19.5vh #CAE4E1,12vh 19.5vh #CAE4E1,13.5vh 19.5vh #CAE4E1,15vh 19.5vh #f00,16.5vh 19.5vh #97cac4,18vh 19.5vh #222222,19.5vh 19.5vh transparent,21vh 19.5vh transparent,1.5vh 21vh transparent,3vh 21vh transparent,4.5vh 21vh #222222,6vh 21vh #222222,7.5vh 21vh #222222,9vh 21vh #222222,10.5vh 21vh #97cac4,12vh 21vh #CAE4E1,13.5vh 21vh #CAE4E1,15vh 21vh #222222,16.5vh 21vh #222222,18vh 21vh #222222,19.5vh 21vh transparent,21vh 21vh transparent,1.5vh 22.5vh transparent,3vh 22.5vh #222222,4.5vh 22.5vh #ffffff,6vh 22.5vh #222222,7.5vh 22.5vh #ffffff,9vh 22.5vh #ffffff,10.5vh 22.5vh #222222,12vh 22.5vh #222222,13.5vh 22.5vh #222222,15vh 22.5vh #ffffff,16.5vh 22.5vh #ffffff,18vh 22.5vh #ffffff,19.5vh 22.5vh #222222,21vh 22.5vh #222222,22.5vh 22.5vh #222222,1.5vh 24vh #222222,3vh 24vh #ffffff,4.5vh 24vh #ffffff,6vh 24vh #97cac4,7.5vh 24vh #222222,9vh 24vh #ffffff,10.5vh 24vh #b30000,12vh 24vh #d9d9d9,13.5vh 24vh #b30000,15vh 24vh #ffffff,16.5vh 24vh #ffffff,18vh 24vh #ffffff,19.5vh 24vh #ffffff,21vh 24vh #ffffff,22.5vh 24vh #97cac4,24vh 24vh #222222,1.5vh 25.5vh transparent,3vh 25.5vh #222222,4.5vh 25.5vh #222222,6vh 25.5vh #222222,7.5vh 25.5vh #ffffff,9vh 25.5vh #ffffff,10.5vh 25.5vh #b30000,12vh 25.5vh #d9d9d9,13.5vh 25.5vh #b30000,15vh 25.5vh #ffffff,16.5vh 25.5vh #ffffff,18vh 25.5vh #222222,19.5vh 25.5vh #222222,21vh 25.5vh #222222,22.5vh 25.5vh #222222,1.5vh 27vh transparent,3vh 27vh transparent,4.5vh 27vh #222222,6vh 27vh #ffffff,7.5vh 27vh #ffffff,9vh 27vh #ffffff,10.5vh 27vh #b30000,12vh 27vh #d9d9d9,13.5vh 27vh #b30000,15vh 27vh #ffffff,16.5vh 27vh #ffffff,18vh 27vh #222222,19.5vh 27vh transparent,21vh 27vh transparent,1.5vh 28.5vh transparent,3vh 28.5vh transparent,4.5vh 28.5vh #222222,6vh 28.5vh #ffffff,7.5vh 28.5vh #ffffff,9vh 28.5vh #222222,10.5vh 28.5vh #222222,12vh 28.5vh #222222,13.5vh 28.5vh #222222,15vh 28.5vh #ffffff,16.5vh 28.5vh #ffffff,18vh 28.5vh #222222,19.5vh 28.5vh transparent,21vh 28.5vh transparent,1.5vh 30vh transparent,3vh 30vh transparent,4.5vh 30vh #222222,6vh 30vh #ffffff,7.5vh 30vh #b30000,9vh 30vh #bfbfbf,10.5vh 30vh #bfbfbf,12vh 30vh #bfbfbf,13.5vh 30vh #bfbfbf,15vh 30vh #b30000,16.5vh 30vh #ffffff,18vh 30vh #222222,19.5vh 30vh transparent,21vh 30vh transparent,1.5vh 31.5vh transparent,3vh 31.5vh transparent,4.5vh 31.5vh #222222,6vh 31.5vh #b30000,7.5vh 31.5vh #bfbfbf,9vh 31.5vh #bfbfbf,10.5vh 31.5vh #222222,12vh 31.5vh #222222,13.5vh 31.5vh #bfbfbf,15vh 31.5vh #bfbfbf,16.5vh 31.5vh #b30000,18vh 31.5vh #222222,19.5vh 31.5vh transparent,21vh 31.5vh transparent,1.5vh 33vh transparent,3vh 33vh transparent,4.5vh 33vh #222222,6vh 33vh #222222,7.5vh 33vh #222222,9vh 33vh #222222,10.5vh 33vh transparent,12vh 33vh transparent,13.5vh 33vh #222222,15vh 33vh #222222,16.5vh 33vh #222222,18vh 33vh #222222,19.5vh 33vh transparent,21vh 33vh transparent,1.5vh 34.5vh transparent,3vh 34.5vh transparent,4.5vh 34.5vh #222222,6vh 34.5vh #222222,7.5vh 34.5vh #222222,9vh 34.5vh #222222,10.5vh 34.5vh transparent,12vh 34.5vh transparent,13.5vh 34.5vh #222222,15vh 34.5vh #222222,16.5vh 34.5vh #222222,18vh 34.5vh #222222,19.5vh 34.5vh transparent,21vh 34.5vh transparent;
+}
+.pixel-art--dracula {
+  position: relative;
+  width: 21vh;
+  height: 30vh;
+}
+.pixel-art--dracula:after {
+  content: "";
+  position: absolute;
+  top: -1.5vh;
+  left: -1.5vh;
+  width: 1.5vh;
+  height: 1.5vh;
+  box-shadow: 1.5vh 1.5vh transparent,3vh 1.5vh transparent,4.5vh 1.5vh transparent,6vh 1.5vh transparent,7.5vh 1.5vh #000000,9vh 1.5vh #000000,10.5vh 1.5vh #000000,12vh 1.5vh #000000,13.5vh 1.5vh #000000,15vh 1.5vh #000000,16.5vh 1.5vh transparent,18vh 1.5vh transparent,19.5vh 1.5vh transparent,21vh 1.5vh transparent,1.5vh 3vh transparent,3vh 3vh transparent,4.5vh 3vh transparent,6vh 3vh #000000,7.5vh 3vh #000000,9vh 3vh #000000,10.5vh 3vh #000000,12vh 3vh #000000,13.5vh 3vh #000000,15vh 3vh #000000,16.5vh 3vh #000000,18vh 3vh transparent,19.5vh 3vh transparent,21vh 3vh transparent,1.5vh 4.5vh transparent,3vh 4.5vh transparent,4.5vh 4.5vh #000000,6vh 4.5vh #000000,7.5vh 4.5vh #000000,9vh 4.5vh #000000,10.5vh 4.5vh #000000,12vh 4.5vh #000000,13.5vh 4.5vh #000000,15vh 4.5vh #000000,16.5vh 4.5vh #000000,18vh 4.5vh #000000,19.5vh 4.5vh transparent,21vh 4.5vh transparent,1.5vh 6vh transparent,3vh 6vh #000000,4.5vh 6vh #000000,6vh 6vh #000000,7.5vh 6vh #ffffcc,9vh 6vh #ffffcc,10.5vh 6vh #000000,12vh 6vh #000000,13.5vh 6vh #000000,15vh 6vh #000000,16.5vh 6vh #ffffcc,18vh 6vh #000000,19.5vh 6vh #000000,21vh 6vh transparent,1.5vh 7.5vh transparent,3vh 7.5vh #000000,4.5vh 7.5vh #000000,6vh 7.5vh #ffffcc,7.5vh 7.5vh #ffffcc,9vh 7.5vh #ffffcc,10.5vh 7.5vh #ffffcc,12vh 7.5vh #000000,13.5vh 7.5vh #000000,15vh 7.5vh #ffffcc,16.5vh 7.5vh #ffffcc,18vh 7.5vh #ffffcc,19.5vh 7.5vh #000000,21vh 7.5vh transparent,1.5vh 9vh transparent,3vh 9vh #000000,4.5vh 9vh #000000,6vh 9vh #ffffcc,7.5vh 9vh #ffffcc,9vh 9vh #ffffcc,10.5vh 9vh #ffffcc,12vh 9vh #ffffcc,13.5vh 9vh #ffffcc,15vh 9vh #ffffcc,16.5vh 9vh #ffffcc,18vh 9vh #ffffcc,19.5vh 9vh #000000,21vh 9vh transparent,1.5vh 10.5vh transparent,3vh 10.5vh transparent,4.5vh 10.5vh #000000,6vh 10.5vh #ffffcc,7.5vh 10.5vh #ffffcc,9vh 10.5vh #ffffcc,10.5vh 10.5vh #ffffcc,12vh 10.5vh #ffffcc,13.5vh 10.5vh #ffffcc,15vh 10.5vh #ffffcc,16.5vh 10.5vh #ffffcc,18vh 10.5vh #ffffcc,19.5vh 10.5vh #000000,21vh 10.5vh transparent,1.5vh 12vh transparent,3vh 12vh transparent,4.5vh 12vh #000000,6vh 12vh #ffffcc,7.5vh 12vh #ffffcc,9vh 12vh #666666,10.5vh 12vh #ffffcc,12vh 12vh #ffffcc,13.5vh 12vh #ffffcc,15vh 12vh #ffffcc,16.5vh 12vh #666666,18vh 12vh #ffffcc,19.5vh 12vh #000000,21vh 12vh transparent,1.5vh 13.5vh #000000,3vh 13.5vh #000000,4.5vh 13.5vh #000000,6vh 13.5vh #ffffcc,7.5vh 13.5vh #ffffcc,9vh 13.5vh #ffffcc,10.5vh 13.5vh #ffffcc,12vh 13.5vh #ffffcc,13.5vh 13.5vh #ffffcc,15vh 13.5vh #ffffcc,16.5vh 13.5vh #ffffcc,18vh 13.5vh #ffffcc,19.5vh 13.5vh #000000,21vh 13.5vh #000000,22.5vh 13.5vh #000000,1.5vh 15vh #000000,3vh 15vh #666666,4.5vh 15vh #000000,6vh 15vh #ffffcc,7.5vh 15vh #ffffcc,9vh 15vh #ffffcc,10.5vh 15vh #990000,12vh 15vh #000000,13.5vh 15vh #000000,15vh 15vh #990000,16.5vh 15vh #ffffcc,18vh 15vh #ffffcc,19.5vh 15vh #000000,21vh 15vh #666666,22.5vh 15vh #000000,1.5vh 16.5vh transparent,3vh 16.5vh #000000,4.5vh 16.5vh #666666,6vh 16.5vh #000000,7.5vh 16.5vh #ffffcc,9vh 16.5vh #ffffcc,10.5vh 16.5vh #990000,12vh 16.5vh #ffffcc,13.5vh 16.5vh #ffffcc,15vh 16.5vh #ffffcc,16.5vh 16.5vh #ffffcc,18vh 16.5vh #000000,19.5vh 16.5vh #000000,21vh 16.5vh #666666,22.5vh 16.5vh #000000,1.5vh 18vh transparent,3vh 18vh transparent,4.5vh 18vh #000000,6vh 18vh #666666,7.5vh 18vh #000000,9vh 18vh #ffffcc,10.5vh 18vh #ffffcc,12vh 18vh #ffffcc,13.5vh 18vh #ffffcc,15vh 18vh #ffffcc,16.5vh 18vh #000000,18vh 18vh #000000,19.5vh 18vh #666666,21vh 18vh #000000,1.5vh 19.5vh transparent,3vh 19.5vh #000000,4.5vh 19.5vh #666666,6vh 19.5vh #666666,7.5vh 19.5vh #666666,9vh 19.5vh #000000,10.5vh 19.5vh #000000,12vh 19.5vh #000000,13.5vh 19.5vh #000000,15vh 19.5vh #000000,16.5vh 19.5vh #666666,18vh 19.5vh #666666,19.5vh 19.5vh #000000,21vh 19.5vh transparent,1.5vh 21vh #000000,3vh 21vh #666666,4.5vh 21vh #000000,6vh 21vh #666666,7.5vh 21vh #666666,9vh 21vh #666666,10.5vh 21vh #666666,12vh 21vh #cc6600,13.5vh 21vh #666666,15vh 21vh #666666,16.5vh 21vh #666666,18vh 21vh #000000,19.5vh 21vh #666666,21vh 21vh #000000,1.5vh 22.5vh #000000,3vh 22.5vh #666666,4.5vh 22.5vh #000000,6vh 22.5vh #666666,7.5vh 22.5vh #666666,9vh 22.5vh #666666,10.5vh 22.5vh #666666,12vh 22.5vh #ffffff,13.5vh 22.5vh #666666,15vh 22.5vh #666666,16.5vh 22.5vh #666666,18vh 22.5vh #000000,19.5vh 22.5vh #666666,21vh 22.5vh #000000,1.5vh 24vh #000000,3vh 24vh #ffffcc,4.5vh 24vh #000000,6vh 24vh #666666,7.5vh 24vh #666666,9vh 24vh #000000,10.5vh 24vh #ffffff,12vh 24vh #ffffff,13.5vh 24vh #ffffff,15vh 24vh #000000,16.5vh 24vh #666666,18vh 24vh #000000,19.5vh 24vh #ffffcc,21vh 24vh #000000,1.5vh 25.5vh transparent,3vh 25.5vh #000000,4.5vh 25.5vh #000000,6vh 25.5vh #ffffff,7.5vh 25.5vh #000000,9vh 25.5vh #ffffff,10.5vh 25.5vh #ffffff,12vh 25.5vh #ffffff,13.5vh 25.5vh #ffffff,15vh 25.5vh #ffffff,16.5vh 25.5vh #000000,18vh 25.5vh #000000,19.5vh 25.5vh #000000,21vh 25.5vh transparent,1.5vh 27vh transparent,3vh 27vh transparent,4.5vh 27vh #000000,6vh 27vh #000000,7.5vh 27vh #000000,9vh 27vh #000000,10.5vh 27vh #000000,12vh 27vh #000000,13.5vh 27vh #000000,15vh 27vh #000000,16.5vh 27vh #000000,18vh 27vh #000000,19.5vh 27vh transparent,21vh 27vh transparent,1.5vh 28.5vh transparent,3vh 28.5vh transparent,4.5vh 28.5vh #000000,6vh 28.5vh #000000,7.5vh 28.5vh #000000,9vh 28.5vh #000000,10.5vh 28.5vh #000000,12vh 28.5vh #000000,13.5vh 28.5vh #000000,15vh 28.5vh #000000,16.5vh 28.5vh #000000,18vh 28.5vh #000000,19.5vh 28.5vh transparent,21vh 28.5vh transparent,1.5vh 30vh transparent,3vh 30vh transparent,4.5vh 30vh #000000,6vh 30vh #000000,7.5vh 30vh #000000,9vh 30vh #000000,10.5vh 30vh transparent,12vh 30vh transparent,13.5vh 30vh #000000,15vh 30vh #000000,16.5vh 30vh #000000,18vh 30vh #000000,19.5vh 30vh transparent,21vh 30vh transparent;
+}
+.pixel-art--werewolf {
+  position: relative;
+  width: 24vh;
+  height: 33vh;
+}
+.pixel-art--werewolf:after {
+  content: "";
+  position: absolute;
+  top: -1.5vh;
+  left: -1.5vh;
+  width: 1.5vh;
+  height: 1.5vh;
+  box-shadow: 1.5vh 1.5vh transparent,3vh 1.5vh transparent,4.5vh 1.5vh transparent,6vh 1.5vh transparent,7.5vh 1.5vh transparent,9vh 1.5vh transparent,10.5vh 1.5vh transparent,12vh 1.5vh transparent,13.5vh 1.5vh transparent,15vh 1.5vh transparent,16.5vh 1.5vh transparent,18vh 1.5vh transparent,19.5vh 1.5vh transparent,21vh 1.5vh transparent,22.5vh 1.5vh transparent,24vh 1.5vh transparent,1.5vh 3vh #333333,3vh 3vh #333333,4.5vh 3vh transparent,6vh 3vh transparent,7.5vh 3vh transparent,9vh 3vh transparent,10.5vh 3vh transparent,12vh 3vh transparent,13.5vh 3vh transparent,15vh 3vh transparent,16.5vh 3vh transparent,18vh 3vh transparent,19.5vh 3vh transparent,21vh 3vh transparent,22.5vh 3vh #333333,24vh 3vh #333333,1.5vh 4.5vh #333333,3vh 4.5vh #996666,4.5vh 4.5vh #333333,6vh 4.5vh transparent,7.5vh 4.5vh transparent,9vh 4.5vh transparent,10.5vh 4.5vh #333333,12vh 4.5vh #333333,13.5vh 4.5vh #333333,15vh 4.5vh #333333,16.5vh 4.5vh #333333,18vh 4.5vh transparent,19.5vh 4.5vh transparent,21vh 4.5vh #333333,22.5vh 4.5vh #663333,24vh 4.5vh #333333,1.5vh 6vh #333333,3vh 6vh #996666,4.5vh 6vh #663333,6vh 6vh #333333,7.5vh 6vh transparent,9vh 6vh #333333,10.5vh 6vh #663333,12vh 6vh #663333,13.5vh 6vh #663333,15vh 6vh #663333,16.5vh 6vh #663333,18vh 6vh #333333,19.5vh 6vh transparent,21vh 6vh #333333,22.5vh 6vh #996666,24vh 6vh #333333,1.5vh 7.5vh transparent,3vh 7.5vh #333333,4.5vh 7.5vh #996666,6vh 7.5vh #996666,7.5vh 7.5vh #333333,9vh 7.5vh #663333,10.5vh 7.5vh #663333,12vh 7.5vh #663333,13.5vh 7.5vh #663333,15vh 7.5vh #663333,16.5vh 7.5vh #663333,18vh 7.5vh #663333,19.5vh 7.5vh #333333,21vh 7.5vh #996666,22.5vh 7.5vh #996666,24vh 7.5vh #333333,1.5vh 9vh transparent,3vh 9vh #333333,4.5vh 9vh #663333,6vh 9vh #663333,7.5vh 9vh #663333,9vh 9vh #996666,10.5vh 9vh #996666,12vh 9vh #996666,13.5vh 9vh #663333,15vh 9vh #663333,16.5vh 9vh #996666,18vh 9vh #996666,19.5vh 9vh #663333,21vh 9vh #663333,22.5vh 9vh #333333,24vh 9vh transparent,1.5vh 10.5vh transparent,3vh 10.5vh transparent,4.5vh 10.5vh #333333,6vh 10.5vh #663333,7.5vh 10.5vh #996666,9vh 10.5vh #663333,10.5vh 10.5vh #996666,12vh 10.5vh #996666,13.5vh 10.5vh #996666,15vh 10.5vh #996666,16.5vh 10.5vh #996666,18vh 10.5vh #996666,19.5vh 10.5vh #663333,21vh 10.5vh #663333,22.5vh 10.5vh #333333,24vh 10.5vh transparent,1.5vh 12vh transparent,3vh 12vh #333333,4.5vh 12vh #663333,6vh 12vh #663333,7.5vh 12vh #663333,9vh 12vh #333333,10.5vh 12vh #663333,12vh 12vh #996666,13.5vh 12vh #996666,15vh 12vh #996666,16.5vh 12vh #996666,18vh 12vh #663333,19.5vh 12vh #333333,21vh 12vh #663333,22.5vh 12vh #663333,24vh 12vh #333333,1.5vh 13.5vh transparent,3vh 13.5vh transparent,4.5vh 13.5vh #333333,6vh 13.5vh #663333,7.5vh 13.5vh #996666,9vh 13.5vh #663333,10.5vh 13.5vh #333333,12vh 13.5vh #663333,13.5vh 13.5vh #996666,15vh 13.5vh #996666,16.5vh 13.5vh #663333,18vh 13.5vh #333333,19.5vh 13.5vh #663333,21vh 13.5vh #663333,22.5vh 13.5vh #333333,24vh 13.5vh transparent,1.5vh 15vh transparent,3vh 15vh #333333,4.5vh 15vh #333333,6vh 15vh #663333,7.5vh 15vh #663333,9vh 15vh #996666,10.5vh 15vh gold,12vh 15vh #333333,13.5vh 15vh #996666,15vh 15vh #996666,16.5vh 15vh #333333,18vh 15vh gold,19.5vh 15vh #996666,21vh 15vh #663333,22.5vh 15vh #663333,24vh 15vh #333333,1.5vh 16.5vh transparent,3vh 16.5vh #333333,4.5vh 16.5vh #663333,6vh 16.5vh #663333,7.5vh 16.5vh #996666,9vh 16.5vh #996666,10.5vh 16.5vh #996666,12vh 16.5vh #996666,13.5vh 16.5vh #996666,15vh 16.5vh #996666,16.5vh 16.5vh #996666,18vh 16.5vh #996666,19.5vh 16.5vh #996666,21vh 16.5vh #663333,22.5vh 16.5vh #663333,24vh 16.5vh #333333,1.5vh 18vh transparent,3vh 18vh transparent,4.5vh 18vh #333333,6vh 18vh #663333,7.5vh 18vh #663333,9vh 18vh #996666,10.5vh 18vh #996666,12vh 18vh #ffffff,13.5vh 18vh #ffffff,15vh 18vh #ffffff,16.5vh 18vh #ffffff,18vh 18vh #996666,19.5vh 18vh #663333,21vh 18vh #333333,22.5vh 18vh #333333,24vh 18vh transparent,1.5vh 19.5vh transparent,3vh 19.5vh transparent,4.5vh 19.5vh transparent,6vh 19.5vh #333333,7.5vh 19.5vh #333333,9vh 19.5vh #333333,10.5vh 19.5vh #663333,12vh 19.5vh #996666,13.5vh 19.5vh #996666,15vh 19.5vh #996666,16.5vh 19.5vh #996666,18vh 19.5vh #333333,19.5vh 19.5vh #333333,21vh 19.5vh transparent,22.5vh 19.5vh transparent,24vh 19.5vh transparent,1.5vh 21vh transparent,3vh 21vh transparent,4.5vh 21vh #333333,6vh 21vh #666666,7.5vh 21vh #666666,9vh 21vh #666666,10.5vh 21vh #333333,12vh 21vh #663333,13.5vh 21vh #996666,15vh 21vh #663333,16.5vh 21vh #333333,18vh 21vh #666666,19.5vh 21vh #663333,21vh 21vh #333333,22.5vh 21vh transparent,24vh 21vh transparent,1.5vh 22.5vh transparent,3vh 22.5vh #333333,4.5vh 22.5vh #663333,6vh 22.5vh #333333,7.5vh 22.5vh #666666,9vh 22.5vh #666666,10.5vh 22.5vh #666666,12vh 22.5vh #333333,13.5vh 22.5vh #663333,15vh 22.5vh #333333,16.5vh 22.5vh #666666,18vh 22.5vh #666666,19.5vh 22.5vh #333333,21vh 22.5vh #663333,22.5vh 22.5vh #333333,24vh 22.5vh transparent,1.5vh 24vh transparent,3vh 24vh #333333,4.5vh 24vh #663333,6vh 24vh #333333,7.5vh 24vh #666666,9vh 24vh #666666,10.5vh 24vh #666666,12vh 24vh #666666,13.5vh 24vh #333333,15vh 24vh #666666,16.5vh 24vh #666666,18vh 24vh #666666,19.5vh 24vh #333333,21vh 24vh #663333,22.5vh 24vh #333333,24vh 24vh transparent,1.5vh 25.5vh #333333,3vh 25.5vh #663333,4.5vh 25.5vh #663333,6vh 25.5vh #333333,7.5vh 25.5vh #666666,9vh 25.5vh #666666,10.5vh 25.5vh #666666,12vh 25.5vh #666666,13.5vh 25.5vh #666666,15vh 25.5vh #666666,16.5vh 25.5vh #666666,18vh 25.5vh #666666,19.5vh 25.5vh #333333,21vh 25.5vh #663333,22.5vh 25.5vh #663333,24vh 25.5vh #333333,1.5vh 27vh #333333,3vh 27vh #663333,4.5vh 27vh #333333,6vh 27vh #333333,7.5vh 27vh #666666,9vh 27vh #666666,10.5vh 27vh #996666,12vh 27vh #666666,13.5vh 27vh #996666,15vh 27vh #996666,16.5vh 27vh #666666,18vh 27vh #666666,19.5vh 27vh #333333,21vh 27vh #333333,22.5vh 27vh #663333,24vh 27vh #333333,1.5vh 28.5vh #333333,3vh 28.5vh #996666,4.5vh 28.5vh transparent,6vh 28.5vh #333333,7.5vh 28.5vh #663333,9vh 28.5vh #666666,10.5vh 28.5vh #996666,12vh 28.5vh #996666,13.5vh 28.5vh #996666,15vh 28.5vh #996666,16.5vh 28.5vh #996666,18vh 28.5vh #666666,19.5vh 28.5vh #333333,21vh 28.5vh transparent,22.5vh 28.5vh #996666,24vh 28.5vh #333333,1.5vh 30vh transparent,3vh 30vh #ffffff,4.5vh 30vh transparent,6vh 30vh #333333,7.5vh 30vh #663333,9vh 30vh #996666,10.5vh 30vh #663333,12vh 30vh #333333,13.5vh 30vh #333333,15vh 30vh #663333,16.5vh 30vh #996666,18vh 30vh #663333,19.5vh 30vh #333333,21vh 30vh transparent,22.5vh 30vh #ffffff,24vh 30vh transparent,1.5vh 31.5vh transparent,3vh 31.5vh transparent,4.5vh 31.5vh transparent,6vh 31.5vh #333333,7.5vh 31.5vh #663333,9vh 31.5vh #996666,10.5vh 31.5vh #663333,12vh 31.5vh #333333,13.5vh 31.5vh #333333,15vh 31.5vh #663333,16.5vh 31.5vh #996666,18vh 31.5vh #663333,19.5vh 31.5vh #333333,21vh 31.5vh transparent,22.5vh 31.5vh transparent,24vh 31.5vh transparent,1.5vh 33vh transparent,3vh 33vh transparent,4.5vh 33vh transparent,6vh 33vh #333333,7.5vh 33vh #333333,9vh 33vh #333333,10.5vh 33vh #333333,12vh 33vh transparent,13.5vh 33vh transparent,15vh 33vh #333333,16.5vh 33vh #333333,18vh 33vh #333333,19.5vh 33vh #333333,21vh 33vh transparent,22.5vh 33vh transparent,24vh 33vh transparent;
+}
+.pixel-art--monstersInc {
+  position: relative;
+  width: 28.5vh;
+  height: 36vh;
+}
+.pixel-art--monstersInc:after {
+  content: "";
+  position: absolute;
+  top: -1.5vh;
+  left: -1.5vh;
+  width: 1.5vh;
+  height: 1.5vh;
+  box-shadow: 1.5vh 1.5vh transparent,3vh 1.5vh transparent,4.5vh 1.5vh transparent,6vh 1.5vh transparent,7.5vh 1.5vh transparent,9vh 1.5vh #a68f4d,10.5vh 1.5vh transparent,12vh 1.5vh transparent,13.5vh 1.5vh #71b20d,15vh 1.5vh #71b20d,16.5vh 1.5vh #71b20d,18vh 1.5vh transparent,19.5vh 1.5vh transparent,21vh 1.5vh #a68f4d,22.5vh 1.5vh transparent,24vh 1.5vh transparent,25.5vh 1.5vh transparent,27vh 1.5vh transparent,28.5vh 1.5vh transparent,1.5vh 3vh transparent,3vh 3vh transparent,4.5vh 3vh transparent,6vh 3vh transparent,7.5vh 3vh transparent,9vh 3vh #bba66b,10.5vh 3vh #bba66b,12vh 3vh #71b20d,13.5vh 3vh #71b20d,15vh 3vh #71b20d,16.5vh 3vh #71b20d,18vh 3vh #71b20d,19.5vh 3vh #bba66b,21vh 3vh #bba66b,22.5vh 3vh transparent,24vh 3vh transparent,25.5vh 3vh transparent,27vh 3vh transparent,28.5vh 3vh transparent,1.5vh 4.5vh transparent,3vh 4.5vh transparent,4.5vh 4.5vh transparent,6vh 4.5vh transparent,7.5vh 4.5vh transparent,9vh 4.5vh #bba66b,10.5vh 4.5vh #71b20d,12vh 4.5vh #71b20d,13.5vh 4.5vh #ffffff,15vh 4.5vh #ffffff,16.5vh 4.5vh #ffffff,18vh 4.5vh #71b20d,19.5vh 4.5vh #71b20d,21vh 4.5vh #bba66b,22.5vh 4.5vh transparent,24vh 4.5vh transparent,25.5vh 4.5vh transparent,27vh 4.5vh transparent,28.5vh 4.5vh transparent,1.5vh 6vh transparent,3vh 6vh transparent,4.5vh 6vh transparent,6vh 6vh transparent,7.5vh 6vh transparent,9vh 6vh #71b20d,10.5vh 6vh #71b20d,12vh 6vh #ffffff,13.5vh 6vh #ffffff,15vh 6vh #ffffff,16.5vh 6vh #ffffff,18vh 6vh #ffffff,19.5vh 6vh #71b20d,21vh 6vh #71b20d,22.5vh 6vh transparent,24vh 6vh transparent,25.5vh 6vh transparent,27vh 6vh transparent,28.5vh 6vh transparent,1.5vh 7.5vh transparent,3vh 7.5vh transparent,4.5vh 7.5vh transparent,6vh 7.5vh transparent,7.5vh 7.5vh #71b20d,9vh 7.5vh #71b20d,10.5vh 7.5vh beige,12vh 7.5vh #ffffff,13.5vh 7.5vh #ffffff,15vh 7.5vh #6495ed,16.5vh 7.5vh #ffffff,18vh 7.5vh #ffffff,19.5vh 7.5vh #ffffff,21vh 7.5vh #71b20d,22.5vh 7.5vh #71b20d,24vh 7.5vh transparent,25.5vh 7.5vh transparent,27vh 7.5vh transparent,28.5vh 7.5vh transparent,1.5vh 9vh transparent,3vh 9vh transparent,4.5vh 9vh transparent,6vh 9vh transparent,7.5vh 9vh #71b20d,9vh 9vh #71b20d,10.5vh 9vh beige,12vh 9vh beige,13.5vh 9vh #6495ed,15vh 9vh #000000,16.5vh 9vh #6495ed,18vh 9vh #ffffff,19.5vh 9vh #ffffff,21vh 9vh #5c8b32,22.5vh 9vh #71b20d,24vh 9vh transparent,25.5vh 9vh transparent,27vh 9vh transparent,28.5vh 9vh transparent,1.5vh 10.5vh transparent,3vh 10.5vh transparent,4.5vh 10.5vh transparent,6vh 10.5vh #71b20d,7.5vh 10.5vh #71b20d,9vh 10.5vh #71b20d,10.5vh 10.5vh beige,12vh 10.5vh beige,13.5vh 10.5vh #6495ed,15vh 10.5vh #000000,16.5vh 10.5vh #6495ed,18vh 10.5vh #ffffff,19.5vh 10.5vh #ffffff,21vh 10.5vh #5c8b32,22.5vh 10.5vh #71b20d,24vh 10.5vh #71b20d,25.5vh 10.5vh transparent,27vh 10.5vh transparent,28.5vh 10.5vh transparent,1.5vh 12vh transparent,3vh 12vh transparent,4.5vh 12vh #71b20d,6vh 12vh #71b20d,7.5vh 12vh #71b20d,9vh 12vh #71b20d,10.5vh 12vh beige,12vh 12vh beige,13.5vh 12vh beige,15vh 12vh #6495ed,16.5vh 12vh #ffffff,18vh 12vh #ffffff,19.5vh 12vh #ffffff,21vh 12vh #5c8b32,22.5vh 12vh #71b20d,24vh 12vh #71b20d,25.5vh 12vh #71b20d,27vh 12vh transparent,28.5vh 12vh transparent,1.5vh 13.5vh transparent,3vh 13.5vh transparent,4.5vh 13.5vh #71b20d,6vh 13.5vh #71b20d,7.5vh 13.5vh #71b20d,9vh 13.5vh #71b20d,10.5vh 13.5vh #71b20d,12vh 13.5vh beige,13.5vh 13.5vh beige,15vh 13.5vh beige,16.5vh 13.5vh beige,18vh 13.5vh #ffffff,19.5vh 13.5vh #5c8b32,21vh 13.5vh #5c8b32,22.5vh 13.5vh #71b20d,24vh 13.5vh #71b20d,25.5vh 13.5vh #71b20d,27vh 13.5vh transparent,28.5vh 13.5vh transparent,1.5vh 15vh transparent,3vh 15vh transparent,4.5vh 15vh #71b20d,6vh 15vh #71b20d,7.5vh 15vh #71b20d,9vh 15vh #71b20d,10.5vh 15vh #71b20d,12vh 15vh #71b20d,13.5vh 15vh #71b20d,15vh 15vh #5c8b32,16.5vh 15vh #5c8b32,18vh 15vh #5c8b32,19.5vh 15vh #5c8b32,21vh 15vh #71b20d,22.5vh 15vh #71b20d,24vh 15vh #71b20d,25.5vh 15vh #71b20d,27vh 15vh transparent,28.5vh 15vh transparent,1.5vh 16.5vh transparent,3vh 16.5vh #71b20d,4.5vh 16.5vh #71b20d,6vh 16.5vh #71b20d,7.5vh 16.5vh #71b20d,9vh 16.5vh #71b20d,10.5vh 16.5vh #71b20d,12vh 16.5vh #71b20d,13.5vh 16.5vh #71b20d,15vh 16.5vh #71b20d,16.5vh 16.5vh #71b20d,18vh 16.5vh #71b20d,19.5vh 16.5vh #71b20d,21vh 16.5vh #71b20d,22.5vh 16.5vh #71b20d,24vh 16.5vh #71b20d,25.5vh 16.5vh #71b20d,27vh 16.5vh #71b20d,28.5vh 16.5vh transparent,1.5vh 18vh #71b20d,3vh 18vh #71b20d,4.5vh 18vh #71b20d,6vh 18vh #71b20d,7.5vh 18vh #71b20d,9vh 18vh #71b20d,10.5vh 18vh #71b20d,12vh 18vh #71b20d,13.5vh 18vh #000000,15vh 18vh #000000,16.5vh 18vh #000000,18vh 18vh #5c8b32,19.5vh 18vh #71b20d,21vh 18vh #71b20d,22.5vh 18vh #71b20d,24vh 18vh #71b20d,25.5vh 18vh #71b20d,27vh 18vh #71b20d,28.5vh 18vh #71b20d,1.5vh 19.5vh #71b20d,3vh 19.5vh #71b20d,4.5vh 19.5vh #5c8b32,6vh 19.5vh #71b20d,7.5vh 19.5vh #71b20d,9vh 19.5vh #71b20d,10.5vh 19.5vh #71b20d,12vh 19.5vh #000000,13.5vh 19.5vh #000000,15vh 19.5vh #000000,16.5vh 19.5vh #000000,18vh 19.5vh #000000,19.5vh 19.5vh #5c8b32,21vh 19.5vh #71b20d,22.5vh 19.5vh #71b20d,24vh 19.5vh #71b20d,25.5vh 19.5vh #71b20d,27vh 19.5vh #71b20d,28.5vh 19.5vh #71b20d,1.5vh 21vh #71b20d,3vh 21vh #71b20d,4.5vh 21vh transparent,6vh 21vh #5c8b32,7.5vh 21vh #71b20d,9vh 21vh #71b20d,10.5vh 21vh #000000,12vh 21vh #ffffff,13.5vh 21vh #ffffff,15vh 21vh #ffffff,16.5vh 21vh #ffffff,18vh 21vh #ffffff,19.5vh 21vh #000000,21vh 21vh #71b20d,22.5vh 21vh #71b20d,24vh 21vh #71b20d,25.5vh 21vh transparent,27vh 21vh #71b20d,28.5vh 21vh #71b20d,1.5vh 22.5vh #71b20d,3vh 22.5vh #71b20d,4.5vh 22.5vh transparent,6vh 22.5vh #5c8b32,7.5vh 22.5vh #71b20d,9vh 22.5vh #71b20d,10.5vh 22.5vh #71b20d,12vh 22.5vh #71b20d,13.5vh 22.5vh #71b20d,15vh 22.5vh #71b20d,16.5vh 22.5vh #71b20d,18vh 22.5vh #71b20d,19.5vh 22.5vh #71b20d,21vh 22.5vh #71b20d,22.5vh 22.5vh #71b20d,24vh 22.5vh #71b20d,25.5vh 22.5vh transparent,27vh 22.5vh #71b20d,28.5vh 22.5vh #71b20d,1.5vh 24vh #71b20d,3vh 24vh #71b20d,4.5vh 24vh transparent,6vh 24vh transparent,7.5vh 24vh #5c8b32,9vh 24vh #71b20d,10.5vh 24vh #71b20d,12vh 24vh #71b20d,13.5vh 24vh #71b20d,15vh 24vh #71b20d,16.5vh 24vh #71b20d,18vh 24vh #71b20d,19.5vh 24vh #71b20d,21vh 24vh #71b20d,22.5vh 24vh #71b20d,24vh 24vh transparent,25.5vh 24vh transparent,27vh 24vh #71b20d,28.5vh 24vh #71b20d,1.5vh 25.5vh #71b20d,3vh 25.5vh #71b20d,4.5vh 25.5vh transparent,6vh 25.5vh transparent,7.5vh 25.5vh transparent,9vh 25.5vh #71b20d,10.5vh 25.5vh #71b20d,12vh 25.5vh #71b20d,13.5vh 25.5vh #71b20d,15vh 25.5vh #71b20d,16.5vh 25.5vh #71b20d,18vh 25.5vh #71b20d,19.5vh 25.5vh #71b20d,21vh 25.5vh #71b20d,22.5vh 25.5vh transparent,24vh 25.5vh transparent,25.5vh 25.5vh transparent,27vh 25.5vh #71b20d,28.5vh 25.5vh #71b20d,1.5vh 27vh #71b20d,3vh 27vh #71b20d,4.5vh 27vh transparent,6vh 27vh transparent,7.5vh 27vh transparent,9vh 27vh #71b20d,10.5vh 27vh #5c8b32,12vh 27vh #5c8b32,13.5vh 27vh #5c8b32,15vh 27vh #5c8b32,16.5vh 27vh #5c8b32,18vh 27vh #5c8b32,19.5vh 27vh #5c8b32,21vh 27vh #71b20d,22.5vh 27vh transparent,24vh 27vh transparent,25.5vh 27vh transparent,27vh 27vh #71b20d,28.5vh 27vh #71b20d,1.5vh 28.5vh #71b20d,3vh 28.5vh #71b20d,4.5vh 28.5vh transparent,6vh 28.5vh transparent,7.5vh 28.5vh transparent,9vh 28.5vh #71b20d,10.5vh 28.5vh #71b20d,12vh 28.5vh transparent,13.5vh 28.5vh transparent,15vh 28.5vh transparent,16.5vh 28.5vh transparent,18vh 28.5vh transparent,19.5vh 28.5vh #71b20d,21vh 28.5vh #71b20d,22.5vh 28.5vh transparent,24vh 28.5vh transparent,25.5vh 28.5vh transparent,27vh 28.5vh #71b20d,28.5vh 28.5vh #71b20d,1.5vh 30vh #71b20d,3vh 30vh #71b20d,4.5vh 30vh #5c8b32,6vh 30vh transparent,7.5vh 30vh transparent,9vh 30vh #71b20d,10.5vh 30vh #71b20d,12vh 30vh transparent,13.5vh 30vh transparent,15vh 30vh transparent,16.5vh 30vh transparent,18vh 30vh transparent,19.5vh 30vh #71b20d,21vh 30vh #71b20d,22.5vh 30vh transparent,24vh 30vh transparent,25.5vh 30vh #5c8b32,27vh 30vh #71b20d,28.5vh 30vh #71b20d,1.5vh 31.5vh #71b20d,3vh 31.5vh #71b20d,4.5vh 31.5vh #71b20d,6vh 31.5vh #71b20d,7.5vh 31.5vh transparent,9vh 31.5vh #71b20d,10.5vh 31.5vh #71b20d,12vh 31.5vh transparent,13.5vh 31.5vh transparent,15vh 31.5vh transparent,16.5vh 31.5vh transparent,18vh 31.5vh transparent,19.5vh 31.5vh #71b20d,21vh 31.5vh #71b20d,22.5vh 31.5vh transparent,24vh 31.5vh #71b20d,25.5vh 31.5vh #71b20d,27vh 31.5vh #71b20d,28.5vh 31.5vh #71b20d,1.5vh 33vh #71b20d,3vh 33vh transparent,4.5vh 33vh transparent,6vh 33vh transparent,7.5vh 33vh transparent,9vh 33vh #71b20d,10.5vh 33vh #71b20d,12vh 33vh transparent,13.5vh 33vh transparent,15vh 33vh transparent,16.5vh 33vh transparent,18vh 33vh transparent,19.5vh 33vh #71b20d,21vh 33vh #71b20d,22.5vh 33vh transparent,24vh 33vh transparent,25.5vh 33vh transparent,27vh 33vh transparent,28.5vh 33vh #71b20d,1.5vh 34.5vh transparent,3vh 34.5vh transparent,4.5vh 34.5vh transparent,6vh 34.5vh transparent,7.5vh 34.5vh #71b20d,9vh 34.5vh #71b20d,10.5vh 34.5vh #71b20d,12vh 34.5vh #71b20d,13.5vh 34.5vh transparent,15vh 34.5vh transparent,16.5vh 34.5vh transparent,18vh 34.5vh #71b20d,19.5vh 34.5vh #71b20d,21vh 34.5vh #71b20d,22.5vh 34.5vh #71b20d,24vh 34.5vh transparent,25.5vh 34.5vh transparent,27vh 34.5vh transparent,28.5vh 34.5vh transparent,1.5vh 36vh transparent,3vh 36vh transparent,4.5vh 36vh transparent,6vh 36vh #71b20d,7.5vh 36vh #bba66b,9vh 36vh #71b20d,10.5vh 36vh #71b20d,12vh 36vh #bba66b,13.5vh 36vh #71b20d,15vh 36vh transparent,16.5vh 36vh #71b20d,18vh 36vh #bba66b,19.5vh 36vh #71b20d,21vh 36vh #71b20d,22.5vh 36vh #bba66b,24vh 36vh #71b20d,25.5vh 36vh transparent,27vh 36vh transparent,28.5vh 36vh transparent;
+}
+
+HEADER {
+  font-size: 2em;
+  vertical-align: center;
+  color: #fff;
+  position: relative;
+  padding-top: 1vh;
+}
+HEADER H1 {
+  text-align: center;
+  font-family: "Butcherman", cursive;
+}
+HEADER H1 P {
+  color: #333;
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: 1px 1px 0.25em gold;
+  text-align: center;
+  transform: rotate(-2.5deg);
+}
+
+FOOTER {
+  font-family: "Baloo Da", cursive;
+  white-space: nowrap;
+  z-index: 1;
+  color: #fff;
+  text-align: center;
+}
+FOOTER A {
+  color: #8A0707;
+  text-decoration: none;
+  transition: 0.2s all;
+}
+FOOTER A:hover {
+  color: #bb0909;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[class*=frank] + h3 {
+  --text-color: green;
+}
+
+[class*=zombie] + h3 {
+  --text-color: #7FC2B9;
+}
+
+[class*=dracula] + h3 {
+  --text-color: purple;
+}
+
+[class*=werewolf] + h3 {
+  --text-color: #663333;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 720px) {
+  BODY {
+    overflow-y: scroll;
+  }
+  BODY .monster DIV:after {
+    opacity: 1;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

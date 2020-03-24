@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+    head
+        title=title
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+        link(rel="stylesheet"  type="text/css" href="/css/style.css")
+    body
+        .overlay
+        header
+            h1
+                br
+                p Werewolf Online
+        .container
+            .monster
+                .pixel-art--frankenstein
+                h3(data-num='#16')
+                    | Frankenstein&apos;s
+                    br
+                    | Monster
+            .monster
+                .pixel-art--zombie
+                h3(data-num='#17') Zombie Elvis
+            .monster
+                .pixel-art--dracula
+                h3(data-num='#18') Dracula
+            .monster
+                .pixel-art--werewolf
+                h3(data-num='#19') Werewolf
+            .monster
+                .pixel-art--monstersInc
+                h3(data-num='#20') Mike Wazowski
+
+        
+        footer
+            a(href="/lobby")
+                button(id="game") Join the game
+        script(src="/socket.io/socket.io.js")
+        script(src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+        script(src="/js/script.js")
