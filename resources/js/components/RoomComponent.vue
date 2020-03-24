@@ -1,7 +1,8 @@
 <template>
+<div>
     <div class="overlay" v-if="this.user.username.length <= 2">
     <header>
-        <h1><br/>
+        <h1 style="font-size: 24px;"><br/>
             <p>Werewolf Online</p>
         </h1>
     </header>
@@ -12,21 +13,166 @@
     </form>
     <footer><button @click.prevent="join()">Join the game</button></footer>
 </div>
+<div v-if="this.user.username.length >= 2" data-elementor-type="wp-page" data-elementor-id="2042" class="elementor elementor-2042" data-elementor-settings="[]">
+			<div class="elementor-inner">
+				<div class="elementor-section-wrap">
+					<section class="elementor-element elementor-element-01b3345 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="01b3345" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-wider">
+				            <div class="elementor-row">
+				                <div class="elementor-element elementor-element-9ab55e3 elementor-column elementor-col-20 elementor-top-column" data-id="9ab55e3" data-element_type="column">
+			                        <div class="elementor-column-wrap  elementor-element-populated">
+					                    <div class="elementor-widget-wrap">
+				                            <div class="elementor-element elementor-element-fc5ba15 elementor-view-default elementor-widget elementor-widget-icon" data-id="fc5ba15" data-element_type="widget" data-widget_type="icon.default">
+				                                <div class="elementor-widget-container">
+					                                <div class="elementor-icon-wrapper">
+			                                            <div class="elementor-icon">
+			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>			
+                                                        </div>
+		                                            </div>
+				                                </div>
+				                            </div>
+						                </div>
+			                        </div>
+		                        </div>
+				                <div class="elementor-element elementor-element-383cd08 elementor-column elementor-col-20 elementor-top-column" data-id="383cd08" data-element_type="column">
+			                        <div class="elementor-column-wrap  elementor-element-populated">
+					                    <div class="elementor-widget-wrap">
+				                            <div class="elementor-element elementor-element-f2e64b3 elementor-view-default elementor-widget elementor-widget-icon" data-id="f2e64b3" data-element_type="widget" data-widget_type="icon.default">
+				                                <div class="elementor-widget-container">
+					                                <div class="elementor-icon-wrapper">
+			                                            <div class="elementor-icon">
+			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>			
+                                                        </div>
+		                                            </div>
+				                                </div>
+				                            </div>
+						                </div>
+			                        </div>
+		                        </div>
+				                <div class="elementor-element elementor-element-4818837 elementor-column elementor-col-20 elementor-top-column" data-id="4818837" data-element_type="column">
+			                        <div class="elementor-column-wrap  elementor-element-populated">
+					                    <div class="elementor-widget-wrap">
+				                            <div class="elementor-element elementor-element-85ecb53 elementor-view-default elementor-widget elementor-widget-icon" data-id="85ecb53" data-element_type="widget" data-widget_type="icon.default">
+				                                <div class="elementor-widget-container">
+					                                <div class="elementor-icon-wrapper">
+			                                            <div class="elementor-icon">
+			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>		
+                                                        </div>
+		                                            </div>
+				                                </div>
+				                            </div>
+						                </div>
+			                        </div>
+		                        </div>
+				<div class="elementor-element elementor-element-e7024d0 elementor-column elementor-col-20 elementor-top-column" data-id="e7024d0" data-element_type="column">
+			<div class="elementor-column-wrap  elementor-element-populated">
+					<div class="elementor-widget-wrap">
+				<div class="elementor-element elementor-element-d0cf4dc elementor-view-default elementor-widget elementor-widget-icon" data-id="d0cf4dc" data-element_type="widget" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+			<div class="elementor-icon">
+			<i aria-hidden="true" class="fas fa-sync-alt"></i>			</div>
+		</div>
+				</div>
+				</div>
+						</div>
+			</div>
+		</div>
+				<div class="elementor-element elementor-element-1d7b1eb elementor-column elementor-col-20 elementor-top-column" data-id="1d7b1eb" data-element_type="column">
+			<div class="elementor-column-wrap  elementor-element-populated">
+					<div class="elementor-widget-wrap">
+				<div class="elementor-element elementor-element-0401f7b elementor-view-default elementor-widget elementor-widget-icon" data-id="0401f7b" data-element_type="widget" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+			<div class="elementor-icon">
+			<i aria-hidden="true" class="fas fa-sync-alt"></i>			</div>
+		</div>
+				</div>
+				</div>
+						</div>
+			</div>
+		</div>
+				</div>
+			</div>
+		</section>
+        <section class="elementor-element elementor-element-9103471 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="9103471" data-element_type="section">
+			<div class="elementor-container elementor-column-gap-default">
+				<div class="elementor-row">
+				    <div class="elementor-element elementor-element-912cdb9 elementor-column elementor-col-50 elementor-top-column" data-id="912cdb9" data-element_type="column">
+			            <div class="elementor-column-wrap  elementor-element-populated">
+				            <div class="elementor-widget-wrap">
+				                <div class="elementor-element elementor-element-dc76e15 elementor-widget elementor-widget-text-editor" data-id="dc76e15" data-element_type="widget" data-widget_type="text-editor.default">
+				                    <div class="elementor-widget-container">
+					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.content">
+                                            <b>{{message.user}}</b>: {{message.content}}<br>
+                                        </div>
+				                    </div>
+                                    <section class="elementor-element elementor-element-d5de5e4 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section elementor-inner-section" data-id="d5de5e4" data-element_type="section">
+						                <div class="elementor-container elementor-column-gap-default">
+				                            <div class="elementor-row">
+				                                <div class="elementor-element elementor-element-4412d6a elementor-column elementor-col-50 elementor-inner-column" data-id="4412d6a" data-element_type="column">
+			                                        <div class="elementor-column-wrap  elementor-element-populated">
+					                                    <div class="elementor-widget-wrap">
+				                                            <div class="elementor-element elementor-element-4b40aeb elementor-widget elementor-widget-text-editor" data-id="4b40aeb" data-element_type="widget" data-widget_type="text-editor.default">
+				                                                <div class="elementor-widget-container">
+					                                                <div class="elementor-text-editor elementor-clearfix"><p style="color: white;" id="message-content" @input="onMessage" contenteditable="true"></p></div>
+                                                                
+				                                            </div>
+				                                        </div>
+						                            </div>
+			                                    </div>
+		                                    </div>
+                                            <div class="elementor-element elementor-element-55e3a38 elementor-column elementor-col-50 elementor-inner-column" data-id="55e3a38" data-element_type="column">
+                                                <div class="elementor-column-wrap  elementor-element-populated">
+                                                    <div class="elementor-widget-wrap">
+                                                        <div class="elementor-element elementor-element-73a2cb5 elementor-view-default elementor-widget elementor-widget-icon" data-id="73a2cb5" data-element_type="widget" data-widget_type="icon.default">
+                                                            <div class="elementor-widget-container">
+                                                                <div class="elementor-icon-wrapper">
+                                                                    <div class="elementor-icon">
+                                                                        <i aria-hidden="true" @click.prevent="sendMessage()" class="fas fa-arrow-alt-circle-right"></i>			
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+						                </div>
+		                            </section>
+				                </div>
+				            </div>
+			            </div>
+				    </div>
+				</div>
+			</div>
+        </section>
+				</div>
+			</div>
+				</div>
+</div>
 
-
+				
+                    
+                    
+                       
 
 </template>
 <script>
 export default {
     data(){
         return {
+            messageContent: '',
             maxNumberOfPlayers: 2,
             minNumberOfPlayers: 1,
             readyTime: 10,
             dayTime: 30,
             nightTime: 30,
             username: '',
-            messages: [],
+            messages: [{
+                user: 'polowis',
+                content: 'something'
+            }],
             day: false,
             user: {
                 isDead: false,
@@ -52,9 +198,20 @@ export default {
             this.users = data.users
             this.users.push(data.user)
         })
+
+        socket.on('room status', (status) =>{
+            this.status = status
+        })
+
+        socket.on('update message', (msg) =>{
+            this.messages = msg
+        })
     },
     
     methods: {
+        onMessage(e){
+            console.log(e.target.innerText);
+        },
         join(){
             if(this.users.length == 16){
                 return;
@@ -110,6 +267,12 @@ export default {
             this.status = 'started'
             console.log(this.users)
            
+        },
+
+        sendMessage(){
+            this.messageContent = document.getElementById('message-content').textContent
+            this.messages.push({user: this.user.username, content: this.messageContent})
+            socket.emit('update message', this.messages)
         }
 
     }

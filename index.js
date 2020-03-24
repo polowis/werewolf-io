@@ -10,7 +10,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const path = require('path');
 const session = require('express-session');
-
+const cors = require('cors')
 const port = process.env.PORT || 3000;
 const indexRoute = require('./routes/index');
 const {Game} = require('./logic/index')
@@ -32,7 +32,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors())
 
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -61,6 +61,14 @@ io.on('connection', function(socket){
 
     socket.on('new user', (data)=>{
         io.emit('new user', {user: data.user, users: data.users})
+    })
+
+    socket.on('room status', (status) =>{
+        io.emit('room status', status)
+    })
+
+    socket.on('message update', (msg) =>{
+        io.emit('message update', msg)
     })
   });
 
