@@ -99,7 +99,7 @@
 			<div class="elementor-container elementor-column-gap-default">
 				<div class="elementor-row">
 				    <div class="elementor-element elementor-element-912cdb9 elementor-column elementor-col-50 elementor-top-column" data-id="912cdb9" data-element_type="column">
-			            <div class="elementor-column-wrap  elementor-element-populated">
+			            <div class="elementor-column-wrap  elementor-element-populated" style="overflow: scroll; height: 400px;" id="messageBox">
 				            <div class="elementor-widget-wrap">
 				                <div class="elementor-element elementor-element-dc76e15 elementor-widget elementor-widget-text-editor" data-id="dc76e15" data-element_type="widget" data-widget_type="text-editor.default">
 				                    <div class="elementor-widget-container">
@@ -272,7 +272,17 @@ export default {
         sendMessage(){
             this.messageContent = document.getElementById('message-content').textContent
             this.messages.push({user: this.user.username, content: this.messageContent})
+            document.getElementById('message-content').textContent = ''
             socket.emit('message update', this.messages)
+            setTimeout(this.scrollToEnd, 100);
+        },
+
+        scrollToEnd()
+        {
+            
+            document.getElementById('messageBox').scrollTo(0,99999);
+
+        
         }
 
     }
