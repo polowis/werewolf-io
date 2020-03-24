@@ -129,7 +129,7 @@
                                                             <div class="elementor-widget-container">
                                                                 <div class="elementor-icon-wrapper">
                                                                     <div class="elementor-icon">
-                                                                        <i aria-hidden="true" @click.prevent="sendMessage()" class="fas fa-arrow-alt-circle-right"></i>			
+                                                                        <i aria-hidden="true" @click.prevent="sendMessage()" style="color: white;" class="fas fa-arrow-alt-circle-right"></i>			
                                                                     </div>
                                                                 </div>
                                                             </div>
