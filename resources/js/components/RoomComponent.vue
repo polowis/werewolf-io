@@ -64,37 +64,39 @@
 						                </div>
 			                        </div>
 		                        </div>
-				<div class="elementor-element elementor-element-e7024d0 elementor-column elementor-col-20 elementor-top-column" data-id="e7024d0" data-element_type="column">
-			<div class="elementor-column-wrap  elementor-element-populated">
-					<div class="elementor-widget-wrap">
-				<div class="elementor-element elementor-element-d0cf4dc elementor-view-default elementor-widget elementor-widget-icon" data-id="d0cf4dc" data-element_type="widget" data-widget_type="icon.default">
-				<div class="elementor-widget-container">
-					<div class="elementor-icon-wrapper">
-			<div class="elementor-icon">
-			<i aria-hidden="true" class="fas fa-sync-alt"></i>			</div>
-		</div>
-				</div>
-				</div>
-						</div>
-			</div>
-		</div>
-				<div class="elementor-element elementor-element-1d7b1eb elementor-column elementor-col-20 elementor-top-column" data-id="1d7b1eb" data-element_type="column">
-			<div class="elementor-column-wrap  elementor-element-populated">
-					<div class="elementor-widget-wrap">
-				<div class="elementor-element elementor-element-0401f7b elementor-view-default elementor-widget elementor-widget-icon" data-id="0401f7b" data-element_type="widget" data-widget_type="icon.default">
-				<div class="elementor-widget-container">
-					<div class="elementor-icon-wrapper">
-			<div class="elementor-icon">
-			<i aria-hidden="true" class="fas fa-sync-alt"></i>			</div>
-		</div>
-				</div>
-				</div>
-						</div>
-			</div>
-		</div>
-				</div>
-			</div>
-		</section>
+				                <div class="elementor-element elementor-element-e7024d0 elementor-column elementor-col-20 elementor-top-column" data-id="e7024d0" data-element_type="column">
+			                        <div class="elementor-column-wrap  elementor-element-populated">
+					                    <div class="elementor-widget-wrap">
+				                            <div class="elementor-element elementor-element-d0cf4dc elementor-view-default elementor-widget elementor-widget-icon" data-id="d0cf4dc" data-element_type="widget" data-widget_type="icon.default">
+				                                <div class="elementor-widget-container">
+					                                <div class="elementor-icon-wrapper">
+			                                            <div class="elementor-icon">
+			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>			
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+				                <div class="elementor-element elementor-element-1d7b1eb elementor-column elementor-col-20 elementor-top-column" data-id="1d7b1eb" data-element_type="column">
+			                        <div class="elementor-column-wrap  elementor-element-populated">
+					                    <div class="elementor-widget-wrap">
+				                            <div class="elementor-element elementor-element-0401f7b elementor-view-default elementor-widget elementor-widget-icon" data-id="0401f7b" data-element_type="widget" data-widget_type="icon.default">
+				                                <div class="elementor-widget-container">
+					                                <div class="elementor-icon-wrapper">
+			                                            <div class="elementor-icon">
+			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>		
+                                                        </div>
+		                                            </div>
+				                                </div>
+				                            </div>
+						                </div>
+			                        </div>      
+                                </div>
+				            </div>
+			            </div>
+		        </section>
         <section class="elementor-element elementor-element-9103471 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="9103471" data-element_type="section">
 			<div class="elementor-container elementor-column-gap-default">
 				<div class="elementor-row">
