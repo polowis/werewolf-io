@@ -203,7 +203,7 @@ export default {
             this.status = status
         })
 
-        socket.on('update message', (msg) =>{
+        socket.on('message update', (msg) =>{
             this.messages = msg
         })
     },
@@ -272,7 +272,7 @@ export default {
         sendMessage(){
             this.messageContent = document.getElementById('message-content').textContent
             this.messages.push({user: this.user.username, content: this.messageContent})
-            socket.emit('update message', this.messages)
+            socket.emit('message update', this.messages)
         }
 
     }
