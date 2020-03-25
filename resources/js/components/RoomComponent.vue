@@ -16,7 +16,7 @@
 <div v-if="this.user.username.length >= 2" data-elementor-type="wp-page" data-elementor-id="2042" class="elementor elementor-2042" data-elementor-settings="[]">
 			<div class="elementor-inner">
 				<div class="elementor-section-wrap">
-					<section class="elementor-element elementor-element-01b3345 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="01b3345" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+					<section style="opacity: 0" class="elementor-element elementor-element-01b3345 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="01b3345" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 						<div class="elementor-container elementor-column-gap-wider">
 				            <div class="elementor-row">
 				                <div class="elementor-element elementor-element-9ab55e3 elementor-column elementor-col-20 elementor-top-column" data-id="9ab55e3" data-element_type="column">
@@ -146,7 +146,56 @@
 				                </div>
 				            </div>
 			            </div>
+                        <!--
+                        <div class="elementor-element elementor-element-9fe2ad3 elementor-column elementor-col-50 elementor-top-column" data-id="9fe2ad3" data-element_type="column">
+			                <div class="elementor-column-wrap  elementor-element-populated">
+					            <div class="elementor-widget-wrap">
+				                    <section  class="elementor-element elementor-element-c979d13 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-inner-section" data-id="c979d13" data-element_type="section">
+						                <div class="elementor-container elementor-column-gap-default">
+				                            <div class="elementor-row" v-for="user in users" :key="user.username">
+				                                <div class="elementor-element elementor-element-ce7db3e elementor-column elementor-col-25 elementor-inner-column" data-id="ce7db3e" data-element_type="column" style="width: 100px;">
+			                                        <div class="elementor-column-wrap  elementor-element-populated">
+					                                    <div class="elementor-widget-wrap">
+				                                            <div class="elementor-element elementor-element-c502b23 elementor-widget elementor-widget-heading" data-id="c502b23" data-element_type="widget" data-widget_type="heading.default">
+				                                                <div class="elementor-widget-container">
+			                                                        <h2 class="elementor-heading-title elementor-size-default">{{user.username}}</h2>		
+                                                                </div>
+				                                            </div>
+				                                            <div class="elementor-element elementor-element-234de9a elementor-widget elementor-widget-image" data-id="234de9a" data-element_type="widget" data-widget_type="image.default">
+				                                                <div class="elementor-widget-container">
+					                                                <div class="elementor-image">
+										                                <img src="https://avatars0.githubusercontent.com/u/39208974?s=88&u=48aef927b291ab830fea070bd6b9b5acd9a67b80&v=4" title="Team-5.png" alt="8" />											
+                                                                    </div>
+				                                                </div>
+				                                            </div>
+						                                </div>
+			                                        </div>
+		                                        </div>
+				                            </div>
+						                </div>
+				                    </section>
+					            </div>
+			                </div>
+                        </div> -->
+                        
 				    </div>
+                    <div class="container">
+
+  <hr class="mt-2 mb-5">
+
+  <div class="row text-center text-lg-left">
+
+    <div class="col-lg-3 col-md-4 col-6"  v-for="user in users" :key="user.username">
+        <p style="margin-left: 40px; color: white;">{{user.username}}</p>
+      <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail rounded-circle" src="https://source.unsplash.com/pWkk7iiCoDM/400x200" width="200" :alt="user.username">
+          </a>
+    </div>
+   
+    
+  </div>
+
+</div>
 				</div>
 			</div>
         </section>
@@ -176,6 +225,7 @@ export default {
             messages: [],
             day: false,
             user: {
+                socketId: '',
                 isDead: false,
                 username: '',
                 role: '',
@@ -229,6 +279,7 @@ export default {
                 return;
             }
             this.user.username = this.username
+            this.user.socketId = socket.id
             for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].username == this.user.username){
                     this.user.username = ''
@@ -244,13 +295,16 @@ export default {
                 return;
             }
            
-            console.log(this.messages)
             this.users.push(this.user)
             socket.emit('update user', this.users)
+
             socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
             this.messages.push({user: 'System', content: this.user.username + ' has joined'})
+
             socket.emit('message update', this.messages)
+
             setTimeout(this.scrollToEnd, 100);
+
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
             }
@@ -288,10 +342,12 @@ export default {
 
         sendMessage(){
             this.messageContent = document.getElementById('message-content').textContent
-            this.messages.push({user: this.user.username, content: this.messageContent})
-            document.getElementById('message-content').textContent = ''
-            socket.emit('message update', this.messages)
-            setTimeout(this.scrollToEnd, 100);
+            if(this.messageContent.length > 1){
+                this.messages.push({user: this.user.username, content: this.messageContent})
+                document.getElementById('message-content').textContent = ''
+                socket.emit('message update', this.messages)
+                setTimeout(this.scrollToEnd, 100);
+            }
         },
 
         scrollToEnd()
