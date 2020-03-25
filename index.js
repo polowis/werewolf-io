@@ -62,7 +62,12 @@ app.get('/rooms', (req, res, next)=>{
 
     })
 })
-
+function getModel(){
+    client.get("rooms", function(err, value){
+        if(err) throw err;
+        return JSON.parse(value);
+    })
+}
 function updateRoom(roomDetails, roomName="defaultRoom"){
     client.get("rooms", function(err, value){
         if(err) throw err;
@@ -80,10 +85,30 @@ function updateRoom(roomDetails, roomName="defaultRoom"){
 
 
 io.on('connection', function(socket){
+    socket.on('disconnect', () =>{
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value);
+            for(let i = 0; i < data.length; i++){
+                let users = data[i].users
+                for(let j = 0; j < users.length; j++){
+                    
+                    users.splice(users.indexOf(socket.id), 1)
+                    
+                }
+            }
+            client.set("rooms", JSON.stringify(data))
+        })
+        
+        
+        
+        
+    })
     socket.on('join room', function(data){
         let users = new Game(data)
         io.emit('update user', users.players)
         //io.emit('update list', task)
+        
     })
     socket.on('update user', function(data){
         io.emit('update user', data)
@@ -94,7 +119,7 @@ io.on('connection', function(socket){
 
     socket.on('join', (data) => {
     
-      socket.join(data.roomName)
+        socket.join(data.roomName)
         updateRoom(data)
     })
 
