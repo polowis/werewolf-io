@@ -164,6 +164,7 @@
 export default {
     data(){
         return {
+            roomName: 'defaultRoom',
             messageContent: '',
             maxNumberOfPlayers: 16,
             minNumberOfPlayers: 10,
@@ -183,7 +184,8 @@ export default {
                 ready: true
             },
             users: [],
-            status: 'not started'
+            status: 'not started',
+            roomInfo: ''
         }
     },
     created(){
@@ -215,12 +217,23 @@ export default {
             console.log(e.target.innerText);
         },
         join(){
+            axios.get('/rooms').then(response => {
+                let data = response.data
+                for(let i = 0; i < data.length; i++){
+                    if(data[i].name == this.roomName){
+                        this.users = data[i].users
+                        this.messages = data[i].messages
+                        this.status = data[i].status
+                    }
+                }
+            })
             if(this.users.length == 16){
                 return;
             }
+            this.user.username = this.username
             for(let i = 0; i < this.users.length; i++){
-                if(this.users[i].username == this.username){
-                    console.log('username taken')
+                if(this.users[i].username == this.user.username){
+                    this.user.username = ''
                     return;
                 }
             }
@@ -232,11 +245,11 @@ export default {
             if(this.username.length <= 1){
                 return;
             }
-            this.user.username = this.username
+           
             
             this.users.push(this.user)
             socket.emit('update user', this.users)
-            
+            socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
             }

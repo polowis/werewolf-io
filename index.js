@@ -63,6 +63,21 @@ app.get('/rooms', (req, res, next)=>{
     })
 })
 
+function updateRoom(roomDetails, roomName="defaultRoom"){
+    client.get("rooms", function(err, value){
+        if(err) throw err;
+        let data = JSON.parse(value)
+        for(let i = 0; i < data.length; i++){
+            if(data[i].name == roomName){
+                data[i].messages = roomDetails.messages
+                data[i].users = roomDetails.users
+                data[i].status = roomDetails.status
+            }
+        }
+        client.set("rooms", JSON.stringify(data))
+    })
+}
+
 
 io.on('connection', function(socket){
     socket.on('join room', function(data){
@@ -77,8 +92,10 @@ io.on('connection', function(socket){
         io.emit('ready time', time)
     })
 
-    socket.on('join', (room) => {
-      socket.join(room)
+    socket.on('join', (data) => {
+    
+      socket.join(data.roomName)
+        updateRoom(data)
     })
 
     socket.on('new user', (data)=>{
