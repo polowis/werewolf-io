@@ -8,12 +8,12 @@ body {
   background: url(https://steamuserimages-a.akamaihd.net/ugc/100603690261120555/3288949BD5D35B3BCFA9DE0B65FAADE54BBD701C/);
   background-size: cover;
   background-position: bottom;
-  background-repeat: no-repeat;
+  /*background-repeat: no-repeat;*/
   display: grid;
   grid-gap: 0;
   grid-template-columns: 100vw;
   grid-template-areas: "header" "content" "footer";
-  overflow: hidden;
+  /*overflow: hidden; */
 }
 body HEADER, body .container, body FOOTER {
   grid-column-start: 1;
