@@ -106,15 +106,31 @@ io.on('connection', function(socket){
     })
     socket.on('join room', function(data){
         let users = new Game(data)
-        io.emit('update user', users.players)
+        io.emit('update user', users)
         //io.emit('update list', task)
         
     })
     socket.on('update user', function(data){
         io.emit('update user', data)
     })
+
     socket.on('ready time', function(time) {
         io.emit('ready time', time)
+    })
+
+    socket.on('start', (data) => {
+        let users = new Game(data)
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value)
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == "defaultRoom"){
+                    data[i].users = users.players
+                }
+            }
+            client.set("rooms", JSON.stringify(data))
+        })
+        io.emit('ready', users.players)
     })
 
     socket.on('join', (data) => {
@@ -128,8 +144,19 @@ io.on('connection', function(socket){
     })
 
     socket.on('room status', (status) =>{
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value)
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == "defaultRoom"){
+                    data[i].status = status
+                }
+            }
+            client.set("rooms", JSON.stringify(data))
+        })
         io.emit('room status', status)
     })
+
 
     socket.on('message update', (msg) =>{
         client.get("rooms", function(err, value){

@@ -13,6 +13,13 @@
     </form>
     <footer><button @click.prevent="join()">Join the game</button></footer>
 </div>
+<div class="row align-items-center" v-if="this.status == 'starting'">
+    <div style="position: relative; margin: auto; color:white;">{{this.readyTime}}</div>
+</div>
+<div class="row align-items-center" v-if="this.status == 'started'">
+    <div style="position: relative; margin: auto; color:red;">You are {{this.user.role}}</div>
+</div>
+<button v-if="this.user.username == 'polowis'" class="btn btn-danger" @click.prevent="countDownReadyTime()">Start</button>
 <div v-if="this.user.username.length >= 2" data-elementor-type="wp-page" data-elementor-id="2042" class="elementor elementor-2042" data-elementor-settings="[]">
 			<div class="elementor-inner">
 				<div class="elementor-section-wrap">
@@ -255,6 +262,12 @@ export default {
             this.status = status
         })
 
+        socket.on('ready', (users) =>{
+            this.users = users
+            this.fetchRole()
+
+        })
+
         socket.on('message update', (msg) =>{
             this.messages = msg
         })
@@ -316,6 +329,9 @@ export default {
         },
 
         countDownReadyTime() {
+            this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
+            this.status = 'starting'
+            socket.emit('room status', 'starting')
             console.log(this.readyTime)
             if(this.readyTime <= 0){
                 this.ready()
@@ -330,13 +346,14 @@ export default {
         },
 
         ready(){
-            if(this.users.length < this.minNumberOfPlayers){
+            
+            if(this.users.length < this.minNumberOfPlayers && this.user.username != 'polowis'){
                 this.setCountDownReadyTime(10)
                 return this.countDownReadyTime()
             }
-            socket.emit('join room', this.users)
+            socket.emit('start', this.users)
             this.status = 'started'
-            console.log(this.users)
+            socket.emit('room status', 'started')
            
         },
 
@@ -356,6 +373,15 @@ export default {
             document.getElementById('messageBox').scrollTo(0,99999);
 
         
+        },
+
+        fetchRole(){
+            console.log('d')
+            for(let i = 0; i < this.users.length; i++){
+                if(this.users[i].username == this.user.username){
+                   this.user.role = this.users[i].role
+                }
+            }
         }
 
     }
