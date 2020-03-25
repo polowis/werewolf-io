@@ -15,6 +15,8 @@ const port = process.env.PORT || 3000;
 const indexRoute = require('./routes/index');
 const {Game} = require('./logic/index')
 const redisAdapter = require('socket.io-redis');
+const redis = require('redis');
+const client = redis.createClient()
 io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +28,16 @@ app.use(session({
     saveUninitialized: true
 
 }));
+client.on("error", function(error) {
+    console.error(error);
+});
+const rooms = [{
+    name: "defaultRoom",
+    users: [],
+    messages: [],
+    status: "not started"
+}]
+client.set("rooms", JSON.stringify(rooms))
 
 app.use('/', indexRoute);
 app.use(express.json())
@@ -41,6 +53,16 @@ app.use(function(err, req, res, next) {
       error: (app.get('env') === 'development') ? err : {}
     });
 });
+
+
+app.get('/rooms', (req, res, next)=>{
+    client.get("rooms", function(err, value){
+        if(err) throw err;
+        res.json(JSON.parse(value))
+
+    })
+})
+
 
 io.on('connection', function(socket){
     socket.on('join room', function(data){
@@ -68,6 +90,16 @@ io.on('connection', function(socket){
     })
 
     socket.on('message update', (msg) =>{
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value)
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == "defaultRoom"){
+                    data[i].messages = msg
+                }
+            }
+            client.set("rooms", JSON.stringify(data))
+        })
         io.emit('message update', msg)
     })
   });
