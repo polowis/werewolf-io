@@ -270,6 +270,7 @@ export default {
 
         socket.on('message update', (msg) =>{
             this.messages = msg
+            setTimeout(this.scrollToEnd, 100);
         })
     },
     
@@ -330,8 +331,10 @@ export default {
 
         countDownReadyTime() {
             this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
+            socket.emit('message update', this.messages)
             this.status = 'starting'
             socket.emit('room status', 'starting')
+            setTimeout(this.scrollToEnd, 100);
             console.log(this.readyTime)
             if(this.readyTime <= 0){
                 this.ready()
@@ -376,7 +379,6 @@ export default {
         },
 
         fetchRole(){
-            console.log('d')
             for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].username == this.user.username){
                    this.user.role = this.users[i].role
