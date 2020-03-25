@@ -107,6 +107,7 @@
 				                    <div class="elementor-widget-container">
 					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.content">
                                             <b :style="{'color': message.user == 'System' ? 'red' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
+                                            
                                         </div>
 				                    </div>
                                     <section class="elementor-element elementor-element-d5de5e4 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section elementor-inner-section" data-id="d5de5e4" data-element_type="section">
@@ -172,10 +173,7 @@ export default {
             dayTime: 30,
             nightTime: 30,
             username: '',
-            messages: [{
-                user: 'polowis',
-                content: 'something'
-            }],
+            messages: [],
             day: false,
             user: {
                 isDead: false,
@@ -246,10 +244,13 @@ export default {
                 return;
             }
            
-            
+            console.log(this.messages)
             this.users.push(this.user)
             socket.emit('update user', this.users)
             socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
+            this.messages.push({user: 'System', content: this.user.username + ' has joined'})
+            socket.emit('message update', this.messages)
+            setTimeout(this.scrollToEnd, 100);
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
             }
