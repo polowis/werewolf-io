@@ -1,4 +1,4 @@
-window.Vue = require('vue');
+import Vue from 'vue'
 
 require('./bootstrap')
 import io from 'socket.io-client'
