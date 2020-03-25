@@ -106,7 +106,7 @@
 				                <div class="elementor-element elementor-element-dc76e15 elementor-widget elementor-widget-text-editor" data-id="dc76e15" data-element_type="widget" data-widget_type="text-editor.default">
 				                    <div class="elementor-widget-container">
 					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.content">
-                                            <b>{{message.user}}</b>: {{message.content}}<br>
+                                            <b :style="{'color': message.user == 'System' ? 'red' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
                                         </div>
 				                    </div>
                                     <section class="elementor-element elementor-element-d5de5e4 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section elementor-inner-section" data-id="d5de5e4" data-element_type="section">
@@ -165,8 +165,8 @@ export default {
     data(){
         return {
             messageContent: '',
-            maxNumberOfPlayers: 2,
-            minNumberOfPlayers: 1,
+            maxNumberOfPlayers: 16,
+            minNumberOfPlayers: 10,
             readyTime: 10,
             dayTime: 30,
             nightTime: 30,
@@ -236,6 +236,7 @@ export default {
             
             this.users.push(this.user)
             socket.emit('update user', this.users)
+            
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
             }
