@@ -200,8 +200,9 @@
   <tbody>
     <tr v-for="player in users" :key="player.username">
       <td style="color: white;">{{player.username}}</td>
-      <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="day == false ? nightVote(player) : nightVote(player)"></i></td>
+      <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="day == false ? nightVote(player) : dayVote(player)"></i></td>
       <td v-if="user.role == 'werewolf' && day == false">{{player.vote}}</td>
+      <td v-if="day == true">{{player.vote}}</td>
     </tr>
   </tbody>
 </table>
@@ -370,6 +371,7 @@ export default {
             setTimeout(this.scrollToEnd, 100);
             console.log(this.nightTime)
             if(this.nightTime <= 0){
+                this.checkForAliveStatus()
                 this.messages.push({user: 'System', content: `Day has started`})
                 socket.emit('message update', this.messages)
                 this.status = 'day'
@@ -448,6 +450,11 @@ export default {
         },
 
         nightVote(user){
+            for(let i = 0; i < this.users.length; i++){
+                this.users[i].vote = 0
+            }
+            socket.emit('update user', this.users)
+
             if(this.user.isDead) return;
             if(this.day == false){
                 if(this.user.role != 'werewolf'){
@@ -456,8 +463,9 @@ export default {
                 console.log('you just voted this person')
                 for(let i = 0; i < this.usersGetVote.length; i++){
                     if(this.usersGetVote[i] == user.username){
+                        user.vote = 0
                         this.usersGetVote.splice(this.usersGetVote.indexOf(user.username), 1)
-                        user.vote -= 1
+                        socket.emit('update user', this.users)
                         return;
                     }
                 }    
@@ -470,6 +478,33 @@ export default {
         },
 
         dayVote(user){
+            for(let i = 0; i < this.users.length; i++){
+                this.users[i].vote = 0
+            }
+            socket.emit('update user', this.users)
+        }, 
+
+        checkForAliveStatus(){
+            let voteCount = 0
+            let userWithHighestVote = ''
+            for(let i = 0; i < this.users.length; i++){
+                if(this.users[i].vote > voteCount){
+                    voteCount = this.users[i].vote
+                    userWithHighestVote = this.users[i].username
+                }
+            }
+
+            for(let i = 0; i < this.users.length; i++){
+                console.log(voteCount)
+                if(this.users[i].vote == voteCount && this.users[i].username != userWithHighestVote){
+                    console.log('tie');
+                    return;
+                }
+            }
+            console.log(userWithHighestVote)
+            this.users[this.users.indexOf(userWithHighestVote)].isDead = true
+            socket.emit('update user', this.users)
+            return;
             
         }
 
