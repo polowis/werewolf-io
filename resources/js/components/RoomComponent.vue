@@ -201,7 +201,7 @@
     <tr v-for="player in users" :key="player.username">
       <td style="color: white;">{{player.username}}</td>
       <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="day == false ? nightVote(player) : dayVote(player)"></i></td>
-      <td v-if="user.role == 'werewolf' && day == false">{{player.vote}}</td>
+      <td v-if="user.team == 'werewolf' && day == false">{{player.vote}}</td>
       <td v-if="day == true">{{player.vote}}</td>
     </tr>
   </tbody>
@@ -225,6 +225,7 @@
 export default {
     data(){
         return {
+            hasVote: false,
             usersGetVote: [],
             roomName: 'defaultRoom',
             messageContent: '',
@@ -242,7 +243,8 @@ export default {
                 username: '',
                 role: '',
                 ready: true,
-                vote: 0
+                vote: 0,
+                team: ''
             },
             users: [],
             status: 'not started',
@@ -374,6 +376,7 @@ export default {
                 this.checkForAliveStatus()
                 this.messages.push({user: 'System', content: `Day has started`})
                 socket.emit('message update', this.messages)
+                this.resetData()
                 this.status = 'day'
                 this.countDownDayTime()
             }
@@ -396,6 +399,7 @@ export default {
             if(this.dayTime <= 0){
                 this.messages.push({user: 'System', content: `Night has started`})
                 socket.emit('message update', this.messages)
+                this.resetData()
                 this.status = 'night'
                 this.countDownNightTime()
             }
@@ -445,23 +449,31 @@ export default {
             for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].username == this.user.username){
                    this.user.role = this.users[i].role
+                   this.user.team = this.users[i].team
                 }
             }
         },
 
         nightVote(user){
-            for(let i = 0; i < this.users.length; i++){
-                this.users[i].vote = 0
-            }
+            
             socket.emit('update user', this.users)
 
             if(this.user.isDead) return;
             if(this.day == false){
-                if(this.user.role != 'werewolf'){
+                if(this.user.role != 'werewolf' && this.user.role != 'alphawereworf'){
                     return;
                 }
                 console.log('you just voted this person')
-                for(let i = 0; i < this.usersGetVote.length; i++){
+                if(this.hasVote == true){
+                    user.vote = 0
+                    socket.emit('update user', this.users)
+                    this.hasVote = false
+                    return;
+                }
+                user.vote += 1
+                this.hasVote = true;
+                socket.emit('update user', this.users)
+                /*for(let i = 0; i < this.usersGetVote.length; i++){
                     if(this.usersGetVote[i] == user.username){
                         user.vote = 0
                         this.usersGetVote.splice(this.usersGetVote.indexOf(user.username), 1)
@@ -471,17 +483,14 @@ export default {
                 }    
                 this.usersGetVote.push(user.username)
                 user.vote += 1
-                socket.emit('update user', this.users)
+                socket.emit('update user', this.users)*/
                 
                 
             }
         },
 
         dayVote(user){
-            for(let i = 0; i < this.users.length; i++){
-                this.users[i].vote = 0
-            }
-            socket.emit('update user', this.users)
+            return;
         }, 
 
         checkForAliveStatus(){
@@ -508,7 +517,16 @@ export default {
             socket.emit('update user', this.users)
             return;
             
+        },
+
+        resetData(){
+            for(let i = 0; i < this.users.length; i++){
+                this.users[i].vote = 0
+            }
+            this.hasVote = false;
+            socket.emit('update user', this.users)
         }
+        
 
     }
 }

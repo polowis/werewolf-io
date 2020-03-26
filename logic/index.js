@@ -19,6 +19,8 @@ const users = [{
     isDead: false
 }]
 
+const WOLFTEAM = ['werewolf', 'alphawereworf', 'werewolf seer']
+
 class Game{
     constructor(users){
         const num_werewolf = 1;
@@ -53,8 +55,12 @@ class Game{
         }
         console.log('Roles complete')
         for(let i = 0; i< this.players.length; i++){
+            if(WOLFTEAM.includes(this.players[i].role)){
+                this.players[i].team = 'werewolf'
+            }
             console.log(`${this.players[i].username} is ${this.players[i].role}`)
         }
+        
     }
 
     getRoleByNumber(number){
