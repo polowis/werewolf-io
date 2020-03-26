@@ -137,6 +137,17 @@ io.on('connection', function(socket){
     
         socket.join(data.roomName)
         updateRoom(data)
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value)
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == "defaultRoom"){
+                   io.emit('update user', data[i].users)
+                }
+            }
+            
+        })
+        
     })
 
     socket.on('new user', (data)=>{
