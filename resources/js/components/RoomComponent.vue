@@ -186,23 +186,20 @@
                         </div> -->
                         
 				    </div>
-                    <div class="container">
-
-  <hr class="mt-2 mb-5">
-
-  <div class="row text-center text-lg-left">
-
-    <div class="col-lg-3 col-md-4 col-6"  v-for="user in users" :key="user.username">
-        <p style="margin-left: 40px; color: white;">{{user.username}}</p>
-      <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail rounded-circle" src="https://source.unsplash.com/pWkk7iiCoDM/400x200" width="200" :alt="user.username">
-          </a>
-    </div>
-   
+                   
+<table class="table table-sm table-dark">
+  <thead>
     
-  </div>
+  </thead>
+  <tbody>
+    <tr v-for="player in users" :key="player.username">
+      <td style="color: white;">{{player.username}}</td>
+      <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="day == false ? nightVote(player) : nightVote(player)"></i></td>
+      <td v-if="user.role == 'werewolf' && day == false">{{player.vote}}</td>
+    </tr>
+  </tbody>
+</table>
 
-</div>
 				</div>
 			</div>
         </section>
@@ -221,6 +218,7 @@
 export default {
     data(){
         return {
+            usersGetVote: [],
             roomName: 'defaultRoom',
             messageContent: '',
             maxNumberOfPlayers: 16,
@@ -236,7 +234,8 @@ export default {
                 isDead: false,
                 username: '',
                 role: '',
-                ready: true
+                ready: true,
+                vote: 0
             },
             users: [],
             status: 'not started',
@@ -310,9 +309,10 @@ export default {
             }
            
             this.users.push(this.user)
-            socket.emit('update user', this.users)
+            
 
             socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
+            socket.emit('update user', this.users)
             this.messages.push({user: 'System', content: this.user.username + ' has joined'})
 
             socket.emit('message update', this.messages)
@@ -384,6 +384,32 @@ export default {
                    this.user.role = this.users[i].role
                 }
             }
+        },
+
+        nightVote(user){
+            if(this.user.isDead) return;
+            if(this.day == false){
+                if(this.user.role != 'werewolf'){
+                    return;
+                }
+                console.log('you just voted this person')
+                for(let i = 0; i < this.usersGetVote.length; i++){
+                    if(this.usersGetVote[i] == user.username){
+                        this.usersGetVote.splice(this.usersGetVote.indexOf(user.username), 1)
+                        user.vote -= 1
+                        return;
+                    }
+                }    
+                this.usersGetVote.push(user.username)
+                user.vote += 1
+                socket.emit('update user', this.users)
+                
+                
+            }
+        },
+
+        dayVote(user){
+            
         }
 
     }
