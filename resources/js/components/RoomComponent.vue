@@ -487,10 +487,12 @@ export default {
         checkForAliveStatus(){
             let voteCount = 0
             let userWithHighestVote = ''
+            let userIndex;
             for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].vote > voteCount){
                     voteCount = this.users[i].vote
                     userWithHighestVote = this.users[i].username
+                    userIndex = i
                 }
             }
 
@@ -502,7 +504,7 @@ export default {
                 }
             }
             console.log(userWithHighestVote)
-            this.users[this.users.indexOf(userWithHighestVote)].isDead = true
+            this.users[userIndex].isDead = true
             socket.emit('update user', this.users)
             return;
             
