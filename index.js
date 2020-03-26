@@ -118,6 +118,14 @@ io.on('connection', function(socket){
         io.emit('ready time', time)
     })
 
+    socket.on('night time', function(time) {
+        io.emit('night time', time)
+    })
+
+    socket.on('day time', function(time) {
+        io.emit('day time', time)
+    })
+
     socket.on('start', (data) => {
         let users = new Game(data)
         client.get("rooms", function(err, value){

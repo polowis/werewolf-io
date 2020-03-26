@@ -16,7 +16,13 @@
 <div class="row align-items-center" v-if="this.status == 'starting'">
     <div style="position: relative; margin: auto; color:white;">{{this.readyTime}}</div>
 </div>
-<div class="row align-items-center" v-if="this.status == 'started'">
+<div class="row align-items-center" v-if="this.status == 'night'">
+    <div style="position: relative; margin: auto; padding-top: 20px; color:white;">{{this.nightTime}}</div>
+</div>
+<div class="row align-items-center" v-if="this.status == 'day'">
+    <div style="position: relative; margin: auto; padding-top: 20px; color:white;">{{this.dayTime}}</div>
+</div>
+<div class="row align-items-center" v-if="this.status != 'not started' && this.status != 'starting'">
     <div style="position: relative; margin: auto; color:red;">You are {{this.user.role}}</div>
 </div>
 <button v-if="this.user.username == 'polowis'" class="btn btn-danger" @click.prevent="countDownReadyTime()">Start</button>
@@ -249,7 +255,15 @@ export default {
         })
 
         socket.on('ready time', (time) => {
-            this.readyTime = time
+            this.readyTime = time;
+        })
+
+        socket.on('night time', (time) => {
+            this.nightTime = time;
+        })
+
+        socket.on('day time', (time) => {
+            this.dayTime = time;
         })
 
         socket.on('new user', (data) =>{
@@ -347,6 +361,50 @@ export default {
                 }, 1000)
             }
         },
+        countDownNightTime() {
+            //this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
+            //socket.emit('message update', this.messages)
+            this.day = false;
+            this.status = 'night'
+            socket.emit('room status', 'night')
+            setTimeout(this.scrollToEnd, 100);
+            console.log(this.nightTime)
+            if(this.nightTime <= 0){
+                this.messages.push({user: 'System', content: `Day has started`})
+                socket.emit('message update', this.messages)
+                this.status = 'day'
+                this.countDownDayTime()
+            }
+            if(this.nightTime > 0){
+                setTimeout(() => {
+                    this.nightTime -= 1
+                    this.countDownNightTime()
+                    socket.emit('night time', this.nightTime)
+                }, 1000)
+            }
+        },
+        countDownDayTime() {
+            //this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
+            //socket.emit('message update', this.messages)
+            this.day = true;
+            this.status = 'day'
+            socket.emit('room status', 'day')
+            setTimeout(this.scrollToEnd, 100);
+            console.log(this.dayTime)
+            if(this.dayTime <= 0){
+                this.messages.push({user: 'System', content: `Night has started`})
+                socket.emit('message update', this.messages)
+                this.status = 'night'
+                this.countDownNightTime()
+            }
+            if(this.dayTime > 0){
+                setTimeout(() => {
+                    this.dayTime -= 1
+                    this.countDownDayTime()
+                    socket.emit('day time', this.dayTime)
+                }, 1000)
+            }
+        },
 
         ready(){
             
@@ -357,6 +415,9 @@ export default {
             socket.emit('start', this.users)
             this.status = 'started'
             socket.emit('room status', 'started')
+            this.messages.push({user: 'System', content: `Night has started`})
+            socket.emit('message update', this.messages)
+            this.countDownNightTime()
            
         },
 
