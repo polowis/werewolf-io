@@ -573,31 +573,7 @@ export default {
             return;
         }, 
 
-        checkForAliveStatus(){
-            let voteCount = 0
-            let userWithHighestVote = ''
-            let userIndex;
-            for(let i = 0; i < this.users.length; i++){
-                if(this.users[i].vote > voteCount){
-                    voteCount = this.users[i].vote
-                    userWithHighestVote = this.users[i].username
-                    userIndex = i
-                }
-            }
-
-            for(let i = 0; i < this.users.length; i++){
-                console.log(voteCount)
-                if(this.users[i].vote == voteCount && this.users[i].username != userWithHighestVote){
-                    console.log('tie');
-                    return;
-                }
-            }
-            console.log(userWithHighestVote)
-            this.users[userIndex].isDead = true
-            socket.emit('update user', this.users)
-            return;
-            
-        },
+        
 
         resetData(){
             for(let i = 0; i < this.users.length; i++){
