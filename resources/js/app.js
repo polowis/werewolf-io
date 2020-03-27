@@ -2,7 +2,10 @@ import Vue from 'vue'
 
 require('./bootstrap')
 import io from 'socket.io-client'
-window.socket = io('http://localhost:3000')
+
+
+ window.socket = io()
+
 
 /**
  * The following block of code may be used to automatically register your

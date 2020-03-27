@@ -307,11 +307,10 @@ export default {
 
             socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
             socket.emit('update user', this.users)
-            this.messages.push({user: 'System', content: this.user.username + ' has joined'})
+            this.send("System", `${this.user.username} has joined`)
+            
 
-            socket.emit('message update', this.messages)
-
-            setTimeout(this.scrollToEnd, 100);
+            
 
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
@@ -324,11 +323,9 @@ export default {
         },
 
         countDownReadyTime() {
-            this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
-            socket.emit('message update', this.messages)
+            this.send('System', `The game will be started in ${this.readyTime}`)
             this.status = 'starting'
             socket.emit('room status', 'starting')
-            setTimeout(this.scrollToEnd, 100);
             console.log(this.readyTime)
             if(this.readyTime <= 0){
                 this.ready()
@@ -345,8 +342,7 @@ export default {
             //this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
             //socket.emit('message update', this.messages)
             this.day = false;
-            this.status = 'night'
-            socket.emit('room status', 'night')
+            this.setStatus('night')
             setTimeout(this.scrollToEnd, 100);
             console.log(this.nightTime)
             if(this.nightTime <= 0){
@@ -399,18 +395,32 @@ export default {
         },
 
         ready(){
-            
+            /**
+             * 
+             * Will check if the number of players meet the minimum
+             */
             if(this.users.length < this.minNumberOfPlayers && this.user.username != 'polowis'){
                 this.setCountDownReadyTime(10)
                 return this.countDownReadyTime()
             }
             socket.emit('start', this.users)
-            this.status = 'started'
-            socket.emit('room status', 'started')
-            this.messages.push({user: 'System', content: `Night has started`})
-            socket.emit('message update', this.messages)
+            this.setStatus('started')
+            this.send("System", "Night has started")
             this.countDownNightTime()
            
+        },
+        /**
+         * Send and update messages
+         */
+        send(author, msg){
+            this.messages.push({user: author, content: msg})
+            socket.emit('message update', this.messages)
+            setTimeout(this.scrollToEnd, 100);
+        },
+
+        setStatus(status){
+            this.status = status
+            socket.emit('room status', status)
         },
 
         sendMessage(){
@@ -418,7 +428,7 @@ export default {
              * Grab text message from input, than fire the event message
              * 
              */
-            if(user.isDead) return;
+            if(this.user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
                 this.messages.push({user: this.user.username, content: this.messageContent})
