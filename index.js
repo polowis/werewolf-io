@@ -17,11 +17,11 @@ const {Game} = require('./logic/index')
 const redisAdapter = require('socket.io-redis');
 const redis = require('redis');
 const client = redis.createClient()
+require('dotenv').config()
 io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(session({
     secret : "mysecret",
     resave: true,

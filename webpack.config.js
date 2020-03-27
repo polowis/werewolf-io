@@ -1,5 +1,6 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack')
 
 module.exports = {
     mode: "development",
@@ -34,5 +35,7 @@ module.exports = {
         },
         extensions: ["*", ".js", ".vue", ".json"]
     },
-    plugins: [ new VueLoaderPlugin()],
+    plugins: [ 
+        new VueLoaderPlugin()
+    ],
 }
