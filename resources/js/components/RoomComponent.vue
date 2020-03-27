@@ -25,6 +25,9 @@
 <div class="row align-items-center" v-if="this.status != 'not started' && this.status != 'starting'">
     <div style="position: relative; margin: auto; color:red;">You are {{this.getRoleNameById(this.user.role)}}</div>
 </div>
+<div class="row align-items-center" v-if="this.status != 'not started' && this.status != 'starting'">
+    <div style="position: relative; margin: auto; color:yellow;">{{this.getRoleDescById(this.user.role)}}</div>
+</div>
 <button v-if="this.user.username == 'polowis'" class="btn btn-danger" @click.prevent="countDownReadyTime()">Start</button>
 <div v-if="this.user.username.length >= 2" data-elementor-type="wp-page" data-elementor-id="2042" class="elementor elementor-2042" data-elementor-settings="[]">
 			<div class="elementor-inner">
@@ -278,6 +281,10 @@ export default {
 
         getRoleIconById(id){
             return role.getRoleIconById(id)
+        },
+
+        getRoleDescById(id){
+            return role.getRoleDescriptionById(id)
         },
 
         onMessage(e){
