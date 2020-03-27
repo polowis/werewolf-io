@@ -23,7 +23,7 @@
     <div style="position: relative; margin: auto; padding-top: 20px; color:white;">{{this.dayTime}}</div>
 </div>
 <div class="row align-items-center" v-if="this.status != 'not started' && this.status != 'starting'">
-    <div style="position: relative; margin: auto; color:red;">You are {{this.user.role}}</div>
+    <div style="position: relative; margin: auto; color:red;">You are {{this.getRoleNameById(this.user.role)}}</div>
 </div>
 <button v-if="this.user.username == 'polowis'" class="btn btn-danger" @click.prevent="countDownReadyTime()">Start</button>
 <div v-if="this.user.username.length >= 2" data-elementor-type="wp-page" data-elementor-id="2042" class="elementor elementor-2042" data-elementor-settings="[]">
@@ -171,6 +171,7 @@
       <td style="color: white;">{{player.username}}</td>
       <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="day == false ? nightVote(player) : dayVote(player)"></i></td>
       <td v-if="user.team == 'werewolf' && day == false">{{player.vote}}</td>
+      <td v-if="(player.username == user.username) || (player.team == user.team && user.team == 'werewolf')"><i style="color: white" :class="getRoleIconById(player.role)"></i></td> 
       <td v-if="day == true">{{player.vote}}</td>
     </tr>
   </tbody>
@@ -191,6 +192,9 @@
 
 </template>
 <script>
+
+import * as role from '../role.js'
+
 export default {
     data(){
         return {
@@ -268,6 +272,14 @@ export default {
     },
     
     methods: {
+        getRoleNameById(id){
+            return role.getRoleNameById(id)
+        },
+
+        getRoleIconById(id){
+            return role.getRoleIconById(id)
+        },
+
         onMessage(e){
             console.log(e.target.innerText);
         },
@@ -385,6 +397,7 @@ export default {
                 this.status = 'night'
                 this.countDownNightTime()
             }
+
             if(this.dayTime > 0){
                 setTimeout(() => {
                     this.dayTime -= 1
