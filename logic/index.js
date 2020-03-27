@@ -19,7 +19,7 @@ const users = [{
     isDead: false
 }]
 
-const WOLFTEAM = ['werewolf', 'alphawereworf', 'werewolf seer']
+const WOLFTEAM = ['werewolf', 'alphawerewolf', 'werewolf seer']
 
 class Game{
     constructor(users){
@@ -67,7 +67,7 @@ class Game{
 
     getRoleByNumber(number){
         if(number == 0) return 'werewolf';
-        if(number == 1) return 'alphawereworf'
+        if(number == 1) return 'alphawerewolf'
         if(number == 3) return 'seer'
     }
 }
