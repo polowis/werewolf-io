@@ -159,37 +159,6 @@
 				                </div>
 				            </div>
 			            </div>
-                        <!--
-                        <div class="elementor-element elementor-element-9fe2ad3 elementor-column elementor-col-50 elementor-top-column" data-id="9fe2ad3" data-element_type="column">
-			                <div class="elementor-column-wrap  elementor-element-populated">
-					            <div class="elementor-widget-wrap">
-				                    <section  class="elementor-element elementor-element-c979d13 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-inner-section" data-id="c979d13" data-element_type="section">
-						                <div class="elementor-container elementor-column-gap-default">
-				                            <div class="elementor-row" v-for="user in users" :key="user.username">
-				                                <div class="elementor-element elementor-element-ce7db3e elementor-column elementor-col-25 elementor-inner-column" data-id="ce7db3e" data-element_type="column" style="width: 100px;">
-			                                        <div class="elementor-column-wrap  elementor-element-populated">
-					                                    <div class="elementor-widget-wrap">
-				                                            <div class="elementor-element elementor-element-c502b23 elementor-widget elementor-widget-heading" data-id="c502b23" data-element_type="widget" data-widget_type="heading.default">
-				                                                <div class="elementor-widget-container">
-			                                                        <h2 class="elementor-heading-title elementor-size-default">{{user.username}}</h2>		
-                                                                </div>
-				                                            </div>
-				                                            <div class="elementor-element elementor-element-234de9a elementor-widget elementor-widget-image" data-id="234de9a" data-element_type="widget" data-widget_type="image.default">
-				                                                <div class="elementor-widget-container">
-					                                                <div class="elementor-image">
-										                                <img src="https://avatars0.githubusercontent.com/u/39208974?s=88&u=48aef927b291ab830fea070bd6b9b5acd9a67b80&v=4" title="Team-5.png" alt="8" />											
-                                                                    </div>
-				                                                </div>
-				                                            </div>
-						                                </div>
-			                                        </div>
-		                                        </div>
-				                            </div>
-						                </div>
-				                    </section>
-					            </div>
-			                </div>
-                        </div> -->
                         
 				    </div>
                    
@@ -226,7 +195,7 @@ export default {
     data(){
         return {
             hasVote: false,
-            usersGetVote: [],
+            usersGetVote: '',
             roomName: 'defaultRoom',
             messageContent: '',
             maxNumberOfPlayers: 16,
@@ -287,6 +256,14 @@ export default {
         socket.on('message update', (msg) =>{
             this.messages = msg
             setTimeout(this.scrollToEnd, 100);
+        })
+        socket.on('message to player with highest vote', (userWithHighestVote) => {
+            if(this.user.username == userWithHighestVote){
+                this.user.isDead = true;
+                document.querySelector('body').style.filter = 'grayscale(80%)'
+                this.messages.push({user: 'System', content: `${this.user.username} was killed last night`})
+                socket.emit('message update', this.messages)
+            }
         })
     },
     
@@ -388,7 +365,16 @@ export default {
                 }, 1000)
             }
         },
+
         countDownDayTime() {
+            /**
+             * Set the room status to day and start to count recursively, at the same time
+             * show the message to all users within the rooms. if the numbers
+             * reaches 0, we begin night time
+             * 
+             * 
+             */
+
             //this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
             //socket.emit('message update', this.messages)
             this.day = true;
@@ -428,6 +414,11 @@ export default {
         },
 
         sendMessage(){
+            /**
+             * Grab text message from input, than fire the event message
+             * 
+             */
+            if(user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
                 this.messages.push({user: this.user.username, content: this.messageContent})
@@ -437,6 +428,10 @@ export default {
             }
         },
 
+        /**
+         * 
+         * Scroll message to the bottom of the box automatically
+         */
         scrollToEnd()
         {
             
@@ -445,7 +440,12 @@ export default {
         
         },
 
+        /**
+         * 
+         * Fetch all data from redis server
+         */
         fetchRole(){
+
             for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].username == this.user.username){
                    this.user.role = this.users[i].role
@@ -454,36 +454,66 @@ export default {
             }
         },
 
+        /**
+         * Night vote
+         */
         nightVote(user){
-            
+            /**
+             * 
+             * Logic work like this:
+             * First we check if the user belongs to werewolf team, return false otherwise.
+             * Then the user will get a chance to vote, if the player get voted, we set user's property
+             * hasVoted to true and store the player got voted along with it.
+             * 
+             * In case the user decide to vote again, if the user has voted and the player get vote is the same as 
+             * the player got voted previously, the player got voted previously will get their number of votes deducted
+             * by 1 and reset user vote setting to default
+             * 
+             * else, if the player vote a different player and the hasVoted propety is true, we reset the previous player vote
+             * and update with the new one
+             * 
+             */
             socket.emit('update user', this.users)
 
             if(this.user.isDead) return;
-            if(this.day == false){
+            if(this.day == false) {
                 if(this.user.role != 'werewolf' && this.user.role != 'alphawereworf'){
                     return;
                 }
                 console.log('you just voted this person')
-                if(this.hasVote == true){
-                    user.vote = 0
-                    socket.emit('update user', this.users)
-                    this.hasVote = false
-                    return;
+
+                if(this.hasVote == true) {
+                    if(user.username == this.usersGetVote) {
+                        // if user get voted is the same as the previous user, just reset the info
+                        this.hasVote = false
+                        this.usersGetVote = ''
+                        user.vote -= 1
+                        
+                        socket.emit('update user', this.users)
+                        return;
+
+                    } else{
+                        // if the user get voted is different from the previous one, reset her/his info and 
+                        // update the new on
+                        for(let i = 0; i < this.users.length; i++){
+                            if(this.users[i].username == this.usersGetVote){
+                                this.users[i].vote -= 1;
+                                
+                            }
+                        }
+                        
+                        this.usersGetVote = user.username
+                        user.vote += 1
+                        socket.emit('update user', this.users)
+                        return;
+                        
+                    }
                 }
+                this.usersGetVote = user.username
                 user.vote += 1
                 this.hasVote = true;
                 socket.emit('update user', this.users)
-                /*for(let i = 0; i < this.usersGetVote.length; i++){
-                    if(this.usersGetVote[i] == user.username){
-                        user.vote = 0
-                        this.usersGetVote.splice(this.usersGetVote.indexOf(user.username), 1)
-                        socket.emit('update user', this.users)
-                        return;
-                    }
-                }    
-                this.usersGetVote.push(user.username)
-                user.vote += 1
-                socket.emit('update user', this.users)*/
+               
                 
                 
             }
