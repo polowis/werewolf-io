@@ -6,9 +6,9 @@
             <p>Werewolf Online</p>
         </h1>
     </header>
-    <form id="checkname">
+    <form id="checkname" @submit.prevent="join">
         <div class="row align-items-center">
-            <div class="col"><input class="form-control" type="text" v-model="username" style="width: 200px; position: relative; margin: auto;" placeholder="What's your name?" id="username" name="username" /></div>
+            <div class="col"><input class="form-control"  type="text" v-model="username" style="width: 200px; position: relative; margin: auto;" placeholder="What's your name?" id="username" name="username" /></div>
         </div>
     </form>
     <footer><button @click.prevent="join()">Join the game</button></footer>
@@ -373,7 +373,7 @@ export default {
             setTimeout(this.scrollToEnd, 100);
             console.log(this.nightTime)
             if(this.nightTime <= 0){
-                this.checkForAliveStatus()
+                socket.emit('check vote', this.users)
                 this.messages.push({user: 'System', content: `Day has started`})
                 socket.emit('message update', this.messages)
                 this.resetData()

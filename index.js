@@ -83,6 +83,45 @@ function updateRoom(roomDetails, roomName="defaultRoom"){
     })
 }
 
+function checkAlivePlayers(users){
+    let aliveUsers = []
+    let userWithHighestVote;
+    let highestVote = 0
+    for (let i = 0; i < users.length; i++){
+        if(users[i].isDead == false){
+            aliveUsers.push(users[i])
+            if(users[i].vote > highestVote){
+                highestVote = users[i].vote
+                userWithHighestVote = users[i].username
+            }
+        }
+    }
+    console.log('user with highest vote', userWithHighestVote)
+    console.log('number of vote: ', highestVote)
+
+    if(highestVote > aliveUsers.length / 2 ){
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value)
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == "defaultRoom"){
+                    for(let j = 0; j < data[i].users.length; j++){
+                        if(data[i].users[j].username == userWithHighestVote){
+                            data[i].users[j].isDead = true
+                        }
+                    }
+                    
+                    
+                }
+            }
+            client.set("rooms", JSON.stringify(data))
+        })
+        return userWithHighestVote;
+    } else{
+        return null;
+    }
+}
+
 
 io.on('connection', function(socket){
     socket.on('disconnect', () =>{
@@ -120,6 +159,11 @@ io.on('connection', function(socket){
 
     socket.on('night time', function(time) {
         io.emit('night time', time)
+    })
+
+    socket.on('check vote', (users) => {
+        let userWithHighestVote = checkAlivePlayers(users)
+        io.emit('message to player with highest vote', userWithHighestVote)
     })
 
     socket.on('day time', function(time) {
@@ -193,7 +237,8 @@ io.on('connection', function(socket){
   });
 
 
-http.listen(port, () => {
+http.listen(port, '0.0.0.0', () => {
     console.log(`App is listening on port ${port}`);
-  });
+});
+
 

@@ -56,9 +56,11 @@ class Game{
         console.log('Roles complete')
         for(let i = 0; i< this.players.length; i++){
             if(WOLFTEAM.includes(this.players[i].role)){
-                this.players[i].team = 'werewolf'
+                this.players[i].team = 'werewolf';
+            } else{
+                this.players[i].team = 'villager';
             }
-            console.log(`${this.players[i].username} is ${this.players[i].role}`)
+            console.log(`${this.players[i].username} is ${this.players[i].role} belong to ${this.players[i].team}`)
         }
         
     }
