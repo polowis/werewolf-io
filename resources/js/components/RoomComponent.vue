@@ -379,8 +379,8 @@ export default {
             setTimeout(this.scrollToEnd, 100);
             console.log(this.dayTime)
             if(this.dayTime <= 0){
-                this.messages.push({user: 'System', content: `Night has started`})
-                socket.emit('message update', this.messages)
+                socket.emit('check villager vote', this.users)
+                this.send('System', 'Night has started')
                 this.resetData()
                 this.status = 'night'
                 this.countDownNightTime()
@@ -485,7 +485,7 @@ export default {
              */
             socket.emit('update user', this.users)
 
-            if(this.user.isDead) return;
+            if((this.user.isDead) || (user.isDead)) return;
             if(this.day == false) {
                 if(this.user.role != 'werewolf' && this.user.role != 'alphawereworf'){
                     return;
@@ -530,6 +530,46 @@ export default {
         },
 
         dayVote(user){
+            
+            socket.emit('update user', this.users)
+            if((this.user.isDead) || (user.isDead)) return;
+            if(this.day) {
+                console.log('you just voted this person')
+                if(this.hasVote == true) {
+                    if(user.username == this.usersGetVote) {
+                        // if user get voted is the same as the previous user, just reset the info
+                        this.hasVote = false
+                        this.usersGetVote = ''
+                        user.vote -= 1
+                        
+                        socket.emit('update user', this.users)
+                        return;
+
+                    } else{
+                        // if the user get voted is different from the previous one, reset her/his info and 
+                        // update the new on
+                        for(let i = 0; i < this.users.length; i++){
+                            if(this.users[i].username == this.usersGetVote){
+                                this.users[i].vote -= 1;
+                                
+                            }
+                        }
+                        
+                        this.usersGetVote = user.username
+                        user.vote += 1
+                        socket.emit('update user', this.users)
+                        return;
+                        
+                    }
+                }
+                this.usersGetVote = user.username
+                user.vote += 1
+                this.hasVote = true;
+                socket.emit('update user', this.users)
+               
+                
+                
+            }
             return;
         }, 
 
@@ -564,6 +604,7 @@ export default {
                 this.users[i].vote = 0
             }
             this.hasVote = false;
+            this.usersGetVote = ''
             socket.emit('update user', this.users)
         }
         
