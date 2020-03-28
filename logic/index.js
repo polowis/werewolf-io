@@ -1,12 +1,6 @@
 let {ROLES} = require('./roles')
 
-const roleNumber = {
-    WEREWOLF: 0,
-    ALPHAWEREWOLF: 1,
-    SEER: 2,
-    HUNTER: 3,
-    PRIEST: 4
-}
+
 const users = [{
     username: 'username',
     role: '',
@@ -29,6 +23,7 @@ class Game{
         for(let i = 0; i < users.length; i ++){
             playerArray[i] = users[i]
         }
+        this.players = users
 
         let targetLength = playerArray.length - 1;
         let state = 1;
@@ -37,7 +32,7 @@ class Game{
             const username = playerArray[index].username
 
             playerArray[index].role = this.getRoleByNumber(state)
-            this.players.push(playerArray[index])
+            this.players[index].role = this.getRoleByNumber(state)
 
             playerArray.splice(index, 1)
 
