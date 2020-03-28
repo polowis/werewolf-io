@@ -13,7 +13,7 @@ const users = [{
     isDead: false
 }]
 
-const WOLFTEAM = ['werewolf', 'alphawerewolf', 'werewolf seer']
+
 
 class Game{
     constructor(users){
@@ -32,7 +32,7 @@ class Game{
             const username = playerArray[index].username
 
             playerArray[index].role = this.getRoleByNumber(state)
-            this.players[index].role = this.getRoleByNumber(state)
+            this.players[this.players.indexOf(playerArray[index])].role = this.getRoleByNumber(state)
 
             playerArray.splice(index, 1)
 
