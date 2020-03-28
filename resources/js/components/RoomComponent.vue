@@ -183,7 +183,7 @@
       <td style="color: white;">{{player.username}}</td>
       <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="status == 'night' ? nightVote(player) : dayVote(player)"></i></td>
       <td v-if="user.team == 'werewolf' && day == false">{{player.vote}}</td>
-      <td v-if="(player.username == user.username) || (player.team == user.team && user.team == 'werewolf')"><i style="color: white" :class="getRoleIconById(player.role)"></i></td> 
+      <td v-if="(player.username == user.username) || (player.team == user.team && user.team == 'werewolf')"><i :style="{'color': abilityActivate == true ? 'red' : 'white'}" :class="getRoleIconById(player.role)" @click.prevent="useAbility(player)"></i></td> 
       <td v-if="day == true">{{player.vote}}</td>
     </tr>
   </tbody>
@@ -320,6 +320,23 @@ export default {
 
         onMessage(e){
             
+        },
+
+        useAbility(user){
+            if(this.abilityActivate){
+                this.abilityActivate = false;
+                return;
+            }
+            if(user.username != this.user.username) return;
+            if(this.user.isDead || this.user.isMuted) return;
+            if(role.canUseAbility(this.user.role)){
+                this.abilityActivate = true
+            }
+
+        },
+
+        activate(user){
+            if(this.abilityActivate == false) return;
         },
         join(){
             axios.get('/rooms').then(response => {
@@ -572,7 +589,11 @@ export default {
                         // if user get voted is the same as the previous user, just reset the info
                         this.hasVote = false
                         this.usersGetVote = ''
-                        user.vote -= 1
+                        if(this.user.role == 'alphawerewolf'){
+                            user.vote -= 2
+                        } else{
+                            user.vote -= 1
+                        }
                         
                         socket.emit('update user', this.users)
                         return;
@@ -582,20 +603,34 @@ export default {
                         // update the new on
                         for(let i = 0; i < this.users.length; i++){
                             if(this.users[i].username == this.usersGetVote){
-                                this.users[i].vote -= 1;
+                                if(this.user.role == 'alphawerewolf'){
+                                    this.users[i].vote -= 2
+                                } else{
+                                    this.users[i].vote -= 1;
+                                }
                                 
                             }
                         }
                         
                         this.usersGetVote = user.username
-                        user.vote += 1
+                        if(this.user.role == 'alphawerewolf'){
+                            user.vote += 2
+                        } else{
+                            user.vote += 1
+                        }
                         socket.emit('update user', this.users)
                         return;
                         
                     }
                 }
                 this.usersGetVote = user.username
-                user.vote += 1
+                
+                if(this.user.role == 'alphawerewolf'){
+                    user.vote += 2
+                } else{
+                    user.vote += 1
+                }
+                
                 this.hasVote = true;
                 socket.emit('update user', this.users)
                
@@ -658,6 +693,7 @@ export default {
             }
             this.hasVote = false;
             this.usersGetVote = ''
+            this.abilityActivate = false;
             socket.emit('update user', this.users)
         }
         

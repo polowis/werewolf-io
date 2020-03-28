@@ -8,17 +8,21 @@ const ROLES = [
 		isWolf: true,
         requiredTeamRoles: ['werewolf'],
 		icon : 'fas fa-paw',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'werewolf',
 		name: 'Werewolf',
-		desc: 'Eat a villager each night.',
+		desc: 'You are just a regular werewolf. Eat a villager each night.',
 		value: 2,
 		isRequired: true,
         isWolf: true,
 		icon: 'fas fa-paw',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'alphawerewolf',
@@ -29,7 +33,9 @@ const ROLES = [
 		isWolf: true,
         requiredTeamRoles: ['werewolf'],
 		icon: 'fab fa-wolf-pack-battalion',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'wolfman',
@@ -41,7 +47,9 @@ const ROLES = [
 		requiredTeamRoles: ['werewolf'],
         requiredOpposingTeamRoles: ['seer'],
 		icon : 'fas fa-eye-slash',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'seer',
@@ -52,7 +60,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon : 'fas fa-eye',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 3
 	},
 	{
 		id: 'witch',
@@ -64,7 +74,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: "fas fa-hat-wizard",
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 1
 	},
 	{
 		id: 'hunter',
@@ -75,7 +87,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-hat-cowboy',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 1
 	},
 	{
 		id: 'priest',
@@ -86,7 +100,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-tint',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 3
 	},
 	{
 		id: 'bodyguard',
@@ -97,7 +113,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-shield-alt',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 2
 	},
 	{
 		id: 'martyr',
@@ -108,7 +126,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-skull',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 1
 	},
 	{
 		id: 'village',
@@ -119,7 +139,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-crown',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'ghost',
@@ -130,7 +152,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-ghost',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'spellcaster',
@@ -141,7 +165,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-comment-slash',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 2
 	},
 	{
 		id: 'villager',
@@ -151,7 +177,9 @@ const ROLES = [
 		isWolf: false,
         value: 14,
 		icon: 'fas fa-user',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'lycan',
@@ -162,7 +190,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['seer'],
 		icon: 'fas fa-low-vision',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: false,
+		numberOfTimeCanUseAbility: 0
 	},
 	{
 		id: 'cupid',
@@ -173,7 +203,9 @@ const ROLES = [
 		isWolf: false,
         requiredTeamRoles: ['villager'],
 		icon: 'fas fa-heart-broken',
-		roleNumber: 1
+		roleNumber: 1,
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 1
 	},
 ];
 

@@ -34,4 +34,14 @@ export function getRoleNameById(id) {
     }
 }
 
+export function canUseAbility(id, numberOfTimesUsed){
+	let target = ROLES.find(role => role.id == id)
+	if(target.hasActiveAbility){
+		if(numberOfTimesUsed == target.numberOfTimeCanUseAbility){
+			return false;
+		}
+		return true;
+	}
+}
+
 
