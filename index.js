@@ -83,6 +83,45 @@ function updateRoom(roomDetails, roomName="defaultRoom"){
     })
 }
 
+function checkWereWolfVote(users){
+    let numberOfAliveWerewolf = 0
+    let aliveUsers = []
+    let userWithHighestVote;
+    let highestVote = 0
+    for(let i = 0; i < users.length; i++){
+        if(users[i].isDead == false && users[i].team == 'werewolf'){
+            numberOfAliveWerewolf += 1
+        }
+        if(users[i].vote > highestVote){
+            highestVote = users[i].vote
+            userWithHighestVote = users[i].username
+        }
+    }
+    console.log(userWithHighestVote)
+    if(highestVote > numberOfAliveWerewolf / 2){
+        client.get("rooms", function(err, value){
+            if(err) throw err;
+            let data = JSON.parse(value)
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == "defaultRoom"){
+                    for(let j = 0; j < data[i].users.length; j++){
+                        if(data[i].users[j].username == userWithHighestVote){
+                            data[i].users[j].isDead = true
+                        }
+                    }
+                    
+                    
+                }
+            }
+            client.set("rooms", JSON.stringify(data))
+        })
+        return userWithHighestVote;
+    } else{
+        return null
+    }
+    
+}
+
 function checkAlivePlayers(users){
     let aliveUsers = []
     let userWithHighestVote;
@@ -159,6 +198,12 @@ io.on('connection', function(socket){
 
     socket.on('night time', function(time) {
         io.emit('night time', time)
+    })
+
+    socket.on('check werewolf vote', (users) => {
+        let userWithHighestVote = checkWereWolfVote(users)
+        io.emit('werewolf kill', userWithHighestVote)
+
     })
 
     socket.on('check vote', (users) => {

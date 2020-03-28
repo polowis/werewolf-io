@@ -272,6 +272,16 @@ export default {
 
         })
 
+        socket.on('werewolf kill', (user) => {
+            if(user == null) return;
+            if(this.user.username == user){
+                this.user.isDead = true;
+                document.querySelector('body').style.filter = 'grayscale(80%)'
+                this.messages.push({user: 'System', content: `${this.user.username} was killed last night`})
+                socket.emit('message update', this.messages)
+            }
+        })
+
         socket.on('day', (time)=>{
             this.dayTime = time
         })
@@ -285,10 +295,11 @@ export default {
             setTimeout(this.scrollToEnd, 100);
         })
         socket.on('message to player with highest vote', (userWithHighestVote) => {
+            if(userWithHighestVote == null) return;
             if(this.user.username == userWithHighestVote){
                 this.user.isDead = true;
                 document.querySelector('body').style.filter = 'grayscale(80%)'
-                this.messages.push({user: 'System', content: `${this.user.username} was killed last night`})
+                this.messages.push({user: 'System', content: `${this.user.username} was executed by the villagers`})
                 socket.emit('message update', this.messages)
             }
         })
@@ -308,7 +319,7 @@ export default {
         },
 
         onMessage(e){
-            console.log(e.target.innerText);
+            
         },
         join(){
             axios.get('/rooms').then(response => {
@@ -382,12 +393,12 @@ export default {
             //socket.emit('message update', this.messages)
             this.day = false;
             this.setStatus('night')
-            setTimeout(this.scrollToEnd, 100);
+            
             console.log(this.nightTime)
             if(this.nightTime <= 0){
                 socket.emit('day', 30)
                 this.dayTime = 30
-                socket.emit('check vote', this.users)
+                socket.emit('check werewolf vote', this.users)
                 this.messages.push({user: 'System', content: `Day has started`})
                 socket.emit('message update', this.messages)
                 this.resetData()
@@ -416,7 +427,7 @@ export default {
             //socket.emit('message update', this.messages)
             this.day = true;
             this.setStatus('day')
-            setTimeout(this.scrollToEnd, 100);
+            
             console.log(this.dayTime)
             if(this.dayTime <= 0){
                 socket.emit('night', 30)
@@ -619,6 +630,7 @@ export default {
                                 
                             }
                         }
+
                         
                         this.usersGetVote = user.username
                         user.vote += 1
