@@ -172,6 +172,7 @@ io.on('connection', function(socket){
 
     socket.on('start', (data) => {
         let users = new Game(data)
+        /*
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
@@ -181,7 +182,7 @@ io.on('connection', function(socket){
                 }
             }
             client.set("rooms", JSON.stringify(data))
-        })
+        })*/
         io.emit('ready', users.players)
     })
 
