@@ -6,7 +6,9 @@ const ROLES = [
 		value: 1,
 		isUnique: true,
 		isWolf: true,
-		requiredTeamRoles: ['werewolf']
+        requiredTeamRoles: ['werewolf'],
+		icon : 'fas fa-paw',
+		roleNumber: 1
 	},
 	{
 		id: 'werewolf',
@@ -14,16 +16,20 @@ const ROLES = [
 		desc: 'Eat a villager each night.',
 		value: 2,
 		isRequired: true,
-		isWolf: true
+        isWolf: true,
+		icon: 'fas fa-paw',
+		roleNumber: 1
 	},
 	{
-		id: 'wolfcub',
-		name: 'Wolf Cub',
-		desc: 'If you die, the werewolves get two kills the following night.',
+		id: 'alphawerewolf',
+		name: 'Alpha werewolf',
+		desc: 'You are regular werewolf, except your vote counts double',
 		value: 3,
 		isUnique: true,
 		isWolf: true,
-		requiredTeamRoles: ['werewolf']
+        requiredTeamRoles: ['werewolf'],
+		icon: 'fab fa-wolf-pack-battalion',
+		roleNumber: 1
 	},
 	{
 		id: 'wolfman',
@@ -33,7 +39,9 @@ const ROLES = [
 		isUnique: true,
 		isWolf: true,
 		requiredTeamRoles: ['werewolf'],
-		requiredOpposingTeamRoles: ['seer']
+        requiredOpposingTeamRoles: ['seer'],
+		icon : 'fas fa-eye-slash',
+		roleNumber: 1
 	},
 	{
 		id: 'seer',
@@ -42,7 +50,9 @@ const ROLES = [
 		value: 5,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon : 'fas fa-eye',
+		roleNumber: 1
 	},
 	{
 		id: 'witch',
@@ -52,7 +62,9 @@ const ROLES = [
 		isSelected: true,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: "fas fa-hat-wizard",
+		roleNumber: 1
 	},
 	{
 		id: 'hunter',
@@ -61,7 +73,9 @@ const ROLES = [
 		value: 7,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-hat-cowboy',
+		roleNumber: 1
 	},
 	{
 		id: 'priest',
@@ -70,7 +84,9 @@ const ROLES = [
 		value: 8,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-tint',
+		roleNumber: 1
 	},
 	{
 		id: 'bodyguard',
@@ -79,7 +95,9 @@ const ROLES = [
 		value: 9,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-shield-alt',
+		roleNumber: 1
 	},
 	{
 		id: 'martyr',
@@ -88,7 +106,9 @@ const ROLES = [
 		value: 10,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-skull',
+		roleNumber: 1
 	},
 	{
 		id: 'village',
@@ -97,7 +117,9 @@ const ROLES = [
 		value: 11,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-crown',
+		roleNumber: 1
 	},
 	{
 		id: 'ghost',
@@ -106,7 +128,9 @@ const ROLES = [
 		value: 12,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-ghost',
+		roleNumber: 1
 	},
 	{
 		id: 'spellcaster',
@@ -115,15 +139,19 @@ const ROLES = [
 		value: 13,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-comment-slash',
+		roleNumber: 1
 	},
 	{
 		id: 'villager',
 		name: 'Villager',
-		desc: 'Find the werewolves and lynch them.',
+		desc: "You don't have any special abilities. Find the werewolves and lynch them.",
 		isRequired: true,
 		isWolf: false,
-		value: 14
+        value: 14,
+		icon: 'fas fa-user',
+		roleNumber: 1
 	},
 	{
 		id: 'lycan',
@@ -132,7 +160,9 @@ const ROLES = [
 		value: 15,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['seer']
+        requiredTeamRoles: ['seer'],
+		icon: 'fas fa-low-vision',
+		roleNumber: 1
 	},
 	{
 		id: 'cupid',
@@ -141,8 +171,10 @@ const ROLES = [
 		value: 16,
 		isUnique: true,
 		isWolf: false,
-		requiredTeamRoles: ['villager']
+        requiredTeamRoles: ['villager'],
+		icon: 'fas fa-heart-broken',
+		roleNumber: 1
 	},
 ];
 
-module.exports.roles = ROLES
+module.exports.ROLES = ROLES
