@@ -510,11 +510,11 @@ export default {
 
             if((this.user.isDead) || (user.isDead)) return;
             if(this.day == false) {
-                if(this.user.role != 'werewolf' && this.user.role != 'alphawereworf'){
+                if(this.user.team != 'werewolf'){
                     return;
                 }
+                if(user.team == 'werewolf' || user.username == this.user.username) return;
                 console.log('you just voted this person')
-
                 if(this.hasVote == true) {
                     if(user.username == this.usersGetVote) {
                         // if user get voted is the same as the previous user, just reset the info

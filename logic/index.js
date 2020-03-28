@@ -43,10 +43,8 @@ class Game{
 
             if(playerArray.length == targetLength){
                 state += 1
-                targetLength = playerArray - 1
-                /*if(state == roleNumber.SEER) {targetLength = playerArray - num_seer}
-                else if (state == roleNumber.HUNTER) {targetLength = playerArray - num_hunter}
-                else if (state == roleNumber.PRIEST) {targetLength = playerArray - num_priest}*/
+                targetLength = playerArray.length - 1
+                
             }
         }
         console.log('Roles complete')
