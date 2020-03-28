@@ -1,4 +1,4 @@
-let {roles} = require('./roles')
+let {ROLES} = require('./roles')
 
 const roleNumber = {
     WEREWOLF: 0,
@@ -23,11 +23,6 @@ const WOLFTEAM = ['werewolf', 'alphawerewolf', 'werewolf seer']
 
 class Game{
     constructor(users){
-        const num_werewolf = 1;
-        const num_seer = 1;
-        const num_hunter = 1;
-        const num_priest = 1;    
-        const num_alphawerewolf = 1;
 
         this.players = []
         const playerArray = [];
@@ -35,8 +30,8 @@ class Game{
             playerArray[i] = users[i]
         }
 
-        let targetLength = playerArray.length - num_werewolf;
-        let state = roleNumber.WEREWOLF;
+        let targetLength = playerArray.length - 1;
+        let state = 1;
         while(playerArray.length > 0){
             const index = Math.floor(Math.random() * playerArray.length)
             const username = playerArray[index].username
@@ -48,17 +43,20 @@ class Game{
 
             if(playerArray.length == targetLength){
                 state += 1
-                if(state == roleNumber.SEER) {targetLength = playerArray - num_seer}
+                targetLength = playerArray - 1
+                /*if(state == roleNumber.SEER) {targetLength = playerArray - num_seer}
                 else if (state == roleNumber.HUNTER) {targetLength = playerArray - num_hunter}
-                else if (state == roleNumber.PRIEST) {targetLength = playerArray - num_priest}
+                else if (state == roleNumber.PRIEST) {targetLength = playerArray - num_priest}*/
             }
         }
         console.log('Roles complete')
         for(let i = 0; i< this.players.length; i++){
-            if(WOLFTEAM.includes(this.players[i].role)){
-                this.players[i].team = 'werewolf';
+            let isWolf = ROLES.find(role => role.id == this.players[i].role).isWolf
+
+            if(isWolf){
+                this.players[i].team = 'werewolf'
             } else{
-                this.players[i].team = 'villager';
+                this.players[i].team = 'villager'
             }
             console.log(`${this.players[i].username} is ${this.players[i].role} belong to ${this.players[i].team}`)
         }
@@ -66,9 +64,7 @@ class Game{
     }
 
     getRoleByNumber(number){
-        if(number == 0) return 'werewolf';
-        if(number == 1) return 'alphawerewolf'
-        if(number == 3) return 'seer'
+        return ROLES.find(role => role.value == number).id
     }
 }
 
