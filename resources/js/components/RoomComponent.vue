@@ -172,7 +172,7 @@
   <tbody>
     <tr v-for="player in users" :key="player.username">
       <td style="color: white;">{{player.username}}</td>
-      <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="day == false ? nightVote(player) : dayVote(player)"></i></td>
+      <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="status == 'night' ? nightVote(player) : dayVote(player)"></i></td>
       <td v-if="user.team == 'werewolf' && day == false">{{player.vote}}</td>
       <td v-if="(player.username == user.username) || (player.team == user.team && user.team == 'werewolf')"><i style="color: white" :class="getRoleIconById(player.role)"></i></td> 
       <td v-if="day == true">{{player.vote}}</td>
@@ -261,6 +261,14 @@ export default {
             this.users = users
             this.fetchRole()
 
+        })
+
+        socket.on('day', (time)=>{
+            this.dayTime = time
+        })
+
+        socket.on('night', (time) => {
+            this.nightTime = time
         })
 
         socket.on('message update', (msg) =>{
@@ -368,12 +376,14 @@ export default {
             setTimeout(this.scrollToEnd, 100);
             console.log(this.nightTime)
             if(this.nightTime <= 0){
+                socket.emit('day', 30)
+                this.dayTime = 30
                 socket.emit('check vote', this.users)
                 this.messages.push({user: 'System', content: `Day has started`})
                 socket.emit('message update', this.messages)
                 this.resetData()
-                this.status = 'day'
-                this.countDownDayTime()
+                this.setStatus('day')
+                return this.countDownDayTime()
             }
             if(this.nightTime > 0){
                 setTimeout(() => {
@@ -396,16 +406,25 @@ export default {
             //this.messages.push({user: 'System', content: `The game will be started in ${this.readyTime}`})
             //socket.emit('message update', this.messages)
             this.day = true;
-            this.status = 'day'
-            socket.emit('room status', 'day')
+            this.setStatus('day')
             setTimeout(this.scrollToEnd, 100);
             console.log(this.dayTime)
             if(this.dayTime <= 0){
-                socket.emit('check villager vote', this.users)
-                this.send('System', 'Night has started')
+                socket.emit('night', 30)
+                this.nightTime = 30
+                socket.emit('check vote', this.users)
+                this.messages.push({user: 'System', content: `Night has started`})
+                socket.emit('message update', this.messages)
                 this.resetData()
-                this.status = 'night'
-                this.countDownNightTime()
+                this.setStatus('night')
+                return this.countDownNightTime()
+                //socket.emit('check villager vote', this.users)
+                /*
+                this.send('System', 'Night has started')
+                socket.emit('message update', this.messages)
+                this.resetData()
+                this.setStatus('night')
+                this.countDownNightTime()*/
             }
 
             if(this.dayTime > 0){
@@ -427,9 +446,9 @@ export default {
                 return this.countDownReadyTime()
             }
             socket.emit('start', this.users)
-            this.setStatus('started')
+            this.setStatus('night')
             this.send("System", "Night has started")
-            this.countDownNightTime()
+            return this.countDownNightTime()
            
         },
         /**
@@ -509,7 +528,7 @@ export default {
             socket.emit('update user', this.users)
 
             if((this.user.isDead) || (user.isDead)) return;
-            if(this.day == false) {
+            if(this.status == 'night') {
                 if(this.user.team != 'werewolf'){
                     return;
                 }
@@ -556,7 +575,8 @@ export default {
             
             socket.emit('update user', this.users)
             if((this.user.isDead) || (user.isDead)) return;
-            if(this.day) {
+            if(user.username == this.user.username) return;
+            if(this.status == 'day') {
                 console.log('you just voted this person')
                 if(this.hasVote == true) {
                     if(user.username == this.usersGetVote) {
@@ -593,7 +613,7 @@ export default {
                 
                 
             }
-            return;
+            
         }, 
 
         

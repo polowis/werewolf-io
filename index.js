@@ -170,19 +170,17 @@ io.on('connection', function(socket){
         io.emit('day time', time)
     })
 
+    socket.on('day', (time) => {
+        io.emit('day', time)
+    })
+
+    socket.on('night', (time) => {
+        io.emit('night', time)
+    })
+
     socket.on('start', (data) => {
         let users = new Game(data)
-        /*
-        client.get("rooms", function(err, value){
-            if(err) throw err;
-            let data = JSON.parse(value)
-            for(let i = 0; i < data.length; i++){
-                if(data[i].name == "defaultRoom"){
-                    data[i].users = users.players
-                }
-            }
-            client.set("rooms", JSON.stringify(data))
-        })*/
+        
         io.emit('ready', users.players)
     })
 
@@ -208,6 +206,7 @@ io.on('connection', function(socket){
     })
 
     socket.on('room status', (status) =>{
+        
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
@@ -223,6 +222,7 @@ io.on('connection', function(socket){
 
 
     socket.on('message update', (msg) =>{
+        
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
