@@ -14,7 +14,7 @@
     <footer><button @click.prevent="join()">Join the game</button></footer>
 </div>
 <div class="row align-items-center" v-if="this.status == 'starting'">
-    <div style="position: relative; margin: auto; color:white;">{{this.readyTime}}</div>
+    <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
 </div>
 <div class="row align-items-center" v-if="this.status == 'night'">
     <div style="position: relative; margin: auto; padding-top: 20px; color:white;">{{this.nightTime}}</div>
@@ -120,9 +120,18 @@
 			            <div class="elementor-column-wrap  elementor-element-populated" style="overflow: scroll; height: 400px;" id="messageBox">
 				            <div class="elementor-widget-wrap">
 				                <div class="elementor-element elementor-element-dc76e15 elementor-widget elementor-widget-text-editor" data-id="dc76e15" data-element_type="widget" data-widget_type="text-editor.default">
-				                    <div class="elementor-widget-container">
+				                    <div class="elementor-widget-container" v-if="status == 'day'">
+                                        
+					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages"  :key="message.content">
+                                            <div v-if="message.user.startsWith('Werewolf') == false">
+                                            <b  :style="{'color': message.user == 'System' ? 'red' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
+                                            </div>
+                                        </div>
+				                    </div>
+                                    <div class="elementor-widget-container" v-if="status == 'night' && user.team == 'werewolf'">
 					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.content">
-                                            <b :style="{'color': message.user == 'System' ? 'red' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
+
+                                            <b :style="{'color': message.user.startsWith('Werewolf') || message.user.startsWith('System') ? 'grey' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
                                             
                                         </div>
 				                    </div>
@@ -148,7 +157,7 @@
                                                             <div class="elementor-widget-container">
                                                                 <div class="elementor-icon-wrapper">
                                                                     <div class="elementor-icon">
-                                                                        <i aria-hidden="true" @click.prevent="sendMessage()" style="color: white;" class="fas fa-arrow-alt-circle-right"></i>			
+                                                                        <i aria-hidden="true" @click.prevent="status == 'day' ? sendMessage() : sendWolfMessage()" style="color: white;" class="fas fa-arrow-alt-circle-right"></i>			
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -465,11 +474,24 @@ export default {
             socket.emit('room status', status)
         },
 
+        sendWolfMessage(){
+            if(this.user.team != 'werewolf') return;
+            if(this.user.isDead) return;
+            this.messageContent = document.getElementById('message-content').textContent
+            if(this.messageContent.length > 1){
+                this.messages.push({user: `Werewolf ${this.user.username}`, content: this.messageContent})
+                document.getElementById('message-content').textContent = ''
+                socket.emit('message update', this.messages)
+                setTimeout(this.scrollToEnd, 100);
+            }
+        },
+
         sendMessage(){
             /**
              * Grab text message from input, than fire the event message
              * 
              */
+            if(this.status == 'night' && this.user.team != 'werewolf') return;
             if(this.user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
