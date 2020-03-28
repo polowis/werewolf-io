@@ -201,6 +201,8 @@ import * as role from '../role.js'
 export default {
     data(){
         return {
+            abilityUsedTime: 0,
+            abilityActivate: false,
             hasVote: false,
             usersGetVote: '',
             roomName: 'defaultRoom',
@@ -220,7 +222,8 @@ export default {
                 role: '',
                 ready: true,
                 vote: 0,
-                team: ''
+                team: '',
+                isMuted: false
             },
             users: [],
             status: 'not started',
