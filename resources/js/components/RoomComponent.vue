@@ -180,7 +180,7 @@
   </thead>
   <tbody>
     <tr v-for="player in users" :key="player.username">
-      <td style="color: white;">{{player.username}}</td>
+      <td :style="{'color': usersGetVote == player.username ? 'red' : 'white'}" :id="player.username" @click.prevent="activate(player)">{{player.username}}</td>
       <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="status == 'night' ? nightVote(player) : dayVote(player)"></i></td>
       <td v-if="user.team == 'werewolf' && day == false">{{player.vote}}</td>
       <td v-if="(player.username == user.username) || (player.team == user.team && user.team == 'werewolf')"><i :style="{'color': abilityActivate == true ? 'red' : 'white'}" :class="getRoleIconById(player.role)" @click.prevent="useAbility(player)"></i></td> 
@@ -210,6 +210,8 @@ import * as role from '../role.js'
 export default {
     data(){
         return {
+            dayUsedAbility: false,
+            nightUsedAbility: false,
             abilityUsedTime: 0,
             abilityActivate: false,
             hasVote: false,
@@ -271,6 +273,12 @@ export default {
             this.fetchRole()
 
         })
+        socket.on('seer-ability', (res) => {
+            if(this.user.role == 'seer'){
+                document.getElementById(res.targetName).innerHTML = res.targetRole
+                this.sleep(2000).then(() => {  document.getElementById(res.targetName).innerHTML = res.targetName});
+            }
+        })
 
         socket.on('werewolf kill', (user) => {
             if(user == null) return;
@@ -306,6 +314,9 @@ export default {
     },
     
     methods: {
+        sleep(ms) {
+           return new Promise(resolve => setTimeout(resolve, ms));
+        },
         getRoleNameById(id){
             return role.getRoleNameById(id)
         },
@@ -329,7 +340,7 @@ export default {
             }
             if(user.username != this.user.username) return;
             if(this.user.isDead || this.user.isMuted) return;
-            if(role.canUseAbility(this.user.role)){
+            if(role.canUseAbility(this.user.role, this.abilityUsedTime, this.status)){
                 this.abilityActivate = true
             }
 
@@ -337,6 +348,10 @@ export default {
 
         activate(user){
             if(this.abilityActivate == false) return;
+            this.abilityUsedTime += 1
+            this.abilityActivate = false
+            
+            socket.emit('use ability', {role: this.user.role, target: user, users: this.users})
         },
         join(){
             axios.get('/rooms').then(response => {
@@ -624,7 +639,7 @@ export default {
                     }
                 }
                 this.usersGetVote = user.username
-                
+
                 if(this.user.role == 'alphawerewolf'){
                     user.vote += 2
                 } else{
@@ -694,6 +709,8 @@ export default {
             this.hasVote = false;
             this.usersGetVote = ''
             this.abilityActivate = false;
+            this.dayUsedAbility = false;
+            this.nightUsedAbility = false;
             socket.emit('update user', this.users)
         }
         

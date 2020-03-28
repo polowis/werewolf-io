@@ -10,7 +10,8 @@ const ROLES = [
 		icon : 'fas fa-paw',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
 	},
 	{
 		id: 'werewolf',
@@ -22,7 +23,8 @@ const ROLES = [
 		icon: 'fas fa-paw',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
 	},
 	{
 		id: 'alphawerewolf',
@@ -35,7 +37,8 @@ const ROLES = [
 		icon: 'fab fa-wolf-pack-battalion',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
 	},
 	{
 		id: 'wolfman',
@@ -49,8 +52,9 @@ const ROLES = [
 		icon : 'fas fa-eye-slash',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
-	},
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
+	},   
 	{
 		id: 'seer',
 		name: 'Seer',
@@ -62,7 +66,8 @@ const ROLES = [
 		icon : 'fas fa-eye',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 3
+		numberOfTimeCanUseAbility: 3,
+		nightUsedAbility: true
 	},
 	{
 		id: 'witch',
@@ -76,7 +81,8 @@ const ROLES = [
 		icon: "fas fa-hat-wizard",
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 1
+		numberOfTimeCanUseAbility: 1,
+		nightUsedAbility: true,
 	},
 	{
 		id: 'hunter',
@@ -89,7 +95,8 @@ const ROLES = [
 		icon: 'fas fa-hat-cowboy',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 1
+		numberOfTimeCanUseAbility: 1,
+		nightUsedAbility: false
 	},
 	{
 		id: 'priest',
@@ -102,7 +109,8 @@ const ROLES = [
 		icon: 'fas fa-tint',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 3
+		numberOfTimeCanUseAbility: 3,
+		nightUsedAbility: true
 	},
 	{
 		id: 'bodyguard',
@@ -115,7 +123,8 @@ const ROLES = [
 		icon: 'fas fa-shield-alt',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 2
+		numberOfTimeCanUseAbility: 2,
+		nightUsedAbility: false
 	},
 	{
 		id: 'martyr',
@@ -128,7 +137,8 @@ const ROLES = [
 		icon: 'fas fa-skull',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 1
+		numberOfTimeCanUseAbility: 1,
+		nightUsedAbility: false
 	},
 	{
 		id: 'village',
@@ -141,7 +151,8 @@ const ROLES = [
 		icon: 'fas fa-crown',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
 	},
 	{
 		id: 'ghost',
@@ -154,7 +165,8 @@ const ROLES = [
 		icon: 'fas fa-ghost',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: true
 	},
 	{
 		id: 'spellcaster',
@@ -167,7 +179,8 @@ const ROLES = [
 		icon: 'fas fa-comment-slash',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 2
+		numberOfTimeCanUseAbility: 2,
+		nightUsedAbility: true
 	},
 	{
 		id: 'villager',
@@ -179,7 +192,8 @@ const ROLES = [
 		icon: 'fas fa-user',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
 	},
 	{
 		id: 'lycan',
@@ -192,7 +206,8 @@ const ROLES = [
 		icon: 'fas fa-low-vision',
 		roleNumber: 1,
 		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0
+		numberOfTimeCanUseAbility: 0,
+		nightUsedAbility: false
 	},
 	{
 		id: 'cupid',
@@ -205,7 +220,8 @@ const ROLES = [
 		icon: 'fas fa-heart-broken',
 		roleNumber: 1,
 		hasActiveAbility: true,
-		numberOfTimeCanUseAbility: 1
+		numberOfTimeCanUseAbility: 1,
+		nightUsedAbility: false
 	},
 ];
 

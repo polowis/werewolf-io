@@ -14,6 +14,7 @@ const cors = require('cors')
 const port = process.env.PORT || 3000;
 const indexRoute = require('./routes/index');
 const {Game} = require('./logic/index')
+const {Ability} = require('./logic/ability')
 const redisAdapter = require('socket.io-redis');
 const redis = require('redis');
 const client = redis.createClient()
@@ -161,6 +162,12 @@ function checkAlivePlayers(users){
     }
 }
 
+function useRoleAbility(roleName, target, users){
+    if(roleName == 'seer'){
+        let res = Ability.useSeerAbility(users, target)
+        io.emit('seer-ability', res)
+    }
+}
 
 io.on('connection', function(socket){
     socket.on('disconnect', () =>{
@@ -227,6 +234,11 @@ io.on('connection', function(socket){
         let users = new Game(data)
         
         io.emit('ready', users.players)
+    })
+
+    socket.on('use ability', (data) => {
+        return useRoleAbility(data.role, data.target, data.users)
+
     })
 
     socket.on('join', (data) => {
