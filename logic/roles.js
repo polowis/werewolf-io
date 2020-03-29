@@ -141,8 +141,8 @@ const ROLES = [
 		nightUsedAbility: false
 	},
 	{
-		id: 'village',
-		name: 'Village Idiot',
+		id: 'fool',
+		name: 'Fool',
 		desc: 'Always vote for players to die.',
 		value: 11,
 		isUnique: true,
