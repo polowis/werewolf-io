@@ -10,8 +10,12 @@
         <div class="row align-items-center">
             <div class="col"><input class="form-control"  type="text" v-model="username" style="width: 200px; position: relative; margin: auto;" placeholder="What's your name?" id="username" name="username" /></div>
         </div>
+        
     </form>
+    
     <footer><button @click.prevent="join()">Join the game</button></footer>
+    <br>
+    <LoaderComponent v-if="loading == true"></LoaderComponent>
 </div>
 <div class="row align-items-center" v-if="this.status == 'starting'">
     <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
@@ -49,7 +53,7 @@
                                         </div>
 				                    </div>
                                     <div class="elementor-widget-container" v-if="status == 'night' && user.team == 'werewolf'">
-					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.content">
+					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.id">
 
                                             <b :style="{'color': message.user.startsWith('Werewolf') || message.user.startsWith('System') ? 'grey' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
                                             
@@ -127,10 +131,16 @@
 <script>
 
 import * as role from '../role.js'
+import LoaderComponent from './LoaderComponent'
+import * as util from '../util.js'
 
 export default {
+    components:{
+        LoaderComponent
+    },
     data(){
         return {
+            loading: false,
             days: 1,
             alreadyUsedAbility: 0,
             dayUsedAbility: false,
@@ -167,38 +177,53 @@ export default {
         }
     },
     created(){
+        socket.on('fetch data', (data) => {
+            this.users =  data.users;
+            this.messages = data.messages;
+            this.status = data.status;
+            
+        })
+
         socket.on('update user', (users) => {
-            this.users = users
-            console.log(this.users)
+            if(this.user.username.length <= 1) return;
+            this.users = users;
+            
         })
 
         socket.on('ready time', (time) => {
+            if(this.user.username.length <= 1) return;
             this.readyTime = time;
         })
 
         socket.on('night time', (time) => {
+            if(this.user.username.length <= 1) return;
             this.nightTime = time;
         })
 
         socket.on('day time', (time) => {
+            if(this.user.username.length <= 1) return;
             this.dayTime = time;
         })
 
         socket.on('new user', (data) =>{
+            
             this.users = data.users
             this.users.push(data.user)
         })
 
         socket.on('room status', (status) =>{
+            if(this.user.username.length <= 1) return;
             this.status = status
         })
 
         socket.on('ready', (users) =>{
+            if(this.user.username.length <= 1) return;
             this.users = users
             this.fetchRole()
 
         })
         socket.on('seer-ability', (res) => {
+            if(this.user.username.length <= 1) return;
             if(this.user.role == 'seer'){
                 document.getElementById(res.targetName).innerHTML = res.targetRole
                 this.sleep(2000).then(() => {  document.getElementById(res.targetName).innerHTML = res.targetName});
@@ -206,6 +231,7 @@ export default {
         })
 
         socket.on('werewolf kill', (user) => {
+            if(this.user.username.length <= 1) return;
             if(user == null) return;
             if(this.user.username == user){
                 this.user.isDead = true;
@@ -216,28 +242,33 @@ export default {
         })
 
         socket.on('day', (time)=>{
+            if(this.user.username.length <= 1) return;
             this.dayTime = time
         })
 
         socket.on('days', (day)=> {
+            if(this.user.username.length <= 1) return;
             this.days = day 
             this.send('System', `Day ${this.days}`)
         })
 
         socket.on('night', (time) => {
+            if(this.user.username.length <= 1) return;
             this.nightTime = time
         })
 
         socket.on('message update', (msg) =>{
+            if(this.user.username.length <= 1) return;
             this.messages = msg
             setTimeout(this.scrollToEnd, 100);
         })
         socket.on('message to player with highest vote', (userWithHighestVote) => {
+            if(this.user.username.length <= 1) return;
             if(userWithHighestVote == null) return;
             if(this.user.username == userWithHighestVote){
                 this.user.isDead = true;
                 document.querySelector('body').style.filter = 'grayscale(80%)'
-                this.messages.push({user: 'System', content: `${this.user.username} was executed by the villagers`})
+                this.messages.push({id: util.generateId(), user: 'System', content: `${this.user.username} was executed by the villagers`})
                 socket.emit('message update', this.messages)
             }
         })
@@ -285,49 +316,50 @@ export default {
         },
 
         join(){
-            axios.get('/rooms').then(response => {
-                let data = response.data
-                for(let i = 0; i < data.length; i++){
-                    if(data[i].name == this.roomName){
-                        this.users = data[i].users
-                        this.messages = data[i].messages
-                        this.status = data[i].status
-                    }
-                }
-            })
+            
+            this.loading = true
+            socket.emit('fetch data')
             if(this.users.length == 16){
                 return;
             }
-            this.user.username = this.username
+           
             this.user.socketId = socket.id
-            for(let i = 0; i < this.users.length; i++){
-                if(this.users[i].username == this.user.username){
+            this.sleep(2000).then(() => {  
+                this.loading = false
+                for(let i = 0; i < this.users.length; i++){
+                if(this.users[i].username == this.username){
                     this.user.username = ''
+                    this.username = ''
+                    alert('username taken')
+                    return;
+                    }
+                }
+                this.user.username = this.username
+                if(this.status != 'not started'){
+                    this.user.username = ''
+                    this.username = ''
+                    alert('game has started')
                     return;
                 }
-            }
-            if(this.status != 'not started'){
-                console.log('game has started')
-                return;
-            }
 
-            if(this.username.length <= 1){
+                if(this.username.length <= 1){
+                    this.user.username = ''
+                    this.username = ''
                 return;
-            }
+                }
            
-            this.users.push(this.user)
             
 
-            socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
-            socket.emit('update user', this.users)
-            this.send("System", `${this.user.username} has joined`)
+                socket.emit('join', {roomName: this.roomName, users: this.user, messages: this.messages, status: this.status})
             
-
+                this.send("System", `${this.user.username} has joined`)
+            });
+            /*
             
-
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
-            }
+            }*/
+            
             
         },
 
@@ -362,8 +394,7 @@ export default {
                 socket.emit('day', 30)
                 this.dayTime = 30
                 socket.emit('check werewolf vote', this.users)
-                this.messages.push({user: 'System', content: `Day has started`})
-                socket.emit('message update', this.messages)
+                this.send('System', 'Day has started')
                 this.resetData()
                 this.setStatus('day')
                 return this.countDownDayTime()
@@ -398,8 +429,7 @@ export default {
                 socket.emit('night', 30)
                 this.nightTime = 30
                 socket.emit('check vote', this.users)
-                this.messages.push({user: 'System', content: `Night has started`})
-                socket.emit('message update', this.messages)
+                this.send('System', 'Night has started')
                 this.resetData()
                 this.setStatus('night')
                 return this.countDownNightTime()
@@ -440,7 +470,7 @@ export default {
          * Send and update messages
          */
         send(author, msg){
-            this.messages.push({user: author, content: msg})
+            this.messages.push({id: util.generateId() ,user: author, content: msg})
             socket.emit('message update', this.messages)
             setTimeout(this.scrollToEnd, 100);
         },
@@ -455,7 +485,7 @@ export default {
             if(this.user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
-                this.messages.push({user: `Werewolf ${this.user.username}`, content: this.messageContent})
+                this.messages.push({id: util.generateId(), user: `Werewolf ${this.user.username}`, content: this.messageContent})
                 document.getElementById('message-content').textContent = ''
                 socket.emit('message update', this.messages)
                 setTimeout(this.scrollToEnd, 100);
@@ -471,7 +501,7 @@ export default {
             if(this.user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
-                this.messages.push({user: this.user.username, content: this.messageContent})
+                this.messages.push({id: util.generateId(), user: this.user.username, content: this.messageContent})
                 document.getElementById('message-content').textContent = ''
                 socket.emit('message update', this.messages)
                 setTimeout(this.scrollToEnd, 100);

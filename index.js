@@ -70,6 +70,11 @@ function getModel(){
     })
 }
 function updateRoom(roomDetails, roomName="defaultRoom"){
+    let room = rooms.find(x => x.name == roomName);
+    room.users.push(roomDetails.users)
+    room.status = roomDetails.status
+
+    /*
     client.get("rooms", function(err, value){
         if(err) throw err;
         let data = JSON.parse(value)
@@ -81,7 +86,7 @@ function updateRoom(roomDetails, roomName="defaultRoom"){
             }
         }
         client.set("rooms", JSON.stringify(data))
-    })
+    })*/
 }
 
 function checkWereWolfVote(users){
@@ -138,8 +143,16 @@ function checkAlivePlayers(users){
     }
     console.log('user with highest vote', userWithHighestVote)
     console.log('number of vote: ', highestVote)
-
+    
     if(highestVote > aliveUsers.length / 2 ){
+        let users = rooms.find(roomName => roomName.name == 'defaultRoom').users
+        for(let i = 0; i < users.length; i++){
+            if(users[i].username == userWithHighestVote){
+                if(users[i].isProtected) return;
+                users[i].isDead = true
+            }
+        }
+        /*
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
@@ -155,7 +168,7 @@ function checkAlivePlayers(users){
                 }
             }
             client.set("rooms", JSON.stringify(data))
-        })
+        })*/
         return userWithHighestVote;
     } else{
         return null;
@@ -171,6 +184,17 @@ function useRoleAbility(roleName, target, users){
 
 io.on('connection', function(socket){
     socket.on('disconnect', () =>{
+        for(let i = 0; i < rooms.length; i++){
+            let users = rooms[i].users
+            for(let j = 0; j < users.length; j++){
+                users.splice(users.indexOf(socket.id), 1)
+            }
+            if(users.length == 0){
+                rooms[i].messages = []
+                rooms[i].status = 'not started'
+            }
+        }
+        /*
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value);
@@ -183,11 +207,16 @@ io.on('connection', function(socket){
                 }
             }
             client.set("rooms", JSON.stringify(data))
-        })
+        })*/
         
         
         
         
+    })
+
+    socket.on('fetch data', function(){
+        let room = rooms.find(room => room.name == 'defaultRoom')
+        socket.emit('fetch data', {users: room.users, message: room.messages, status: room.status})
     })
 
     socket.on('days', (day) => {
@@ -247,9 +276,15 @@ io.on('connection', function(socket){
     })
 
     socket.on('join', (data) => {
-    
+        
         socket.join(data.roomName)
         updateRoom(data)
+        let players =  rooms.find(roomName => roomName.name == data.roomName).users
+        let messages = rooms.find(roomName => roomName.name == data.roomName).messages
+        
+        io.emit('update user', rooms.find(roomName => roomName.name == data.roomName).users)
+        io.emit('message update', rooms.find(roomName => roomName.name == data.roomName).messages)
+        /*
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
@@ -259,7 +294,7 @@ io.on('connection', function(socket){
                 }
             }
             
-        })
+        })*/
         
     })
 
@@ -268,7 +303,8 @@ io.on('connection', function(socket){
     })
 
     socket.on('room status', (status) =>{
-        
+        rooms.find(x => x.status).status = status
+        /*
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
@@ -278,13 +314,14 @@ io.on('connection', function(socket){
                 }
             }
             client.set("rooms", JSON.stringify(data))
-        })
+        })*/
         io.emit('room status', status)
     })
 
 
     socket.on('message update', (msg) =>{
-        
+        rooms.find(x => x.name == 'defaultRoom').messages = msg
+        /** 
         client.get("rooms", function(err, value){
             if(err) throw err;
             let data = JSON.parse(value)
@@ -294,7 +331,7 @@ io.on('connection', function(socket){
                 }
             }
             client.set("rooms", JSON.stringify(data))
-        })
+        })*/
         io.emit('message update', msg)
     })
   });
