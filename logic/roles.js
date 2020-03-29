@@ -1,17 +1,17 @@
 const ROLES = [
 	{
-		id: 'lonewolf',
-		name: 'Lone Wolf',
-		desc: 'You are a werewolf, but you only win if you are the last wolf team member alive.',
+		id: 'wolfseer',
+		name: 'Wolf Seer',
+		desc: 'Each night you can select player to uncover their role',
 		value: 1,
 		isUnique: true,
 		isWolf: true,
         requiredTeamRoles: ['werewolf'],
-		icon : 'fas fa-paw',
+		icon : 'fas fa-low-vision',
 		roleNumber: 1,
-		hasActiveAbility: false,
-		numberOfTimeCanUseAbility: 0,
-		nightUsedAbility: false
+		hasActiveAbility: true,
+		numberOfTimeCanUseAbility: 10,
+		nightUsedAbility: true
 	},
 	{
 		id: 'werewolf',
