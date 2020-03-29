@@ -32,92 +32,12 @@
 <div v-if="this.user.username.length >= 2" data-elementor-type="wp-page" data-elementor-id="2042" class="elementor elementor-2042" data-elementor-settings="[]">
 			<div class="elementor-inner">
 				<div class="elementor-section-wrap">
-					<section style="opacity: 0" class="elementor-element elementor-element-01b3345 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="01b3345" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-						<div class="elementor-container elementor-column-gap-wider">
-				            <div class="elementor-row">
-				                <div class="elementor-element elementor-element-9ab55e3 elementor-column elementor-col-20 elementor-top-column" data-id="9ab55e3" data-element_type="column">
-			                        <div class="elementor-column-wrap  elementor-element-populated">
-					                    <div class="elementor-widget-wrap">
-				                            <div class="elementor-element elementor-element-fc5ba15 elementor-view-default elementor-widget elementor-widget-icon" data-id="fc5ba15" data-element_type="widget" data-widget_type="icon.default">
-				                                <div class="elementor-widget-container">
-					                                <div class="elementor-icon-wrapper">
-			                                            <div class="elementor-icon">
-			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>			
-                                                        </div>
-		                                            </div>
-				                                </div>
-				                            </div>
-						                </div>
-			                        </div>
-		                        </div>
-				                <div class="elementor-element elementor-element-383cd08 elementor-column elementor-col-20 elementor-top-column" data-id="383cd08" data-element_type="column">
-			                        <div class="elementor-column-wrap  elementor-element-populated">
-					                    <div class="elementor-widget-wrap">
-				                            <div class="elementor-element elementor-element-f2e64b3 elementor-view-default elementor-widget elementor-widget-icon" data-id="f2e64b3" data-element_type="widget" data-widget_type="icon.default">
-				                                <div class="elementor-widget-container">
-					                                <div class="elementor-icon-wrapper">
-			                                            <div class="elementor-icon">
-			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>			
-                                                        </div>
-		                                            </div>
-				                                </div>
-				                            </div>
-						                </div>
-			                        </div>
-		                        </div>
-				                <div class="elementor-element elementor-element-4818837 elementor-column elementor-col-20 elementor-top-column" data-id="4818837" data-element_type="column">
-			                        <div class="elementor-column-wrap  elementor-element-populated">
-					                    <div class="elementor-widget-wrap">
-				                            <div class="elementor-element elementor-element-85ecb53 elementor-view-default elementor-widget elementor-widget-icon" data-id="85ecb53" data-element_type="widget" data-widget_type="icon.default">
-				                                <div class="elementor-widget-container">
-					                                <div class="elementor-icon-wrapper">
-			                                            <div class="elementor-icon">
-			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>		
-                                                        </div>
-		                                            </div>
-				                                </div>
-				                            </div>
-						                </div>
-			                        </div>
-		                        </div>
-				                <div class="elementor-element elementor-element-e7024d0 elementor-column elementor-col-20 elementor-top-column" data-id="e7024d0" data-element_type="column">
-			                        <div class="elementor-column-wrap  elementor-element-populated">
-					                    <div class="elementor-widget-wrap">
-				                            <div class="elementor-element elementor-element-d0cf4dc elementor-view-default elementor-widget elementor-widget-icon" data-id="d0cf4dc" data-element_type="widget" data-widget_type="icon.default">
-				                                <div class="elementor-widget-container">
-					                                <div class="elementor-icon-wrapper">
-			                                            <div class="elementor-icon">
-			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>			
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-				                <div class="elementor-element elementor-element-1d7b1eb elementor-column elementor-col-20 elementor-top-column" data-id="1d7b1eb" data-element_type="column">
-			                        <div class="elementor-column-wrap  elementor-element-populated">
-					                    <div class="elementor-widget-wrap">
-				                            <div class="elementor-element elementor-element-0401f7b elementor-view-default elementor-widget elementor-widget-icon" data-id="0401f7b" data-element_type="widget" data-widget_type="icon.default">
-				                                <div class="elementor-widget-container">
-					                                <div class="elementor-icon-wrapper">
-			                                            <div class="elementor-icon">
-			                                                <i aria-hidden="true" class="fas fa-sync-alt"></i>		
-                                                        </div>
-		                                            </div>
-				                                </div>
-				                            </div>
-						                </div>
-			                        </div>      
-                                </div>
-				            </div>
-			            </div>
-		        </section>
+					
         <section class="elementor-element elementor-element-9103471 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-section elementor-top-section" data-id="9103471" data-element_type="section">
 			<div class="elementor-container elementor-column-gap-default">
 				<div class="elementor-row">
 				    <div class="elementor-element elementor-element-912cdb9 elementor-column elementor-col-50 elementor-top-column" data-id="912cdb9" data-element_type="column">
-			            <div class="elementor-column-wrap  elementor-element-populated" style="overflow: scroll; height: 400px;" id="messageBox">
+			            <div class="elementor-column-wrap  elementor-element-populated" style="overflow: scroll; height: 400px; border-color: white;" id="messageBox">
 				            <div class="elementor-widget-wrap">
 				                <div class="elementor-element elementor-element-dc76e15 elementor-widget elementor-widget-text-editor" data-id="dc76e15" data-element_type="widget" data-widget_type="text-editor.default">
 				                    <div class="elementor-widget-container" v-if="status == 'day'">
@@ -139,7 +59,7 @@
 						                <div class="elementor-container elementor-column-gap-default">
 				                            <div class="elementor-row">
 				                                <div class="elementor-element elementor-element-4412d6a elementor-column elementor-col-50 elementor-inner-column" data-id="4412d6a" data-element_type="column">
-			                                        <div class="elementor-column-wrap  elementor-element-populated">
+			                                        <div class="elementor-column-wrap  elementor-element-populated" style="border-color: white;">
 					                                    <div class="elementor-widget-wrap">
 				                                            <div class="elementor-element elementor-element-4b40aeb elementor-widget elementor-widget-text-editor" data-id="4b40aeb" data-element_type="widget" data-widget_type="text-editor.default">
 				                                                <div class="elementor-widget-container">
@@ -238,7 +158,8 @@ export default {
                 vote: 0,
                 team: '',
                 isMuted: false,
-                isProtected: false
+                isProtected: false,
+                isDraggedByHunter: false
             },
             users: [],
             status: 'not started',

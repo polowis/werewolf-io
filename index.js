@@ -39,7 +39,7 @@ const rooms = [{
     status: "not started"
 }]
 client.set("rooms", JSON.stringify(rooms))
-
+ 
 app.use('/', indexRoute);
 app.use(express.json())
 app.use(express.urlencoded({extended: false}));
@@ -189,7 +189,7 @@ io.on('connection', function(socket){
         
         
     })
-    
+
     socket.on('days', (day) => {
         io.emit('days', day)
     })
