@@ -315,29 +315,20 @@ export default {
         },
 
         join(){
-            /*
-            axios.get('/rooms').then(response => {
-                let data = response.data
-                for(let i = 0; i < data.length; i++){
-                    if(data[i].name == this.roomName){
-                        this.users = data[i].users
-                        this.messages = data[i].messages
-                        this.status = data[i].status
-                    }
-                }
-            })*/
+            
             this.loading = true
             socket.emit('fetch data')
             if(this.users.length == 16){
                 return;
             }
-            //this.user.username = this.username
+           
             this.user.socketId = socket.id
             this.sleep(2000).then(() => {  
                 this.loading = false
                 for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].username == this.username){
                     this.user.username = ''
+                    this.username = ''
                     alert('username taken')
                     return;
                     }
@@ -359,32 +350,7 @@ export default {
                 this.send("System", `${this.user.username} has joined`)
             });
             /*
-            for(let i = 0; i < this.users.length; i++){
-                if(this.users[i].username == this.user.username){
-                    
-                    this.user.username = ''
-                    return;
-                }
-            }
-            if(this.status != 'not started'){
-                console.log('game has started')
-                return;
-            }
-
-            if(this.username.length <= 1){
-                return;
-            }
-           
-            //this.users.push(this.user)
             
-
-            socket.emit('join', {roomName: this.roomName, users: this.user, messages: this.messages, status: this.status})
-            //socket.emit('update user', this.users)
-            this.send("System", `${this.user.username} has joined`)
-            
-
-            
-            /*
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
             }*/
