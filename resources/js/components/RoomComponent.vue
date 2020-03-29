@@ -16,8 +16,9 @@
     <footer><button @click.prevent="join()">Join the game</button></footer>
     <br>
     <LoaderComponent v-if="loading == true"></LoaderComponent>
-    <GameOverComponent v-if="gameover" :team="teamWin"></GameOverComponent>
+    
 </div>
+<GameOverComponent v-if="gameover" :team="teamWin"></GameOverComponent>
 <div class="row align-items-center" v-if="this.status == 'starting'">
     <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
 </div>
@@ -326,6 +327,10 @@ export default {
 
         },
 
+        checkWinCondition(){
+            socket.emit('check win condition', this.users)
+        },
+
         activate(user){
             if(this.abilityActivate == false || this.user.username == user.username) return;
             this.abilityUsedTime += 1
@@ -410,6 +415,7 @@ export default {
             
             console.log(this.nightTime)
             if(this.nightTime <= 0){
+                this.checkWinCondition()
                 socket.emit('day', 30)
                 this.dayTime = 30
                 socket.emit('check werewolf vote', this.users)
@@ -443,6 +449,8 @@ export default {
             
             console.log(this.dayTime)
             if(this.dayTime <= 0){
+                this.checkWinCondition()
+                
                 this.days += 1
                 socket.emit('days', this.days)
                 socket.emit('night', 30)

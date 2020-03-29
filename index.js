@@ -150,6 +150,28 @@ function useRoleAbility(roleName, target, users){
     }
 }
 
+function checkWinCondition(users){
+    let aliveWereWolf = []
+    let aliveVillager = []
+    for (let i = 0; i < users.length; i++) {
+        if(users[i].isDead == false){
+            if(users[i].team == 'werewolf') {
+                aliveWereWolf.push(users[i])
+            }else {
+                aliveVillager.push(users[i])
+            }
+        }
+    }
+    if(aliveWereWolf.length > aliveVillager.length) {
+        
+        io.emit('game over', 'werewolf')
+    }
+    if(aliveVillager.length > aliveWereWolf.length){
+        io.emit('game over', 'villager')
+    }
+
+}
+
 io.on('connection', function(socket){
     socket.on('disconnect', () =>{
         for(let i = 0; i < rooms.length; i++){
@@ -242,6 +264,10 @@ io.on('connection', function(socket){
     socket.on('use ability', (data) => {
         return useRoleAbility(data.role, data.target, data.users)
 
+    })
+
+    socket.on('check win condition', (users) => {
+        return checkWinCondition(users)
     })
 
     socket.on('join', (data) => {
