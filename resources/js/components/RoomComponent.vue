@@ -222,9 +222,18 @@ export default {
             this.fetchRole()
 
         })
+
         socket.on('seer-ability', (res) => {
             if(this.user.username.length <= 1) return;
             if(this.user.role == 'seer'){
+                document.getElementById(res.targetName).innerHTML = res.targetRole
+                this.sleep(2000).then(() => {  document.getElementById(res.targetName).innerHTML = res.targetName});
+            }
+        })
+
+        socket.on('wolfseer-ability', (res) => {
+            if(this.user.username.length <= 1) return;
+            if(this.user.role == 'wolfseer'){
                 document.getElementById(res.targetName).innerHTML = res.targetRole
                 this.sleep(2000).then(() => {  document.getElementById(res.targetName).innerHTML = res.targetName});
             }
@@ -308,7 +317,7 @@ export default {
         },
 
         activate(user){
-            if(this.abilityActivate == false) return;
+            if(this.abilityActivate == false || this.user.username == user.username) return;
             this.abilityUsedTime += 1
             this.abilityActivate = false
             this.alreadyUsedAbility += this.days

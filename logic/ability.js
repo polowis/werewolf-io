@@ -7,6 +7,12 @@ class Ability{
      */
     static useSeerAbility(userslist, target){
         let role = userslist.find(user => user.username == target.username).role
+        if(role == 'wolfman'){
+            return { targetRole: 'villager', targetName: target.username}
+        }
+        else if(role == 'lycan'){
+            return {targetRole: 'werewolf', targetName: target.username}
+        }
         return { targetRole: role == 'wolfman' ? 'villager' : role, targetName: target.username}
     }
 
@@ -30,6 +36,10 @@ class Ability{
     static useWolfSeerAbility(userslist, target){
         let role = userslist.find(user => user.username == target.username).role
         return { targetRole: role, targetName: target.username}
+    }
+
+    static useBodyGuardAbility(userslist, target){
+        userslist.find(user => user.username == target.username).isProtected = true
     }
 
 }

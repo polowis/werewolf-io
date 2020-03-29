@@ -91,7 +91,6 @@ function updateRoom(roomDetails, roomName="defaultRoom"){
 
 function checkWereWolfVote(users){
     let numberOfAliveWerewolf = 0
-    let aliveUsers = []
     let userWithHighestVote;
     let highestVote = 0
     for(let i = 0; i < users.length; i++){
@@ -103,24 +102,16 @@ function checkWereWolfVote(users){
             userWithHighestVote = users[i].username
         }
     }
+
     console.log(userWithHighestVote)
     if(highestVote > numberOfAliveWerewolf / 2){
-        client.get("rooms", function(err, value){
-            if(err) throw err;
-            let data = JSON.parse(value)
-            for(let i = 0; i < data.length; i++){
-                if(data[i].name == "defaultRoom"){
-                    for(let j = 0; j < data[i].users.length; j++){
-                        if(data[i].users[j].username == userWithHighestVote){
-                            data[i].users[j].isDead = true
-                        }
-                    }
-                    
-                    
-                }
+        let users = rooms.find(roomName => roomName.name == 'defaultRoom').users
+        for(let i = 0; i < users.length; i++){
+            if(users[i].username == userWithHighestVote){
+                if(users[i].isProtected) return;
+                users[i].isDead = true
             }
-            client.set("rooms", JSON.stringify(data))
-        })
+        }
         return userWithHighestVote;
     } else{
         return null
@@ -152,23 +143,7 @@ function checkAlivePlayers(users){
                 users[i].isDead = true
             }
         }
-        /*
-        client.get("rooms", function(err, value){
-            if(err) throw err;
-            let data = JSON.parse(value)
-            for(let i = 0; i < data.length; i++){
-                if(data[i].name == "defaultRoom"){
-                    for(let j = 0; j < data[i].users.length; j++){
-                        if(data[i].users[j].username == userWithHighestVote){
-                            data[i].users[j].isDead = true
-                        }
-                    }
-                    
-                    
-                }
-            }
-            client.set("rooms", JSON.stringify(data))
-        })*/
+       
         return userWithHighestVote;
     } else{
         return null;
@@ -179,6 +154,14 @@ function useRoleAbility(roleName, target, users){
     if(roleName == 'seer'){
         let res = Ability.useSeerAbility(users, target)
         io.emit('seer-ability', res)
+    }
+    if(roleName == 'bodyguard'){
+        let res = Ability.useBodyGuardAbility(users, target)
+        io.emit('bodyguard-ability', res)
+    }
+    if(roleName == 'wolfseer'){
+        let res = Ability.useWolfSeerAbility(users, target)
+        io.emit('wolfseer-ability', res)
     }
 }
 
@@ -193,7 +176,9 @@ io.on('connection', function(socket){
                 rooms[i].messages = []
                 rooms[i].status = 'not started'
             }
+            io.emit('update user', users)
         }
+        
         /*
         client.get("rooms", function(err, value){
             if(err) throw err;
@@ -279,8 +264,6 @@ io.on('connection', function(socket){
         
         socket.join(data.roomName)
         updateRoom(data)
-        let players =  rooms.find(roomName => roomName.name == data.roomName).users
-        let messages = rooms.find(roomName => roomName.name == data.roomName).messages
         
         io.emit('update user', rooms.find(roomName => roomName.name == data.roomName).users)
         io.emit('message update', rooms.find(roomName => roomName.name == data.roomName).messages)
