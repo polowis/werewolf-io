@@ -16,8 +16,7 @@ const indexRoute = require('./routes/index');
 const {Game} = require('./logic/index')
 const {Ability} = require('./logic/ability')
 const redisAdapter = require('socket.io-redis');
-const redis = require('redis');
-const client = redis.createClient()
+
 require('dotenv').config()
 
 
@@ -54,19 +53,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.get('/rooms', (req, res, next)=>{
-    client.get("rooms", function(err, value){
-        if(err) throw err;
-        res.json(JSON.parse(value))
 
-    })
-})
-function getModel(){
-    client.get("rooms", function(err, value){
-        if(err) throw err;
-        return JSON.parse(value);
-    })
-}
 function updateRoom(roomDetails, roomName="defaultRoom"){
     let room = rooms.find(x => x.name == roomName);
     room.users.push(roomDetails.users)
