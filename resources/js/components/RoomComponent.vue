@@ -10,8 +10,31 @@
         <div class="row align-items-center">
             <div class="col"><input class="form-control"  type="text" v-model="username" style="width: 200px; position: relative; margin: auto;" placeholder="What's your name?" id="username" name="username" /></div>
         </div>
+        
     </form>
+    
     <footer><button @click.prevent="join()">Join the game</button></footer>
+    <br>
+    <div v-if="loading == true" class="d-flex justify-content-center" title="6" style="margin: 0, auto">
+  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+    <rect x="0" y="0" width="4" height="20" fill="#333">
+      <animate attributeName="opacity" attributeType="XML"
+        values="1; .2; 1" 
+        begin="0s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+    <rect x="7" y="0" width="4" height="20" fill="#333">
+      <animate attributeName="opacity" attributeType="XML"
+        values="1; .2; 1" 
+        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+    <rect x="14" y="0" width="4" height="20" fill="#333">
+      <animate attributeName="opacity" attributeType="XML"
+        values="1; .2; 1" 
+        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+  </svg>
+</div>
 </div>
 <div class="row align-items-center" v-if="this.status == 'starting'">
     <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
@@ -131,6 +154,7 @@ import * as role from '../role.js'
 export default {
     data(){
         return {
+            loading: false,
             days: 1,
             alreadyUsedAbility: 0,
             dayUsedAbility: false,
@@ -167,38 +191,53 @@ export default {
         }
     },
     created(){
+        socket.on('fetch data', (data) => {
+            this.users =  data.users;
+            this.messages = data.messages;
+            this.status = data.status;
+            
+        })
+
         socket.on('update user', (users) => {
-            this.users = users
-            console.log(this.users)
+            if(this.user.username.length <= 1) return;
+            this.users = users;
+            
         })
 
         socket.on('ready time', (time) => {
+            if(this.user.username.length <= 1) return;
             this.readyTime = time;
         })
 
         socket.on('night time', (time) => {
+            if(this.user.username.length <= 1) return;
             this.nightTime = time;
         })
 
         socket.on('day time', (time) => {
+            if(this.user.username.length <= 1) return;
             this.dayTime = time;
         })
 
         socket.on('new user', (data) =>{
+            
             this.users = data.users
             this.users.push(data.user)
         })
 
         socket.on('room status', (status) =>{
+            if(this.user.username.length <= 1) return;
             this.status = status
         })
 
         socket.on('ready', (users) =>{
+            if(this.user.username.length <= 1) return;
             this.users = users
             this.fetchRole()
 
         })
         socket.on('seer-ability', (res) => {
+            if(this.user.username.length <= 1) return;
             if(this.user.role == 'seer'){
                 document.getElementById(res.targetName).innerHTML = res.targetRole
                 this.sleep(2000).then(() => {  document.getElementById(res.targetName).innerHTML = res.targetName});
@@ -206,6 +245,7 @@ export default {
         })
 
         socket.on('werewolf kill', (user) => {
+            if(this.user.username.length <= 1) return;
             if(user == null) return;
             if(this.user.username == user){
                 this.user.isDead = true;
@@ -216,23 +256,28 @@ export default {
         })
 
         socket.on('day', (time)=>{
+            if(this.user.username.length <= 1) return;
             this.dayTime = time
         })
 
         socket.on('days', (day)=> {
+            if(this.user.username.length <= 1) return;
             this.days = day 
             this.send('System', `Day ${this.days}`)
         })
 
         socket.on('night', (time) => {
+            if(this.user.username.length <= 1) return;
             this.nightTime = time
         })
 
         socket.on('message update', (msg) =>{
+            if(this.user.username.length <= 1) return;
             this.messages = msg
             setTimeout(this.scrollToEnd, 100);
         })
         socket.on('message to player with highest vote', (userWithHighestVote) => {
+            if(this.user.username.length <= 1) return;
             if(userWithHighestVote == null) return;
             if(this.user.username == userWithHighestVote){
                 this.user.isDead = true;
@@ -285,6 +330,7 @@ export default {
         },
 
         join(){
+            /*
             axios.get('/rooms').then(response => {
                 let data = response.data
                 for(let i = 0; i < data.length; i++){
@@ -294,14 +340,43 @@ export default {
                         this.status = data[i].status
                     }
                 }
-            })
+            })*/
+            this.loading = true
+            socket.emit('fetch data')
             if(this.users.length == 16){
                 return;
             }
-            this.user.username = this.username
+            //this.user.username = this.username
             this.user.socketId = socket.id
+            this.sleep(2000).then(() => {  
+                this.loading = false
+                for(let i = 0; i < this.users.length; i++){
+                if(this.users[i].username == this.username){
+                    this.user.username = ''
+                    alert('username taken')
+                    return;
+                    }
+                }
+                this.user.username = this.username
+                if(this.status != 'not started'){
+                    console.log('game has started')
+                    return;
+                }
+
+                if(this.username.length <= 1){
+                return;
+                }
+           
+            
+
+                socket.emit('join', {roomName: this.roomName, users: this.user, messages: this.messages, status: this.status})
+            
+                this.send("System", `${this.user.username} has joined`)
+            });
+            /*
             for(let i = 0; i < this.users.length; i++){
                 if(this.users[i].username == this.user.username){
+                    
                     this.user.username = ''
                     return;
                 }
@@ -315,19 +390,20 @@ export default {
                 return;
             }
            
-            this.users.push(this.user)
+            //this.users.push(this.user)
             
 
-            socket.emit('join', {roomName: this.roomName, users: this.users, messages: this.messages, status: this.status})
-            socket.emit('update user', this.users)
+            socket.emit('join', {roomName: this.roomName, users: this.user, messages: this.messages, status: this.status})
+            //socket.emit('update user', this.users)
             this.send("System", `${this.user.username} has joined`)
             
 
             
-
+            /*
             if(this.users.length >= this.minNumberOfPlayers){
                 this.countDownReadyTime()
-            }
+            }*/
+            
             
         },
 
@@ -651,3 +727,9 @@ export default {
     }
 }
 </script>
+<style scoped>
+svg path,
+svg rect{
+  fill: #FF6700;
+}
+</style>
