@@ -53,7 +53,7 @@
                                         </div>
 				                    </div>
                                     <div class="elementor-widget-container" v-if="status == 'night' && user.team == 'werewolf'">
-					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.content">
+					                    <div class="elementor-text-editor elementor-clearfix" style="color: white;" v-for="message in messages" :key="message.id">
 
                                             <b :style="{'color': message.user.startsWith('Werewolf') || message.user.startsWith('System') ? 'grey' : 'white'}">{{message.user}}</b>: {{message.content}}<br>
                                             
@@ -132,6 +132,7 @@
 
 import * as role from '../role.js'
 import LoaderComponent from './LoaderComponent'
+import * as util from '../util.js'
 
 export default {
     components:{
@@ -267,7 +268,7 @@ export default {
             if(this.user.username == userWithHighestVote){
                 this.user.isDead = true;
                 document.querySelector('body').style.filter = 'grayscale(80%)'
-                this.messages.push({user: 'System', content: `${this.user.username} was executed by the villagers`})
+                this.messages.push({id: util.generateId(), user: 'System', content: `${this.user.username} was executed by the villagers`})
                 socket.emit('message update', this.messages)
             }
         })
@@ -335,11 +336,15 @@ export default {
                 }
                 this.user.username = this.username
                 if(this.status != 'not started'){
-                    console.log('game has started')
+                    this.user.username = ''
+                    this.username = ''
+                    alert('game has started')
                     return;
                 }
 
                 if(this.username.length <= 1){
+                    this.user.username = ''
+                    this.username = ''
                 return;
                 }
            
@@ -389,8 +394,7 @@ export default {
                 socket.emit('day', 30)
                 this.dayTime = 30
                 socket.emit('check werewolf vote', this.users)
-                this.messages.push({user: 'System', content: `Day has started`})
-                socket.emit('message update', this.messages)
+                this.send('System', 'Day has started')
                 this.resetData()
                 this.setStatus('day')
                 return this.countDownDayTime()
@@ -425,8 +429,7 @@ export default {
                 socket.emit('night', 30)
                 this.nightTime = 30
                 socket.emit('check vote', this.users)
-                this.messages.push({user: 'System', content: `Night has started`})
-                socket.emit('message update', this.messages)
+                this.send('System', 'Night has started')
                 this.resetData()
                 this.setStatus('night')
                 return this.countDownNightTime()
@@ -467,7 +470,7 @@ export default {
          * Send and update messages
          */
         send(author, msg){
-            this.messages.push({user: author, content: msg})
+            this.messages.push({id: util.generateId() ,user: author, content: msg})
             socket.emit('message update', this.messages)
             setTimeout(this.scrollToEnd, 100);
         },
@@ -482,7 +485,7 @@ export default {
             if(this.user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
-                this.messages.push({user: `Werewolf ${this.user.username}`, content: this.messageContent})
+                this.messages.push({id: util.generateId(), user: `Werewolf ${this.user.username}`, content: this.messageContent})
                 document.getElementById('message-content').textContent = ''
                 socket.emit('message update', this.messages)
                 setTimeout(this.scrollToEnd, 100);
@@ -498,7 +501,7 @@ export default {
             if(this.user.isDead) return;
             this.messageContent = document.getElementById('message-content').textContent
             if(this.messageContent.length > 1){
-                this.messages.push({user: this.user.username, content: this.messageContent})
+                this.messages.push({id: util.generateId(), user: this.user.username, content: this.messageContent})
                 document.getElementById('message-content').textContent = ''
                 socket.emit('message update', this.messages)
                 setTimeout(this.scrollToEnd, 100);
