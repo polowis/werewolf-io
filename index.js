@@ -191,6 +191,7 @@ io.on('connection', function(socket){
             }
             if(users.length == 0){
                 rooms[i].messages = []
+                rooms[i].status = 'not started'
             }
         }
         /*
