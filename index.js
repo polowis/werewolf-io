@@ -19,7 +19,7 @@ const redisAdapter = require('socket.io-redis');
 const redis = require('redis');
 const client = redis.createClient()
 require('dotenv').config()
-io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -29,16 +29,14 @@ app.use(session({
     saveUninitialized: true
 
 }));
-client.on("error", function(error) {
-    console.error(error);
-});
+
 const rooms = [{
     name: "defaultRoom",
     users: [],
     messages: [],
     status: "not started"
 }]
-client.set("rooms", JSON.stringify(rooms))
+
  
 app.use('/', indexRoute);
 app.use(express.json())
