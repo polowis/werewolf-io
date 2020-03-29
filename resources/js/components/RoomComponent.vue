@@ -16,6 +16,7 @@
     <footer><button @click.prevent="join()">Join the game</button></footer>
     <br>
     <LoaderComponent v-if="loading == true"></LoaderComponent>
+    <GameOverComponent v-if="gameover" :team="teamWin"></GameOverComponent>
 </div>
 <div class="row align-items-center" v-if="this.status == 'starting'">
     <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
@@ -132,14 +133,18 @@
 
 import * as role from '../role.js'
 import LoaderComponent from './LoaderComponent'
+import GameOverComponent from './GameOverComponent'
 import * as util from '../util.js'
 
 export default {
     components:{
-        LoaderComponent
+        LoaderComponent,
+        GameOverComponent
     },
     data(){
         return {
+            gameover: false,
+            teamWin: '',
             loading: false,
             days: 1,
             alreadyUsedAbility: 0,
@@ -182,6 +187,11 @@ export default {
             this.messages = data.messages;
             this.status = data.status;
             
+        })
+
+        socket.on('game over', (data) => {
+            this.gameover = true;
+            this.teamWin = data
         })
 
         socket.on('update user', (users) => {

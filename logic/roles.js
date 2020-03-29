@@ -101,7 +101,7 @@ const ROLES = [
 	{
 		id: 'priest',
 		name: 'Priest',
-		desc: 'On the first night, protect a player. The next attempt to kill the player fails. The night after that attempt, you protect a different player.',
+		desc: 'You can throw a holy water on another player. If that player is a werewolf, he dies. Else, you die.',
 		value: 8,
 		isUnique: true,
 		isWolf: false,
@@ -110,7 +110,7 @@ const ROLES = [
 		roleNumber: 1,
 		hasActiveAbility: true,
 		numberOfTimeCanUseAbility: 3,
-		nightUsedAbility: true
+		nightUsedAbility: false,
 	},
 	{
 		id: 'bodyguard',
