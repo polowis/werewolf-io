@@ -15,26 +15,7 @@
     
     <footer><button @click.prevent="join()">Join the game</button></footer>
     <br>
-    <div v-if="loading == true" class="d-flex justify-content-center" title="6" style="margin: 0, auto">
-  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-    <rect x="0" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-    <rect x="7" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-    <rect x="14" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-  </svg>
-</div>
+    <LoaderComponent v-if="loading == true"></LoaderComponent>
 </div>
 <div class="row align-items-center" v-if="this.status == 'starting'">
     <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
@@ -150,8 +131,12 @@
 <script>
 
 import * as role from '../role.js'
+import LoaderComponent from './LoaderComponent'
 
 export default {
+    components:{
+        LoaderComponent
+    },
     data(){
         return {
             loading: false,
@@ -727,9 +712,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-svg path,
-svg rect{
-  fill: #FF6700;
-}
-</style>
