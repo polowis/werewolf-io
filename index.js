@@ -161,7 +161,6 @@ io.on('connection', function(socket){
                 rooms[i].messages = []
                 rooms[i].status = 'not started'
             }
-            io.emit('update user', users)
         }
         
         /*
