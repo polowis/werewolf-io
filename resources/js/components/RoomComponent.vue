@@ -17,10 +17,10 @@
     <div style="position: relative; margin: auto; color:white;">The game will start in {{this.readyTime}}</div>
 </div>
 <div class="row align-items-center" v-if="this.status == 'night'">
-    <div style="position: relative; margin: auto; padding-top: 20px; color:white;">{{this.nightTime}}</div>
+    <div style="position: relative; margin: auto; padding-top: 20px; color:white;"><b style="color: #F60564;">Day {{this.days}}</b> : {{this.nightTime}}</div>
 </div>
 <div class="row align-items-center" v-if="this.status == 'day'">
-    <div style="position: relative; margin: auto; padding-top: 20px; color:white;">{{this.dayTime}}</div>
+    <div style="position: relative; margin: auto; padding-top: 20px; color:white;"><b style="color: #F60564;">Day {{this.days}}</b> : {{this.dayTime}}</div>
 </div>
 <div class="row align-items-center" v-if="this.status != 'not started' && this.status != 'starting'">
     <div style="position: relative; margin: auto; color:red;">You are {{this.getRoleNameById(this.user.role)}}</div>
@@ -180,11 +180,12 @@
   </thead>
   <tbody>
     <tr v-for="player in users" :key="player.username">
-      <td :style="{'color': usersGetVote == player.username ? 'red' : 'white'}" :id="player.username" @click.prevent="activate(player)">{{player.username}}</td>
+      <td :id="player.username" @click.prevent="activate(player)"><b style="color: green;" v-if="player.username == user.username">You </b>{{player.username}}</td>
       <td><i style="color: blue;" class="fas fa-vote-yea" @click.prevent="status == 'night' ? nightVote(player) : dayVote(player)"></i></td>
-      <td v-if="user.team == 'werewolf' && day == false">{{player.vote}}</td>
+      <td v-if="user.team == 'werewolf' && status == 'night'" :style="{'color': usersGetVote == player.username ? 'red' : 'white'}">{{player.vote}}</td>
       <td v-if="(player.username == user.username) || (player.team == user.team && user.team == 'werewolf')"><i :style="{'color': abilityActivate == true ? 'red' : 'white'}" :class="getRoleIconById(player.role)" @click.prevent="useAbility(player)"></i></td> 
-      <td v-if="day == true">{{player.vote}}</td>
+      <td v-else></td>
+      <td v-if="status == 'day'">{{player.vote}}</td>
     </tr>
   </tbody>
 </table>
@@ -210,6 +211,8 @@ import * as role from '../role.js'
 export default {
     data(){
         return {
+            days: 1,
+            alreadyUsedAbility: 0,
             dayUsedAbility: false,
             nightUsedAbility: false,
             abilityUsedTime: 0,
@@ -234,7 +237,8 @@ export default {
                 ready: true,
                 vote: 0,
                 team: '',
-                isMuted: false
+                isMuted: false,
+                isProtected: false
             },
             users: [],
             status: 'not started',
@@ -294,6 +298,11 @@ export default {
             this.dayTime = time
         })
 
+        socket.on('days', (day)=> {
+            this.days = day 
+            this.send('System', `Day ${this.days}`)
+        })
+
         socket.on('night', (time) => {
             this.nightTime = time
         })
@@ -339,7 +348,7 @@ export default {
                 return;
             }
             if(user.username != this.user.username) return;
-            if(this.user.isDead || this.user.isMuted) return;
+            if(this.user.isDead || this.user.isMuted || this.alreadyUsedAbility == this.days) return;
             if(role.canUseAbility(this.user.role, this.abilityUsedTime, this.status)){
                 this.abilityActivate = true
             }
@@ -350,9 +359,10 @@ export default {
             if(this.abilityActivate == false) return;
             this.abilityUsedTime += 1
             this.abilityActivate = false
-            
+            this.alreadyUsedAbility += this.days
             socket.emit('use ability', {role: this.user.role, target: user, users: this.users})
         },
+
         join(){
             axios.get('/rooms').then(response => {
                 let data = response.data
@@ -462,6 +472,8 @@ export default {
             
             console.log(this.dayTime)
             if(this.dayTime <= 0){
+                this.days += 1
+                socket.emit('days', this.days)
                 socket.emit('night', 30)
                 this.nightTime = 30
                 socket.emit('check vote', this.users)

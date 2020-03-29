@@ -189,6 +189,11 @@ io.on('connection', function(socket){
         
         
     })
+    
+    socket.on('days', (day) => {
+        io.emit('days', day)
+    })
+
     socket.on('join room', function(data){
         let users = new Game(data)
         io.emit('update user', users)

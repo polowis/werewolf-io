@@ -6,7 +6,8 @@ class Ability{
      * @return string 
      */
     static useSeerAbility(userslist, target){
-        return { targetRole: userslist.find(user => user.username == target.username).role, targetName: target.username}
+        let role = userslist.find(user => user.username == target.username).role
+        return { targetRole: role == 'wolfman' ? 'villager' : role, targetName: target.username}
     }
 }
 
