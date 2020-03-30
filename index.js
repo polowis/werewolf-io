@@ -122,9 +122,12 @@ function checkAlivePlayers(users){
     
     if(highestVote > aliveUsers.length / 2 ){
         let users = rooms.find(roomName => roomName.name == 'defaultRoom').users
+        if(users.find(user => user.username == userWithHighestVote).role == 'fool'){
+            io.emit('game over', 'fool')
+            return;
+        }
         for(let i = 0; i < users.length; i++){
             if(users[i].username == userWithHighestVote){
-                if(users[i].isProtected) return;
                 users[i].isDead = true
             }
         }
