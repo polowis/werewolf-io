@@ -3,6 +3,7 @@ html(lang="en")
     head
         title=title
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        script(src="https://kit.fontawesome.com/3021faaaff.js" crossorigin="anonymous")
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
         link(rel="stylesheet"  type="text/css" href="/css/style.css")
     body
@@ -35,6 +36,9 @@ html(lang="en")
         footer
             a(href="/lobby")
                 button(id="game") Join the game
+            div(id="app")
+                role-component
+        script(src="/js/app.js")
         script(src="/socket.io/socket.io.js")
         script(src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous")
         script(src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
